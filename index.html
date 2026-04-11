@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>НИЦАС · Научно-исследовательский центр анализа и стратегии</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
+:root{
+  --bg:#000;--bg2:#070707;--bg3:#0F0F0F;--bg4:#161616;--bg5:#1C1C1C;
+  --gold:#B8935A;--gold2:#D4AF78;--gold3:#8B6B3D;
+  --text:#F0F0F2;--text2:#C2C2D2;--text3:#828298;
+  --border:rgba(184,147,90,.18);--border2:rgba(255,255,255,.08);
+  --nav-h:72px;--radius:12px;
+  --accent:#B8935A;--accent2:#D4AF78;--accent3:#8B6B3D;
+  --canvas-node:184,147,90;
+}
+[data-theme="light"]{
+  --bg:#fff;--bg2:#F4F7FB;--bg3:#fff;--bg4:#EAF0FA;--bg5:#D8E4F5;
+  --gold:#1D4ED8;--gold2:#2563EB;--gold3:#3B82F6;
+  --text:#0F172A;--text2:#1E293B;--text3:#64748B;
+  --border:rgba(29,78,216,.12);--border2:rgba(0,0,0,.06);
+  --accent:#1D4ED8;--accent2:#2563EB;--accent3:#3B82F6;
+  --canvas-node:29,78,216;
+}
+/* nav overrides */
+[data-theme="light"] nav{background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom-color:rgba(29,78,216,.08);}
+[data-theme="light"] .nav-logo-main{color:#0F172A;}
+[data-theme="light"] .hero-label{background:rgba(29,78,216,.06);border-color:rgba(29,78,216,.2);}
+[data-theme="light"] .hero-label-dot,.hero-particles span{background:var(--gold);}
+[data-theme="light"] .hero-gradient-text{background:linear-gradient(135deg,#0F172A 0%,#1D4ED8 45%,#60A5FA 60%,#0F172A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+[data-theme="light"] .section-alt{background:#F4F7FB;}
+[data-theme="light"] .traction{background:#F4F7FB;}
+[data-theme="light"] .traction-card,[data-theme="light"] .about-card,[data-theme="light"] .func-card,
+[data-theme="light"] .audience-card,[data-theme="light"] .founder-card,[data-theme="light"] .leader-card,
+[data-theme="light"] .contact-info-item{background:#fff;box-shadow:0 2px 12px rgba(29,78,216,.06);}
+[data-theme="light"] .accordion-item{border-color:rgba(29,78,216,.1);}
+[data-theme="light"] .accordion-item.open{border-color:rgba(29,78,216,.35);background:rgba(29,78,216,.02);}
+[data-theme="light"] .accordion-icon-wrap{background:rgba(29,78,216,.08);}
+[data-theme="light"] .solution-bar{background:rgba(29,78,216,.05);border-left-color:#1D4ED8;}
+[data-theme="light"] .letter-body{background:#fff;}
+[data-theme="light"] .lang-switcher{background:#fff;border-color:rgba(29,78,216,.15);}
+[data-theme="light"] .lang-btn.active{background:#1D4ED8;color:#fff;}
+[data-theme="light"] .lang-btn:hover{color:#1D4ED8;}
+[data-theme="light"] .nav-badge{border-color:rgba(29,78,216,.3);color:#1D4ED8;}
+[data-theme="light"] .section-label{color:#1D4ED8;border-color:rgba(29,78,216,.2);}
+[data-theme="light"] .btn-primary{animation:neonPulseBlue 4s ease-in-out infinite;}
+[data-theme="light"] .btn-primary:hover{animation:none;}
+[data-theme="light"] .btn-outline{border-color:rgba(29,78,216,.2);color:var(--text2);}
+[data-theme="light"] .btn-outline:hover{border-color:#1D4ED8;color:#1D4ED8;}
+[data-theme="light"] footer{background:#F4F7FB;}
+[data-theme="light"] .signoff{border-top-color:rgba(29,78,216,.1);}
+[data-theme="light"] ::-webkit-scrollbar-thumb{background:#3B82F6;}
+[data-theme="light"] .contact-form input,[data-theme="light"] .contact-form textarea{background:#fff;border-color:rgba(29,78,216,.15);color:#0F172A;}
+[data-theme="light"] .contact-form input:focus,[data-theme="light"] .contact-form textarea:focus{border-color:#1D4ED8;}
+[data-theme="light"] .section-title-accent::after{background:linear-gradient(90deg,#1D4ED8,#60A5FA,#1D4ED8);}
+[data-theme="light"] .leader-avatar{background:rgba(29,78,216,.08);}
+[data-theme="light"] .audience-icon{background:rgba(29,78,216,.08);}
+[data-theme="light"] .mobile-menu{background:#fff;}
+
+/* THEME TOGGLE */
+.theme-btn{width:36px;height:36px;border-radius:8px;background:var(--bg4);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s;flex-shrink:0;}
+.theme-btn:hover{border-color:var(--accent3);background:var(--bg3);}
+.theme-btn .icon-dark{display:none;}.theme-btn .icon-light{display:block;}
+[data-theme="light"] .theme-btn .icon-dark{display:block;}[data-theme="light"] .theme-btn .icon-light{display:none;}
+
+/* ═══ RESET ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Urbanist',system-ui,sans-serif;background:var(--bg);color:var(--text);font-weight:500;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg2);}::-webkit-scrollbar-thumb{background:var(--accent3);border-radius:2px;}
+h1,h2,h3,h4{font-weight:800;}
+.container{max-width:960px;margin:0 auto;padding:0 24px;}
+.container--wide{max-width:1140px;margin:0 auto;padding:0 24px;}
+
+/* ═══ MULTILANG ═══ */
+[data-lang-ru],[data-lang-en],[data-lang-kz]{display:none!important;}
+span[data-lang-ru],span[data-lang-en],span[data-lang-kz]{display:none!important;}
+[data-lang="ru"] [data-lang-ru]{display:block!important;}[data-lang="en"] [data-lang-en]{display:block!important;}[data-lang="kz"] [data-lang-kz]{display:block!important;}
+[data-lang="ru"] span[data-lang-ru]{display:inline!important;}[data-lang="en"] span[data-lang-en]{display:inline!important;}[data-lang="kz"] span[data-lang-kz]{display:inline!important;}
+
+/* ════════════════════════════════════════
+   KEYFRAME LIBRARY
+════════════════════════════════════════ */
+@keyframes scanLine{0%{transform:translateY(-100%);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(100vh);opacity:0;}}
+@keyframes gridPulse{0%,100%{opacity:.03;}50%{opacity:.07;}}
+@keyframes heroGlowShift{0%{transform:translateX(-50%) scale(1);opacity:.07;}50%{transform:translateX(-50%) scale(1.15);opacity:.13;}100%{transform:translateX(-50%) scale(1);opacity:.07;}}
+@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes cursorBlink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+@keyframes shimmerSweep{0%{background-position:-200% center;}100%{background-position:200% center;}}
+@keyframes neonPulseGold{0%,100%{box-shadow:0 0 6px rgba(184,147,90,.2),0 0 20px rgba(184,147,90,.08);}50%{box-shadow:0 0 14px rgba(184,147,90,.45),0 0 40px rgba(184,147,90,.18);}}
+@keyframes neonPulseBlue{0%,100%{box-shadow:0 0 6px rgba(29,78,216,.25),0 0 20px rgba(29,78,216,.1);}50%{box-shadow:0 0 14px rgba(29,78,216,.45),0 0 40px rgba(29,78,216,.2);}}
+@keyframes particleFloat{0%{transform:translateY(0) translateX(0) scale(1);opacity:.5;}33%{transform:translateY(-20px) translateX(8px) scale(1.1);opacity:.8;}66%{transform:translateY(-10px) translateX(-6px) scale(.9);opacity:.6;}100%{transform:translateY(0) translateX(0) scale(1);opacity:.5;}}
+@keyframes borderTrace{0%{background-position:0% 0%;}100%{background-position:200% 0%;}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.45);opacity:.65;}}
+
+/* ── ICON ANIMATIONS ── */
+@keyframes iconBridgePillar{0%,100%{transform:scaleY(1);}50%{transform:scaleY(.85);}}
+@keyframes iconEyePupil{0%,100%{transform:scale(1);}40%{transform:scale(.6);}60%{transform:scale(1.15);}}
+@keyframes iconEyeLid{0%,100%{opacity:1;}45%,55%{opacity:0;}}
+@keyframes iconDocCheck{from{stroke-dashoffset:20;}to{stroke-dashoffset:0;}}
+@keyframes iconGlobeRotate{from{transform:rotateY(0deg);}to{transform:rotateY(360deg);}}
+@keyframes iconGlobeLine{0%,100%{stroke-dashoffset:200;}50%{stroke-dashoffset:0;}}
+@keyframes iconHouseRise{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+@keyframes iconBarGrow{0%{transform:scaleY(.4);}100%{transform:scaleY(1);}}
+@keyframes iconSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes iconOrbitRing{0%{transform:rotate(0deg) scale(1);}50%{transform:rotate(180deg) scale(1.05);}100%{transform:rotate(360deg) scale(1);}}
+@keyframes iconPulseRing{0%,100%{opacity:.3;r:6;}50%{opacity:.8;r:8;}}
+@keyframes iconWave{0%,100%{d:path("M6 24s8-14 20-14 20 14 20 14");}50%{d:path("M6 24s8-10 20-10 20 10 20 10");}}
+@keyframes iconDocLine{0%{stroke-dashoffset:20;opacity:0;}100%{stroke-dashoffset:0;opacity:1;}}
+@keyframes iconFlash{0%,90%,100%{opacity:.6;}95%{opacity:1;}}
+@keyframes iconChainLink{0%,100%{transform:translateX(0);}50%{transform:translateX(2px);}}
+@keyframes rotateSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+@keyframes cardGlow{0%,100%{box-shadow:0 0 0 0 transparent;}50%{box-shadow:0 0 20px rgba(var(--canvas-node),.08);}}
+
+/* GRADIENT text */
+.hero-gradient-text{background:linear-gradient(135deg,#F0F0F2 0%,#B8935A 45%,#D4AF78 60%,#F0F0F2 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientFlow 6s ease-in-out infinite;}
+
+/* ════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(0,0,0,.90);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);z-index:1000;display:flex;align-items:center;transition:background .3s,border-color .3s;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1140px;margin:0 auto;padding:0 24px;gap:16px;}
+.nav-logo{display:flex;flex-direction:column;gap:1px;text-decoration:none;flex-shrink:0;}
+.nav-logo-main{font-weight:800;font-size:17px;letter-spacing:.18em;color:var(--text);text-transform:uppercase;transition:color .3s;}
+.nav-logo:hover .nav-logo-main{color:var(--gold);}
+.nav-logo-sub{font-size:8px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;}
+.nav-logo-dot{display:inline-block;width:7px;height:7px;background:var(--gold);border-radius:50%;margin-right:8px;vertical-align:middle;animation:pulse 2.5s ease-in-out infinite;}
+.nav-center{display:flex;gap:28px;align-items:center;}
+.nav-link{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);text-decoration:none;transition:color .2s;position:relative;}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.nav-link:hover{color:var(--gold);}
+.nav-link:hover::after{transform:scaleX(1);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-badge{font-size:9px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;border:1px solid var(--accent3);padding:4px 10px;border-radius:20px;opacity:.8;}
+.lang-switcher{display:flex;background:var(--bg4);border:1px solid var(--border2);border-radius:8px;overflow:hidden;}
+.lang-btn{padding:6px 10px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);background:transparent;border:none;cursor:pointer;transition:all .2s;font-family:inherit;}
+.lang-btn:hover{color:var(--text2);}
+.lang-btn.active{background:var(--gold);color:var(--bg);}
+.burger-btn{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:6px;border-radius:8px;transition:background .2s;}
+.burger-btn:hover{background:var(--bg4);}
+[data-theme="light"] .burger-btn{color:#0F172A;}
+.mobile-menu{
+  position:fixed;top:var(--nav-h);left:0;right:0;
+  background:var(--bg3);border-bottom:1px solid var(--border2);
+  z-index:998;padding:0 24px;
+  max-height:0;overflow:hidden;
+  transition:max-height .38s cubic-bezier(.4,0,.2,1),padding .38s cubic-bezier(.4,0,.2,1),opacity .25s;
+  opacity:0;pointer-events:none;
+}
+[data-theme="light"] .mobile-menu{background:#fff;}
+.mobile-menu.open{max-height:480px;padding:12px 24px 24px;opacity:1;pointer-events:auto;}
+.mobile-menu a{
+  display:block;padding:12px 0;
+  font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text3);text-decoration:none;
+  border-bottom:1px solid var(--border2);
+  transition:color .2s,padding-left .2s;
+}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu a:hover{color:var(--gold);padding-left:6px;}
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+.hero{padding-top:calc(var(--nav-h) + 80px);padding-bottom:100px;position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;}
+/* Grid overlay */
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(184,147,90,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,147,90,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 6s ease-in-out infinite;pointer-events:none;z-index:0;}
+[data-theme="light"] .hero::after{background-image:linear-gradient(rgba(29,78,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(29,78,216,.04) 1px,transparent 1px);}
+/* Radial glow */
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(184,147,90,.12) 0%,rgba(184,147,90,.04) 40%,transparent 70%);animation:heroGlowShift 8s ease-in-out infinite;pointer-events:none;z-index:0;}
+[data-theme="light"] .hero::before{background:radial-gradient(ellipse,rgba(29,78,216,.06) 0%,transparent 70%);}
+.hero>*{position:relative;z-index:1;}
+/* Canvas sits in z-layer 0 */
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+/* Scan line */
+.hero-scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,147,90,.4),transparent);animation:scanLine 8s linear infinite;pointer-events:none;z-index:2;}
+[data-theme="light"] .hero-scanline{background:linear-gradient(90deg,transparent,rgba(29,78,216,.35),transparent);}
+/* Particles */
+.hero-particles{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.hero-particles span{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.25;animation:particleFloat var(--dur,8s) ease-in-out var(--delay,0s) infinite;}
+/* Content */
+.hero-content{max-width:800px;margin:0 auto;text-align:center;animation:fadeSlideUp .9s cubic-bezier(.16,1,.3,1) both;position:relative;z-index:3;}
+.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(184,147,90,.08);border:1px solid rgba(184,147,90,.25);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;}
+.hero-label-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
+.hero-label::after{content:'▋';display:inline-block;margin-left:4px;font-size:.8em;color:var(--gold);animation:cursorBlink 1s step-start infinite;}
+.hero-title{font-size:clamp(32px,6vw,70px);font-weight:900;line-height:1.08;letter-spacing:-.02em;margin-bottom:20px;}
+.hero-sub{font-size:clamp(16px,2vw,22px);color:var(--text2);font-weight:400;margin-bottom:12px;line-height:1.5;}
+.hero-desc{font-size:14px;color:var(--text3);max-width:560px;margin:0 auto 40px;line-height:1.8;}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+/* Orbit ring around hero label */
+.hero-orbit{position:absolute;top:50%;left:50%;width:500px;height:500px;margin:-250px;border:1px solid rgba(184,147,90,.06);border-radius:50%;animation:iconOrbitRing 40s linear infinite;pointer-events:none;z-index:0;}
+.hero-orbit-2{width:700px;height:700px;margin:-350px;border-color:rgba(184,147,90,.04);animation-duration:60s;animation-direction:reverse;}
+[data-theme="light"] .hero-orbit{border-color:rgba(29,78,216,.06);}
+[data-theme="light"] .hero-orbit-2{border-color:rgba(29,78,216,.04);}
+
+/* ════════════════════════════════════════
+   BUTTONS
+════════════════════════════════════════ */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--bg);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s,transform .2s;animation:neonPulseGold 4s ease-in-out infinite;}
+.btn-primary:hover{opacity:.88;transform:translateY(-2px);animation:none;}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text2);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+
+/* ════════════════════════════════════════
+   SECTIONS
+════════════════════════════════════════ */
+section{padding:96px 0;}
+.section-alt{background:var(--bg2);}
+.section-label{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,147,90,.3);padding:4px 12px;border-radius:100px;margin-bottom:16px;}
+.section-title{font-size:clamp(26px,4vw,42px);font-weight:900;letter-spacing:-.02em;margin-bottom:16px;line-height:1.15;}
+.section-title-accent{position:relative;display:inline-block;}
+.section-title-accent::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold3),var(--gold));background-size:200% 100%;animation:borderTrace 3s linear infinite;border-radius:1px;}
+.section-desc{color:var(--text3);font-size:15px;line-height:1.8;max-width:600px;}
+.section-head{text-align:center;margin-bottom:64px;}
+.section-head .section-desc{margin:0 auto;}
+
+/* scroll reveal */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.fade-up:nth-child(2){transition-delay:.1s;}.fade-up:nth-child(3){transition-delay:.18s;}.fade-up:nth-child(4){transition-delay:.26s;}.fade-up:nth-child(5){transition-delay:.34s;}.fade-up:nth-child(6){transition-delay:.42s;}
+
+/* ════════════════════════════════════════
+   TRACTION STRIP
+════════════════════════════════════════ */
+.traction{background:var(--bg2);padding:64px 0;}
+.traction-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.traction-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;text-align:center;transition:transform .3s cubic-bezier(.25,.46,.45,.94),border-color .25s;transform-style:preserve-3d;cursor:default;}
+.traction-card:hover{transform:perspective(600px) rotateX(-2deg) rotateY(2deg) translateY(-4px);border-color:var(--border);}
+.traction-num{font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--gold);letter-spacing:-.03em;line-height:1;position:relative;overflow:hidden;display:inline-block;}
+.traction-num::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.18) 40%,rgba(255,255,255,.35) 50%,rgba(255,255,255,.18) 60%,transparent 100%);background-size:200% 100%;animation:shimmerSweep 4s ease-in-out infinite;pointer-events:none;}
+.traction-label{font-size:11px;font-weight:600;color:var(--text3);margin-top:8px;letter-spacing:.05em;}
+
+/* ════════════════════════════════════════
+   ABOUT
+════════════════════════════════════════ */
+.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.about-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;transition:border-color .25s,transform .3s,box-shadow .3s;cursor:default;}
+.about-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.about-card-label{font-size:9px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.about-card-value{font-size:14px;color:var(--text2);line-height:1.7;}
+
+/* ════════════════════════════════════════
+   ANIMATED ICON STYLES
+════════════════════════════════════════ */
+/* Each icon wrapper receives a unique animation class */
+.icon-bridge .pillar{transform-origin:bottom;animation:iconBridgePillar 2.4s ease-in-out infinite;}
+.icon-bridge .pillar:nth-child(2){animation-delay:.3s;}
+.icon-bridge .pillar:nth-child(3){animation-delay:.6s;}
+
+.icon-eye .pupil{transform-origin:center;animation:iconEyePupil 3s ease-in-out infinite;}
+.icon-eye .lid{animation:iconEyeLid 3s ease-in-out infinite;}
+
+.icon-doc .check-path{stroke-dasharray:20;animation:iconDocCheck .6s ease-out forwards;}
+.icon-doc .doc-line{stroke-dasharray:20;animation:iconDocLine 1.2s ease-out var(--dl,0s) both;}
+
+.icon-globe{animation:iconOrbitRing 12s linear infinite;}
+.icon-globe .meridian{stroke-dasharray:120;animation:iconGlobeLine 3s ease-in-out infinite;}
+.icon-globe .meridian:nth-child(2){animation-delay:.8s;}
+
+.icon-house{animation:iconHouseRise 2.8s ease-in-out infinite;}
+
+.icon-monitor .bar{transform-origin:bottom;animation:iconBarGrow .9s cubic-bezier(.34,1.56,.64,1) var(--bd,0s) both;}
+
+.icon-people .head{animation:floatY 2.4s ease-in-out infinite;}
+.icon-people .head:nth-child(2){animation-delay:.4s;}
+.icon-people .head:nth-child(3){animation-delay:.8s;}
+
+.icon-shield{animation:iconHouseRise 3s ease-in-out infinite;}
+.icon-globe-sm{animation:rotateSlow 10s linear infinite;}
+
+/* accordion open → re-trigger icon animation */
+.accordion-item.open .icon-bridge .pillar{animation-play-state:running;}
+
+/* ════════════════════════════════════════
+   ACCORDION
+════════════════════════════════════════ */
+.accordion{display:flex;flex-direction:column;gap:8px;}
+.accordion-item{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;transition:border-color .25s,box-shadow .3s;}
+.accordion-item:hover{border-color:var(--border);}
+.accordion-item.open{border-color:rgba(184,147,90,.35);background:rgba(184,147,90,.02);box-shadow:0 4px 24px rgba(184,147,90,.06);}
+.accordion-btn{width:100%;display:flex;align-items:center;gap:16px;padding:20px 24px;background:none;border:none;cursor:pointer;font-family:inherit;text-align:left;}
+.accordion-icon-wrap{width:48px;height:48px;border-radius:12px;background:rgba(184,147,90,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);transition:background .25s,transform .3s;}
+.accordion-item.open .accordion-icon-wrap{background:rgba(184,147,90,.15);transform:scale(1.08);}
+.accordion-num{font-size:10px;font-weight:800;letter-spacing:.15em;color:var(--gold);margin-right:4px;flex-shrink:0;}
+.accordion-title{font-size:15px;font-weight:700;color:var(--text);flex:1;}
+.accordion-chevron{width:20px;height:20px;flex-shrink:0;color:var(--text3);transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.accordion-item.open .accordion-chevron{transform:rotate(180deg);}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1),opacity .35s;opacity:0;}
+.accordion-item.open .accordion-body{max-height:420px;opacity:1;}
+.accordion-inner{padding:0 24px 24px;border-top:1px solid var(--border2);}
+.accordion-problem-text{font-size:14px;color:var(--text3);line-height:1.8;padding-top:16px;margin-bottom:12px;}
+.solution-bar{background:rgba(184,147,90,.06);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;font-weight:600;color:var(--gold2);line-height:1.6;}
+
+/* ════════════════════════════════════════
+   FUNCTIONS
+════════════════════════════════════════ */
+.func-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.func-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;transition:transform .35s cubic-bezier(.25,.46,.45,.94),border-color .25s,box-shadow .35s;transform-style:preserve-3d;position:relative;overflow:hidden;}
+.func-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,var(--gold) 0%,transparent 50%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s;pointer-events:none;}
+.func-card:hover::before{opacity:.5;}
+.func-card:hover{transform:perspective(800px) rotateX(-2deg) rotateY(2deg) translateY(-5px);border-color:var(--border);box-shadow:0 16px 48px rgba(0,0,0,.45);}
+.func-num{font-size:34px;font-weight:900;letter-spacing:-.03em;color:var(--gold);opacity:.45;line-height:1;margin-bottom:16px;}
+.func-title{font-size:15px;font-weight:800;margin-bottom:8px;color:var(--text);}
+.func-desc{font-size:13px;color:var(--text3);line-height:1.7;}
+.func-icon{color:var(--gold);margin-bottom:14px;}
+
+/* ════════════════════════════════════════
+   AUDIENCE
+════════════════════════════════════════ */
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.audience-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;transition:border-color .25s,transform .3s,box-shadow .3s;}
+.audience-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.audience-icon{width:52px;height:52px;border-radius:14px;background:rgba(184,147,90,.08);display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:20px;}
+.audience-title{font-size:16px;font-weight:800;color:var(--gold);margin-bottom:10px;}
+.audience-desc{font-size:13px;color:var(--text3);line-height:1.75;}
+
+/* ════════════════════════════════════════
+   FOUNDERS
+════════════════════════════════════════ */
+.founders-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.founder-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:28px 20px;display:flex;align-items:center;justify-content:center;text-align:center;transition:border-color .25s,transform .3s,box-shadow .3s;min-height:100px;position:relative;overflow:hidden;}
+.founder-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(184,147,90,.08),transparent 70%);opacity:0;transition:opacity .3s;}
+.founder-card:hover::after{opacity:1;}
+.founder-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.4);}
+.founder-name{font-size:13px;font-weight:800;color:var(--text);line-height:1.4;}
+.founder-tag{display:block;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+
+/* ════════════════════════════════════════
+   LEADERSHIP
+════════════════════════════════════════ */
+.leaders-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:640px;margin:0 auto;}
+.leader-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:36px 28px;text-align:center;transition:border-color .25s,transform .3s,box-shadow .3s;}
+.leader-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.leader-avatar{width:72px;height:72px;border-radius:50%;background:rgba(184,147,90,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--gold);position:relative;}
+.leader-avatar::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(184,147,90,.25);animation:iconOrbitRing 8s linear infinite;}
+.leader-role{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.leader-name{font-size:14px;font-weight:800;color:var(--text);line-height:1.4;}
+
+/* ════════════════════════════════════════
+   CONTACTS
+════════════════════════════════════════ */
+.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.contact-info{display:flex;flex-direction:column;gap:16px;}
+.contact-info-item{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;transition:border-color .25s;}
+.contact-info-item:hover{border-color:var(--border);}
+.contact-info-label{font-size:9px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.contact-info-value{font-size:14px;color:var(--text2);line-height:1.7;}
+.contact-form{display:flex;flex-direction:column;gap:12px;}
+.contact-form input,.contact-form textarea{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:14px 18px;font-size:14px;font-family:inherit;color:var(--text);transition:border-color .2s,box-shadow .2s;outline:none;}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--text3);}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,147,90,.1);}
+.contact-form textarea{resize:vertical;min-height:120px;}
+.contact-form button{background:var(--gold);color:var(--bg);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:15px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s,transform .2s;}
+.contact-form button:hover{opacity:.88;transform:translateY(-1px);}
+
+/* ════════════════════════════════════════
+   SCROLL PROGRESS BAR
+════════════════════════════════════════ */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:1100;transition:width .1s linear;box-shadow:0 0 8px rgba(var(--canvas-node),.5);}
+
+/* ════════════════════════════════════════
+   SECTION BLOB DECORATIONS
+════════════════════════════════════════ */
+section{position:relative;overflow:hidden;}
+.section-blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:0;}
+.section-blob.visible-blob{opacity:1;}
+.section-blob--a{width:380px;height:380px;background:var(--gold);top:-120px;right:-100px;animation:blobFloat 22s ease-in-out infinite;}
+.section-blob--b{width:280px;height:280px;background:var(--gold3);bottom:-80px;left:-80px;animation:blobFloat 28s ease-in-out 7s infinite reverse;}
+.section-blob--c{width:320px;height:320px;background:var(--gold);top:30%;left:-80px;animation:blobFloat 18s ease-in-out 3s infinite;}
+section>.container,.section>.container--wide{position:relative;z-index:1;}
+section>.section-head{position:relative;z-index:1;}
+
+/* Animated divider between sections */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);position:relative;overflow:hidden;}
+.section-divider::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:borderTrace 4s linear infinite;opacity:.6;}
+
+/* Orbit dot decorations */
+.orbit-decoration{position:absolute;width:0;height:0;z-index:0;pointer-events:none;}
+.orbit-decoration::before{content:'';position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.4;animation:orbitDot var(--od,20s) linear infinite;}
+.orbit-decoration:nth-child(2)::before{animation-delay:-7s;animation-duration:25s;background:var(--gold2);}
+
+@keyframes blobFloat{
+  0%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(28px,-22px) scale(1.06);}
+  66%{transform:translate(-18px,16px) scale(.96);}
+  100%{transform:translate(0,0) scale(1);}
+}
+@keyframes orbitDot{
+  from{transform:rotate(0deg) translateX(160px) rotate(0deg);}
+  to{transform:rotate(360deg) translateX(160px) rotate(-360deg);}
+}
+@keyframes sectionLineGlow{
+  0%,100%{opacity:.3;}50%{opacity:.9;}
+}
+@keyframes floatBadge{
+  0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}
+}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer{background:var(--bg2);padding:64px 0 0;position:relative;overflow:hidden;}
+[data-theme="light"] footer{background:#EAF0FA;}
+.footer-bg-blob{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;opacity:.04;z-index:0;}
+.footer-bg-blob--1{width:500px;height:500px;background:var(--gold);top:-100px;right:-100px;animation:blobFloat 30s ease-in-out infinite;}
+.footer-bg-blob--2{width:400px;height:400px;background:var(--gold3);bottom:-80px;left:-80px;animation:blobFloat 38s ease-in-out 10s infinite reverse;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1.2fr;gap:60px;padding-bottom:56px;position:relative;z-index:1;}
+/* brand col */
+.footer-logo-block{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.footer-logo-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);animation:pulse 2.5s ease-in-out infinite;flex-shrink:0;}
+.footer-logo-text{font-size:22px;font-weight:900;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;}
+.footer-tagline{font-size:11px;font-weight:700;letter-spacing:.15em;color:var(--text3);text-transform:uppercase;margin-bottom:16px;}
+.footer-desc{font-size:13px;color:var(--text3);line-height:1.8;max-width:300px;}
+/* nav col */
+.footer-col-title{font-size:9px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.footer-links{display:flex;flex-direction:column;gap:10px;}
+.footer-link{font-size:13px;font-weight:600;color:var(--text3);text-decoration:none;transition:color .2s,transform .2s;display:inline-flex;align-items:center;gap:6px;}
+.footer-link::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0;transition:opacity .2s;flex-shrink:0;}
+.footer-link:hover{color:var(--gold);transform:translateX(4px);}
+.footer-link:hover::before{opacity:1;}
+/* info col */
+.footer-info-block{margin-bottom:20px;}
+.footer-info-label{font-size:9px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.footer-info-val{font-size:13px;color:var(--text2);line-height:1.7;}
+.footer-founders-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.footer-founders-list span{font-size:10px;font-weight:700;background:rgba(var(--canvas-node),.08);border:1px solid var(--border);color:var(--text2);padding:3px 10px;border-radius:20px;letter-spacing:.06em;}
+/* bottom bar */
+.footer-bottom{border-top:1px solid var(--border2);padding:24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:1;}
+.footer-bottom-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.footer-bottom-logo{font-size:15px;font-weight:900;letter-spacing:.2em;color:var(--gold);opacity:.6;}
+.footer-copy{font-size:11px;color:var(--text3);line-height:1.6;}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;animation:floatBadge 4s ease-in-out infinite;}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:36px;}}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr;gap:28px;}.footer-bottom{flex-direction:column;text-align:center;}.footer-bottom-left{flex-direction:column;align-items:center;}.footer-desc{max-width:100%;}}
+
+/* ════════════════════════════════════════
+   PRELOADER
+════════════════════════════════════════ */
+#preloader{
+  position:fixed;inset:0;background:#000;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .75s cubic-bezier(.4,0,.2,1),visibility .75s;
+}
+#preloader.pl-hide{opacity:0;visibility:hidden;pointer-events:none;}
+/* bg grid */
+.pl-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,147,90,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(184,147,90,.045) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 4s ease-in-out infinite;pointer-events:none;}
+/* scan line */
+.pl-scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,147,90,.5),transparent);animation:scanLine 4s linear infinite;pointer-events:none;}
+/* orbit rings */
+.pl-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(184,147,90,.07);pointer-events:none;}
+.pl-orbit-1{width:480px;height:480px;margin:-240px;animation:iconOrbitRing 28s linear infinite;}
+.pl-orbit-2{width:700px;height:700px;margin:-350px;border-color:rgba(184,147,90,.04);animation:iconOrbitRing 45s linear infinite reverse;}
+.pl-orbit-3{width:240px;height:240px;margin:-120px;border-color:rgba(184,147,90,.1);animation:iconOrbitRing 15s linear infinite;}
+/* orbit dot */
+.pl-orbit-3::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-5px);width:8px;height:8px;border-radius:50%;background:#B8935A;box-shadow:0 0 12px rgba(184,147,90,.8);}
+/* glow */
+.pl-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(184,147,90,.12) 0%,transparent 70%);pointer-events:none;animation:heroGlowShift 5s ease-in-out infinite;}
+/* content */
+.pl-content{position:relative;z-index:1;text-align:center;}
+.pl-logo-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px;}
+.pl-dot{width:10px;height:10px;border-radius:50%;background:#B8935A;box-shadow:0 0 10px rgba(184,147,90,.6);animation:pulse 2s ease-in-out infinite;}
+.pl-logo{
+  font-size:clamp(44px,8vw,80px);font-weight:900;letter-spacing:.28em;color:#B8935A;
+  font-family:'Urbanist',system-ui,sans-serif;
+  animation:plLogoIn .95s cubic-bezier(.16,1,.3,1) both;
+}
+.pl-sub{
+  font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(240,240,242,.28);max-width:440px;margin:0 auto 44px;line-height:1.9;
+  font-family:'Urbanist',system-ui,sans-serif;
+  animation:plSubIn .85s cubic-bezier(.16,1,.3,1) .3s both;
+}
+.pl-progress-wrap{
+  width:260px;height:1px;background:rgba(255,255,255,.07);margin:0 auto 22px;
+  border-radius:1px;overflow:visible;position:relative;
+  animation:fadeSlideUp .5s .25s both;
+}
+.pl-progress-bar{
+  height:100%;width:0%;background:linear-gradient(90deg,#8B6B3D,#B8935A,#D4AF78);
+  animation:plProgress 2s cubic-bezier(.25,.46,.45,.94) .1s forwards;
+  position:relative;
+}
+.pl-progress-bar::after{
+  content:'';position:absolute;right:-1px;top:-3px;width:7px;height:7px;
+  border-radius:50%;background:#D4AF78;box-shadow:0 0 10px #B8935A;
+}
+.pl-dots{display:flex;gap:9px;justify-content:center;animation:fadeSlideUp .5s .5s both;}
+.pl-dots span{width:5px;height:5px;border-radius:50%;background:#B8935A;opacity:.22;animation:plDotBounce 1.3s ease-in-out infinite;}
+.pl-dots span:nth-child(2){animation-delay:.22s;}
+.pl-dots span:nth-child(3){animation-delay:.44s;}
+
+@keyframes plLogoIn{0%{opacity:0;transform:scale(.82) translateY(18px);letter-spacing:.55em;}100%{opacity:1;transform:scale(1) translateY(0);letter-spacing:.28em;}}
+@keyframes plSubIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes plProgress{from{width:0%;}to{width:100%;}}
+@keyframes plDotBounce{0%,100%{opacity:.22;transform:translateY(0);}50%{opacity:1;transform:translateY(-6px);}}
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+@media(max-width:1100px){
+  .nav-center{gap:18px;}
+  .nav-badge{display:none;}
+}
+@media(max-width:900px){
+  .func-grid{grid-template-columns:repeat(2,1fr);}
+  .audience-grid{grid-template-columns:1fr;}
+  .founders-grid{grid-template-columns:repeat(2,1fr);}
+  .contacts-grid{grid-template-columns:1fr;gap:32px;}
+  .traction-grid{grid-template-columns:repeat(2,1fr);}
+  .nav-center{display:none !important;}
+  .burger-btn{display:flex !important;}
+}
+@media(max-width:600px){
+  .about-grid{grid-template-columns:1fr;}
+  .func-grid{grid-template-columns:1fr;}
+  .leaders-grid{grid-template-columns:1fr;}
+  .founders-grid{grid-template-columns:1fr;}
+  .traction-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:32px;}
+  section{padding:64px 0;}
+  .nav-badge{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ PRELOADER ═══ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-grid"></div>
+  <div class="pl-scanline"></div>
+  <div class="pl-glow"></div>
+  <div class="pl-orbit pl-orbit-1"></div>
+  <div class="pl-orbit pl-orbit-2"></div>
+  <div class="pl-orbit pl-orbit-3"></div>
+  <div class="pl-content">
+    <div class="pl-logo-row">
+      <div class="pl-dot"></div>
+      <div class="pl-logo">НИЦАС</div>
+    </div>
+    <div class="pl-sub">Научно-исследовательский центр<br>анализа и стратегии</div>
+    <div class="pl-progress-wrap"><div class="pl-progress-bar"></div></div>
+    <div class="pl-dots"><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <span class="nav-logo-main"><span class="nav-logo-dot"></span>НИЦАС</span>
+      <span class="nav-logo-sub" data-lang-ru>Ассоциация НИЦАС</span>
+      <span class="nav-logo-sub" data-lang-en>NITSAS Association</span>
+      <span class="nav-logo-sub" data-lang-kz>НИЦАС Ассоциациясы</span>
+    </a>
+    <nav class="nav-center">
+      <a href="#about" class="nav-link" data-lang-ru>О нас</a><a href="#about" class="nav-link" data-lang-en>About</a><a href="#about" class="nav-link" data-lang-kz>Біз туралы</a>
+      <a href="#problems" class="nav-link" data-lang-ru>Проблемы</a><a href="#problems" class="nav-link" data-lang-en>Issues</a><a href="#problems" class="nav-link" data-lang-kz>Мәсelelер</a>
+      <a href="#functions" class="nav-link" data-lang-ru>Функции</a><a href="#functions" class="nav-link" data-lang-en>Functions</a><a href="#functions" class="nav-link" data-lang-kz>Функциялар</a>
+      <a href="nitsas-membership.html" class="nav-link" data-lang-ru>Членство</a><a href="nitsas-membership.html" class="nav-link" data-lang-en>Membership</a><a href="nitsas-membership.html" class="nav-link" data-lang-kz>Мүшелік</a>
+      <a href="#contacts" class="nav-link" data-lang-ru>Контакты</a><a href="#contacts" class="nav-link" data-lang-en>Contact</a><a href="#contacts" class="nav-link" data-lang-kz>Байланыс</a>
+    </nav>
+    <div class="nav-right">
+      <span class="nav-badge">Астана · 2026</span>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('kz')">KZ</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="icon-light">🌙</span><span class="icon-dark">☀️</span>
+      </button>
+      <button class="burger-btn" onclick="toggleMenu()" aria-label="Menu">
+        <svg id="burger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()" data-lang-ru>О нас</a><a href="#about" onclick="toggleMenu()" data-lang-en>About</a><a href="#about" onclick="toggleMenu()" data-lang-kz>Біз туралы</a>
+  <a href="#problems" onclick="toggleMenu()" data-lang-ru>Проблемы</a><a href="#problems" onclick="toggleMenu()" data-lang-en>Issues</a><a href="#problems" onclick="toggleMenu()" data-lang-kz>Мәселелер</a>
+  <a href="#functions" onclick="toggleMenu()" data-lang-ru>Функции</a><a href="#functions" onclick="toggleMenu()" data-lang-en>Functions</a><a href="#functions" onclick="toggleMenu()" data-lang-kz>Функциялар</a>
+  <a href="#founders" onclick="toggleMenu()" data-lang-ru>Учредители</a><a href="#founders" onclick="toggleMenu()" data-lang-en>Founders</a><a href="#founders" onclick="toggleMenu()" data-lang-kz>Негізгілер</a>
+  <a href="#contacts" onclick="toggleMenu()" data-lang-ru>Контакты</a><a href="#contacts" onclick="toggleMenu()" data-lang-en>Contact</a><a href="#contacts" onclick="toggleMenu()" data-lang-kz>Байланыс</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero" id="hero">
+  <!-- Canvas network -->
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-scanline"></div>
+  <!-- orbit rings -->
+  <div class="hero-orbit"></div>
+  <div class="hero-orbit hero-orbit-2"></div>
+  <!-- particles -->
+  <div class="hero-particles">
+    <span style="left:10%;top:20%;--dur:9s;--delay:0s"></span>
+    <span style="left:25%;top:70%;--dur:11s;--delay:1.5s"></span>
+    <span style="left:45%;top:35%;--dur:7s;--delay:3s"></span>
+    <span style="left:65%;top:60%;--dur:13s;--delay:.8s"></span>
+    <span style="left:80%;top:25%;--dur:10s;--delay:2.2s"></span>
+    <span style="left:90%;top:75%;--dur:8s;--delay:4s"></span>
+    <span style="left:55%;top:85%;--dur:12s;--delay:1s"></span>
+    <span style="left:35%;top:15%;--dur:6s;--delay:5s"></span>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-label">
+      <span class="hero-label-dot"></span>
+      <span data-lang-ru>Объединение юридических лиц</span>
+      <span data-lang-en>Association of Legal Entities</span>
+      <span data-lang-kz>Заңды тұлғалар бірлестігі</span>
+    </div>
+    <h1 class="hero-title">
+      <span data-lang-ru><span class="hero-gradient-text">Научно-исследовательский<br>центр анализа и стратегии</span></span>
+      <span data-lang-en><span class="hero-gradient-text">Research Center<br>for Analysis &amp; Strategy</span></span>
+      <span data-lang-kz><span class="hero-gradient-text">Талдау және стратегия<br>ғылыми-зерттеу орталығы</span></span>
+    </h1>
+    <p class="hero-sub">
+      <span data-lang-ru>Наука&nbsp;·&nbsp;Бизнес&nbsp;·&nbsp;Технологии&nbsp;— в одном объединении</span>
+      <span data-lang-en>Science&nbsp;·&nbsp;Business&nbsp;·&nbsp;Technology&nbsp;— united in one</span>
+      <span data-lang-kz>Ғылым&nbsp;·&nbsp;Бизнес&nbsp;·&nbsp;Технологиялар&nbsp;— бір бірлестікте</span>
+    </p>
+    <p class="hero-desc">
+      <span data-lang-ru>Системное содействие развитию компаний-участников через синергию промышленности, науки и IT — то, чего невозможно достичь поодиночке.</span>
+      <span data-lang-en>Systematic support for member companies through the synergy of industry, science, and IT — what cannot be achieved alone.</span>
+      <span data-lang-kz>Өнеркәсіп, ғылым және IT синергиясы арқылы мүше компаниялардың дамуына жүйелі жәрдем.</span>
+    </p>
+    <div class="hero-actions">
+      <a href="#about" class="btn-primary">
+        <span data-lang-ru>О нас</span><span data-lang-en>Learn more</span><span data-lang-kz>Толығырақ</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contacts" class="btn-outline">
+        <span data-lang-ru>Связаться</span><span data-lang-en>Contact us</span><span data-lang-kz>Байланысу</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ TRACTION ═══ -->
+<div class="traction">
+  <div class="container">
+    <div class="traction-grid">
+      <div class="traction-card fade-up"><div class="traction-num" data-count="4">0</div><div class="traction-label"><span data-lang-ru>компании-учредителя</span><span data-lang-en>founding companies</span><span data-lang-kz>негізгі компания</span></div></div>
+      <div class="traction-card fade-up"><div class="traction-num" data-count="6">0</div><div class="traction-label"><span data-lang-ru>системных функций</span><span data-lang-en>core functions</span><span data-lang-kz>жүйелік функция</span></div></div>
+      <div class="traction-card fade-up"><div class="traction-num" data-count="2026" data-suffix="">0</div><div class="traction-label"><span data-lang-ru>год основания</span><span data-lang-en>year founded</span><span data-lang-kz>құрылған жыл</span></div></div>
+      <div class="traction-card fade-up"><div class="traction-num" data-count="3">0</div><div class="traction-label"><span data-lang-ru>направления синергии</span><span data-lang-en>synergy sectors</span><span data-lang-kz>синергия бағыты</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="section-blob section-blob--a visible-blob" style="opacity:.05;"></div>
+  <div class="section-blob section-blob--b visible-blob" style="opacity:.03;"></div>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>О нас</span><span data-lang-en>About us</span><span data-lang-kz>Біз туралы</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Ассоциация «НИЦАС»</span><span data-lang-en>NITSAS Association</span><span data-lang-kz>«НИЦАС» Ассоциациясы</span></span></h2>
+      <p class="section-desc"><span data-lang-ru>Некоммерческая организация, объединяющая науку, бизнес и технологии на одной платформе.</span><span data-lang-en>A non-profit organization bringing together science, business, and technology on a single platform.</span><span data-lang-kz>Ғылымды, бизнесті және технологияларды бір платформада біріктіретін коммерциялық емес ұйым.</span></p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card fade-up"><div class="about-card-label"><span data-lang-ru>Полное наименование</span><span data-lang-en>Full name</span><span data-lang-kz>Толық атауы</span></div><div class="about-card-value"><span data-lang-ru>Объединение юридических лиц «Научно-исследовательский центр анализа и стратегии»</span><span data-lang-en>Association of Legal Entities "Research Center for Analysis and Strategy"</span><span data-lang-kz>«Талдау және стратегия ғылыми-зерттеу орталығы» заңды тұлғалар бірлестігі</span></div></div>
+      <div class="about-card fade-up"><div class="about-card-label"><span data-lang-ru>Организационно-правовая форма</span><span data-lang-en>Legal form</span><span data-lang-kz>Ұйымдық-құқықтық нысан</span></div><div class="about-card-value"><span data-lang-ru>Ассоциация (союз) юридических лиц — некоммерческая организация</span><span data-lang-en>Association (union) of legal entities — non-profit organization</span><span data-lang-kz>Заңды тұлғалар ассоциациясы (одағы) — коммерциялық емес ұйым</span></div></div>
+      <div class="about-card fade-up"><div class="about-card-label"><span data-lang-ru>Дата создания</span><span data-lang-en>Founded</span><span data-lang-kz>Құрылған күні</span></div><div class="about-card-value"><span data-lang-ru>8 апреля 2026 года, г. Астана</span><span data-lang-en>April 8, 2026 · Astana, Kazakhstan</span><span data-lang-kz>2026 жылғы 8 сәуір · Астана қ.</span></div></div>
+      <div class="about-card fade-up"><div class="about-card-label"><span data-lang-ru>Правовой статус</span><span data-lang-en>Legal status</span><span data-lang-kz>Құқықтық мәртебе</span></div><div class="about-card-value"><span data-lang-ru>Некоммерческая ассоциация, объединяющая науку, бизнес и технологии для целей, недоступных участникам по отдельности</span><span data-lang-en>Non-profit association uniting science, business, and technology to achieve goals unreachable by each member individually</span><span data-lang-kz>Мүшелер жеке-дара қол жеткізе алмайтын мақсаттар үшін ғылымды, бизнесті және технологияларды біріктіретін коммерциялық емес ассоциация</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEMS ═══ -->
+<section id="problems" class="section-alt">
+  <div class="section-blob section-blob--c visible-blob" style="opacity:.04;"></div>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Проблемы экосистемы</span><span data-lang-en>Ecosystem issues</span><span data-lang-kz>Экожүйе мәселелері</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Шесть системных барьеров</span><span data-lang-en>Six systemic barriers</span><span data-lang-kz>Алты жүйелік кедергі</span></span></h2>
+      <p class="section-desc"><span data-lang-ru>Тормозящих развитие инновационной экономики Казахстана — и которые мы решаем вместе.</span><span data-lang-en>Hindering Kazakhstan's innovation economy — and which we address collectively.</span><span data-lang-kz>Қазақстанның инновациялық экономикасының дамуын тежейді — біз бірігіп шешеміз.</span></p>
+    </div>
+    <div class="accordion" id="accordion">
+
+      <!-- 01 -->
+      <div class="accordion-item fade-up">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-icon-wrap">
+            <svg class="icon-bridge" width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 36h40"/>
+              <path d="M8 36V24a16 16 0 0 1 32 0v12"/>
+              <line class="pillar" x1="16" y1="36" x2="16" y2="28"/><line class="pillar" x1="24" y1="36" x2="24" y2="24"/><line class="pillar" x1="32" y1="36" x2="32" y2="28"/>
+            </svg>
+          </div>
+          <span class="accordion-num">01</span>
+          <span class="accordion-title"><span data-lang-ru>Разрыв между наукой и бизнесом</span><span data-lang-en>Gap between science and business</span><span data-lang-kz>Ғылым мен бизнес арасындағы алшақтық</span></span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body"><div class="accordion-inner">
+          <p class="accordion-problem-text"><span data-lang-ru>Научные разработки в Казахстане годами не доходят до производства. Учёные работают в изоляции от реального сектора. Бизнес не знает, какие решения уже существуют в лабораториях. Результат — двойные расходы: наука финансируется впустую, бизнес закупает иностранные аналоги.</span><span data-lang-en>Scientific developments in Kazakhstan have failed to reach production for years. Scientists work in isolation from the real sector. Business is unaware of solutions existing in laboratories. The result — double costs: science funded in vain, business imports foreign analogues.</span><span data-lang-kz>Қазақстандағы ғылыми зерттемелер жылдар бойы өндіріске жетпейді. Ғалымдар нақты секторлардан оқшауланып жұмыс істейді. Бизнес зертханаларда бар шешімдер туралы білмейді.</span></p>
+          <div class="solution-bar"><span data-lang-ru>ОЮЛ создаёт прямой мост между исследователями и производственными компаниями внутри одного объединения.</span><span data-lang-en>NITSAS builds a direct bridge between researchers and production companies within one association.</span><span data-lang-kz>ОЗТ зерттеушілер мен өндірістік компаниялар арасында тікелей көпір орнатады.</span></div>
+        </div></div>
+      </div>
+
+      <!-- 02 -->
+      <div class="accordion-item fade-up">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-icon-wrap">
+            <svg class="icon-eye" width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path class="lid" d="M4 24s8-14 20-14 20 14 20 14-8 14-20 14S4 24 4 24z"/>
+              <circle class="pupil" cx="24" cy="24" r="6"/>
+            </svg>
+          </div>
+          <span class="accordion-num">02</span>
+          <span class="accordion-title"><span data-lang-ru>Малый и средний бизнес невидим для государства</span><span data-lang-en>SMEs invisible to the government</span><span data-lang-kz>ШОБ мемлекетке көрінбейді</span></span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body"><div class="accordion-inner">
+          <p class="accordion-problem-text"><span data-lang-ru>Отдельная компания не имеет ресурсов для системного диалога с госорганами. Письма одиночных ТОО теряются в бюрократии. Проблемы отрасли не агрегируются — каждый решает свои вопросы сам.</span><span data-lang-en>Individual companies lack resources for systematic dialogue with state bodies. Letters from single LLPs get lost in bureaucracy. Industry problems are not aggregated — each entity resolves its issues alone.</span><span data-lang-kz>Жеке компанияда мемлекеттік органдармен жүйелі диалог жүргізуге ресурс жоқ. Жеке ЖШС хаттары бюрократияда жоғалып кетеді.</span></p>
+          <div class="solution-bar"><span data-lang-ru>ОЮЛ выступает единым голосом: консолидирует проблемы, формулирует предложения, ведёт официальную переписку от лица объединения.</span><span data-lang-en>NITSAS acts as a unified voice: consolidates issues, formulates proposals, conducts official correspondence on behalf of the association.</span><span data-lang-kz>ОЗТ бірыңғай дауыс ретінде: мәселелерді шоғырландырады, ұсыныстар тұжырымдайды, бірлестік атынан ресми хат алмасу жүргізеді.</span></div>
+        </div></div>
+      </div>
+
+      <!-- 03 -->
+      <div class="accordion-item fade-up">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-icon-wrap">
+            <svg class="icon-doc" width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="6" width="32" height="36" rx="3"/>
+              <line class="doc-line" style="--dl:0s" x1="16" y1="16" x2="32" y2="16"/>
+              <line class="doc-line" style="--dl:.2s" x1="16" y1="24" x2="26" y2="24"/>
+              <path class="check-path" stroke-dasharray="20" d="M28 30l4 4 6-8"/>
+            </svg>
+          </div>
+          <span class="accordion-num">03</span>
+          <span class="accordion-title"><span data-lang-ru>Недоступность грантов и НИОКР для бизнеса</span><span data-lang-en>Grants and R&amp;D inaccessible for business</span><span data-lang-kz>Гранттар мен ҒЗТКЖ бизнеске қолжетімсіз</span></span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body"><div class="accordion-inner">
+          <p class="accordion-problem-text"><span data-lang-ru>Грантовые программы и научно-исследовательские проекты чаще достаются НИИ и университетам. У бизнеса нет ни экспертизы в заявках, ни статуса, который даёт приоритет.</span><span data-lang-en>Grant programs and R&D projects mostly go to research institutes and universities. Business lacks both application expertise and the status that grants priority access.</span><span data-lang-kz>Грант бағдарламалары мен ғылыми-зерттеу жобалары көбіне ҒЗИ мен университеттерге тиесілі.</span></p>
+          <div class="solution-bar"><span data-lang-ru>ОЮЛ создаёт правовую основу для участия коммерческих компаний в грантовых и НИОКР-программах на льготных условиях — через статус ассоциации.</span><span data-lang-en>NITSAS provides the legal framework for commercial companies to participate in grant and R&D programs on preferential terms — through association status.</span><span data-lang-kz>ОЗТ коммерциялық компанияларға жеңілдікті шарттармен грант және ҒЗТКЖ бағдарламаларына қатысуға арналған құқықтық негіз жасайды.</span></div>
+        </div></div>
+      </div>
+
+      <!-- 04 -->
+      <div class="accordion-item fade-up">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:rotateSlow 14s linear infinite;transform-origin:center;">
+              <circle cx="24" cy="24" r="18"/>
+              <path style="stroke-dasharray:56;animation:iconGlobeLine 4s ease-in-out infinite;" d="M6 24h36"/>
+              <path style="stroke-dasharray:56;animation:iconGlobeLine 4s ease-in-out .8s infinite;" d="M24 6c-6 6-6 30 0 36M24 6c6 6 6 30 0 36"/>
+            </svg>
+          </div>
+          <span class="accordion-num">04</span>
+          <span class="accordion-title"><span data-lang-ru>Отсутствие системного поиска рынков сбыта</span><span data-lang-en>No systematic search for sales markets</span><span data-lang-kz>Өткізу нарықтарын жүйелі іздеу жоқ</span></span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body"><div class="accordion-inner">
+          <p class="accordion-problem-text"><span data-lang-ru>Компании ищут покупателей самостоятельно — через выставки, холодные продажи, личные связи. Нет централизованного механизма продвижения продукции участников на внутреннем и внешнем рынке.</span><span data-lang-en>Companies search for buyers independently — through exhibitions, cold outreach, personal connections. No centralized mechanism exists to promote members' products in domestic and international markets.</span><span data-lang-kz>Компаниялар сатып алушыларды өз бетімен іздейді. Мүшелердің өнімдерін ішкі және сыртқы нарықта жылжытатын орталықтандырылған механизм жоқ.</span></p>
+          <div class="solution-bar"><span data-lang-ru>ОЮЛ берёт на себя функцию поиска и открытия рынков сбыта для товаров, работ и услуг компаний-участников.</span><span data-lang-en>NITSAS assumes the function of finding and opening sales markets for the goods, works, and services of member companies.</span><span data-lang-kz>ОЗТ мүше компаниялардың тауарлары, жұмыстары мен қызметтеріне арналған өткізу нарықтарын іздеу және ашу функциясын өзіне алады.</span></div>
+        </div></div>
+      </div>
+
+      <!-- 05 -->
+      <div class="accordion-item fade-up">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-icon-wrap">
+            <svg class="icon-house" width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 42V18l18-12 18 12v24"/>
+              <path d="M18 42V30h12v12"/>
+              <path style="stroke-dasharray:12;animation:iconDocLine 1.5s ease-in-out infinite alternate;" d="M24 6v6"/>
+            </svg>
+          </div>
+          <span class="accordion-num">05</span>
+          <span class="accordion-title"><span data-lang-ru>Инновационная политика без участия бизнеса</span><span data-lang-en>Innovation policy without business participation</span><span data-lang-kz>Бизнестің қатысуынсыз инновациялық саясат</span></span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body"><div class="accordion-inner">
+          <p class="accordion-problem-text"><span data-lang-ru>Государственные концепции и стратегии развития инноваций пишутся в кабинетах — без обратной связи от тех, кто внедряет технологии на практике.</span><span data-lang-en>State innovation concepts and strategies are written in offices — without feedback from those who implement technologies in practice.</span><span data-lang-kz>Мемлекеттік тұжырымдамалар мен инновация даму стратегиялары кеңселерде жазылады — технологияларды іс жүзінде енгізетіндердің пікіріsіз.</span></p>
+          <div class="solution-bar"><span data-lang-ru>ОЮЛ вносит предложения напрямую в разрабатываемые государственные документы и выступает пилотной площадкой реального эффекта синергии.</span><span data-lang-en>NITSAS submits proposals directly into state documents being developed and serves as a pilot platform demonstrating real synergy effects.</span><span data-lang-kz>ОЗТ әзірленіп жатқан мемлекеттік құжаттарға тікелей ұсыныс енгізеді және нақты синергия әсерін көрсететін пилоттық алаң болып табылады.</span></div>
+        </div></div>
+      </div>
+
+      <!-- 06 -->
+      <div class="accordion-item fade-up">
+        <button class="accordion-btn" onclick="toggleAccordion(this)">
+          <div class="accordion-icon-wrap">
+            <svg class="icon-monitor" width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="8" width="36" height="24" rx="3"/>
+              <path d="M18 40h12M24 32v8"/>
+              <rect class="bar" style="--bd:0s;transform-origin:bottom 32px;" x="16" y="20" width="4" height="4" fill="currentColor" stroke="none"/>
+              <rect class="bar" style="--bd:.15s;transform-origin:bottom 28px;" x="24" y="16" width="4" height="8" fill="currentColor" stroke="none"/>
+              <rect class="bar" style="--bd:.3s;transform-origin:bottom 30px;" x="32" y="18" width="4" height="6" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <span class="accordion-num">06</span>
+          <span class="accordion-title"><span data-lang-ru>Цифровизация буксует на уровне исполнения</span><span data-lang-en>Digitalization stalls at implementation level</span><span data-lang-kz>Цифрландыру орындау деңгейінде тоқтап қалды</span></span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body"><div class="accordion-inner">
+          <p class="accordion-problem-text"><span data-lang-ru>Поручения Главы государства и Правительства по цифровизации остаются на бумаге — на местах нет ни компетенций, ни подрядчиков, ни координации.</span><span data-lang-en>Directives from the Head of State and Government on digitalization remain on paper — locally there are no competencies, contractors, or coordination.</span><span data-lang-kz>Мемлекет басшысы мен Үкіметтің цифрландыру бойынша тапсырмалары қағазда қалады.</span></p>
+          <div class="solution-bar"><span data-lang-ru>ОЮЛ инициирует конкретные обращения в акиматы с готовыми предложениями и компаниями-исполнителями из числа участников.</span><span data-lang-en>NITSAS initiates specific appeals to akimats with ready proposals and member companies as executors.</span><span data-lang-kz>ОЗТ әкіматтарға мүше компаниялардан тиісті орындаушылармен дайын ұсыныстармен арнайы өтініштер бастамашылайды.</span></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FUNCTIONS ═══ -->
+<section id="functions">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Что мы делаем</span><span data-lang-en>What we do</span><span data-lang-kz>Біз не істейміз</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Функции объединения</span><span data-lang-en>Association functions</span><span data-lang-kz>Бірлестіктің функциялары</span></span></h2>
+      <p class="section-desc"><span data-lang-ru>Конкретные механизмы, через которые объединение создаёт ценность для каждого участника.</span><span data-lang-en>Concrete mechanisms through which the association creates value for each member.</span><span data-lang-kz>Бірлестіктің әр мүшеге құндылық жасайтын нақты тетіктері.</span></p>
+    </div>
+    <div class="func-grid">
+
+      <div class="func-card fade-up">
+        <div class="func-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:floatY 3s ease-in-out infinite;">
+            <circle cx="24" cy="12" r="8"/><path d="M4 44c0-8 8-14 20-14s20 6 20 14"/>
+            <path style="stroke-dasharray:24;animation:iconDocLine 2s ease-in-out infinite alternate;" d="M36 8l4 4-4 4"/>
+          </svg>
+        </div>
+        <div class="func-num">01</div>
+        <div class="func-title"><span data-lang-ru>Представительство</span><span data-lang-en>Representation</span><span data-lang-kz>Өкілдік</span></div>
+        <div class="func-desc"><span data-lang-ru>Представление интересов участников перед государственными органами, акиматами и министерствами.</span><span data-lang-en>Representing members' interests before government bodies, akimats, and ministries.</span><span data-lang-kz>Мемлекеттік органдар, әкіматтар мен министрліктер алдында мүшелердің мүдделерін қорғау.</span></div>
+      </div>
+
+      <div class="func-card fade-up">
+        <div class="func-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="6" width="32" height="36" rx="3"/>
+            <line style="stroke-dasharray:16;animation:iconDocLine 1s ease-out .1s both;" x1="16" y1="16" x2="32" y2="16"/>
+            <line style="stroke-dasharray:16;animation:iconDocLine 1s ease-out .3s both;" x1="16" y1="24" x2="26" y2="24"/>
+            <path style="stroke-dasharray:20;animation:iconDocCheck .8s ease-out .5s both;" d="M28 30l4 4 6-8"/>
+          </svg>
+        </div>
+        <div class="func-num">02</div>
+        <div class="func-title"><span data-lang-ru>Гранты и НИОКР</span><span data-lang-en>Grants &amp; R&amp;D</span><span data-lang-kz>Гранттар және ҒЗТКЖ</span></div>
+        <div class="func-desc"><span data-lang-ru>Содействие в получении грантов и участии в научно-исследовательских проектах на льготных условиях.</span><span data-lang-en>Facilitating access to grants and participation in research projects on preferential terms.</span><span data-lang-kz>Жеңілдікті шарттармен грант алу мен ғылыми-зерттеу жобаларына қатысуға жәрдемдесу.</span></div>
+      </div>
+
+      <div class="func-card fade-up">
+        <div class="func-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:rotateSlow 16s linear infinite;">
+            <circle cx="24" cy="24" r="18"/>
+            <path style="stroke-dasharray:36;animation:iconGlobeLine 3.5s ease-in-out infinite;" d="M6 24h36"/>
+            <path d="M24 6c-6 6-6 30 0 36M24 6c6 6 6 30 0 36"/>
+          </svg>
+        </div>
+        <div class="func-num">03</div>
+        <div class="func-title"><span data-lang-ru>Рынки сбыта</span><span data-lang-en>Market development</span><span data-lang-kz>Өткізу нарықтары</span></div>
+        <div class="func-desc"><span data-lang-ru>Поиск и открытие рынков сбыта для товаров, работ и услуг компаний-участников.</span><span data-lang-en>Finding and developing sales markets for member companies' goods, works, and services.</span><span data-lang-kz>Мүше компаниялардың тауарлары мен қызметтеріне арналған өткізу нарықтарын іздеу және ашу.</span></div>
+      </div>
+
+      <div class="func-card fade-up">
+        <div class="func-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:floatY 2.8s ease-in-out .4s infinite;">
+            <path d="M8 36V20l16-12 16 12v16"/>
+            <path style="stroke-dasharray:24;animation:iconDocLine 1.8s ease-in-out infinite alternate;" d="M18 36V28h12v8"/>
+          </svg>
+        </div>
+        <div class="func-num">04</div>
+        <div class="func-title"><span data-lang-ru>Обращения в госорганы</span><span data-lang-en>Government appeals</span><span data-lang-kz>Мемлекеттік органдарға өтінімдер</span></div>
+        <div class="func-desc"><span data-lang-ru>Подготовка и направление обращений по системным проблемам бизнеса в профильные ведомства.</span><span data-lang-en>Preparing and submitting appeals on systemic business problems to relevant agencies.</span><span data-lang-kz>Бизнестің жүйелік мәселелері бойынша тиісті ведомстволарға өтінімдер дайындау және жіберу.</span></div>
+      </div>
+
+      <div class="func-card fade-up">
+        <div class="func-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline style="stroke-dasharray:80;animation:iconDocCheck 1.2s ease-out infinite alternate;" points="6,38 16,22 24,30 34,14 42,20"/>
+            <circle cx="42" cy="20" r="3" style="animation:pulse 2s ease-in-out infinite;"/>
+          </svg>
+        </div>
+        <div class="func-num">05</div>
+        <div class="func-title"><span data-lang-ru>Участие в стратегиях</span><span data-lang-en>Strategy participation</span><span data-lang-kz>Стратегияларға қатысу</span></div>
+        <div class="func-desc"><span data-lang-ru>Выработка предложений в государственные концепции и стратегии развития инноваций.</span><span data-lang-en>Developing proposals for state innovation concepts and development strategies.</span><span data-lang-kz>Мемлекеттік инновация тұжырымдамалары мен даму стратегияларына ұсыныстар жасау.</span></div>
+      </div>
+
+      <div class="func-card fade-up">
+        <div class="func-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 4l18 10v20L24 44 6 34V14z"/>
+            <path style="stroke-dasharray:30;animation:iconGlobeLine 2.4s ease-in-out infinite;" d="M24 4v40M6 14l18 10 18-10M6 34l18-10 18 10"/>
+          </svg>
+        </div>
+        <div class="func-num">06</div>
+        <div class="func-title"><span data-lang-ru>Пилотная площадка</span><span data-lang-en>Pilot platform</span><span data-lang-kz>Пилоттық алаң</span></div>
+        <div class="func-desc"><span data-lang-ru>Демонстрация реального эффекта синергии науки, бизнеса и технологий на практических кейсах.</span><span data-lang-en>Demonstrating the real synergy effect of science, business, and technology through practical cases.</span><span data-lang-kz>Нақты кейстер арқылы ғылым, бизнес және технологиялардың нақты синергия әсерін көрсету.</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AUDIENCE ═══ -->
+<section id="audience" class="section-alt">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Для кого</span><span data-lang-en>For whom</span><span data-lang-kz>Кімдерге арналған</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Три ключевых сегмента</span><span data-lang-en>Three key segments</span><span data-lang-kz>Үш негізгі сегмент</span></span></h2>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card fade-up">
+        <div class="audience-icon">
+          <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:floatY 3s ease-in-out infinite;">
+            <circle cx="16" cy="14" r="5"/><circle cx="32" cy="14" r="5"/><path d="M4 44c0-7 5-12 12-12h16c7 0 12 5 12 12"/>
+          </svg>
+        </div>
+        <div class="audience-title"><span data-lang-ru>Компании-участники</span><span data-lang-en>Member companies</span><span data-lang-kz>Мүше компаниялар</span></div>
+        <div class="audience-desc"><span data-lang-ru>Технологические, промышленные и научные организации Казахстана, получающие доступ к грантам, рынкам и коллективному голосу перед государством.</span><span data-lang-en>Technology, industrial, and scientific organizations in Kazakhstan gaining access to grants, markets, and a collective voice before the government.</span><span data-lang-kz>Гранттарға, нарықтарға және мемлекет алдындағы ұжымдық дауысқа қол жеткізетін Қазақстанның технологиялық, өнеркәсіптік және ғылыми ұйымдары.</span></div>
+      </div>
+      <div class="audience-card fade-up">
+        <div class="audience-icon">
+          <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:floatY 3.4s ease-in-out .5s infinite;">
+            <rect x="8" y="6" width="32" height="36" rx="3"/>
+            <line style="stroke-dasharray:14;animation:iconDocLine 2s ease-in-out infinite alternate;" x1="16" y1="16" x2="32" y2="16"/>
+            <line style="stroke-dasharray:10;animation:iconDocLine 2s ease-in-out .3s infinite alternate;" x1="16" y1="24" x2="28" y2="24"/>
+            <line style="stroke-dasharray:8;animation:iconDocLine 2s ease-in-out .6s infinite alternate;" x1="16" y1="32" x2="24" y2="32"/>
+          </svg>
+        </div>
+        <div class="audience-title"><span data-lang-ru>Государственные органы</span><span data-lang-en>Government bodies</span><span data-lang-kz>Мемлекеттік органдар</span></div>
+        <div class="audience-desc"><span data-lang-ru>Акиматы, министерства и ведомства, получающие консолидированную обратную связь от бизнеса и готовые предложения с командами исполнителей.</span><span data-lang-en>Akimats, ministries, and agencies receiving consolidated business feedback and ready proposals with implementation teams.</span><span data-lang-kz>Бизнестен шоғырландырылған кері байланыс пен орындаушылар командасы бар дайын ұсыныстар алатын әкіматтар, министрліктер мен ведомстволар.</span></div>
+      </div>
+      <div class="audience-card fade-up">
+        <div class="audience-icon">
+          <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:rotateSlow 18s linear infinite;">
+            <circle cx="24" cy="24" r="18"/>
+            <path style="stroke-dasharray:36;animation:iconGlobeLine 3s ease-in-out infinite;" d="M6 24h36"/>
+            <path d="M24 6c-6 6-6 30 0 36M24 6c6 6 6 30 0 36"/>
+          </svg>
+        </div>
+        <div class="audience-title"><span data-lang-ru>Инвесторы и партнёры</span><span data-lang-en>Investors &amp; partners</span><span data-lang-kz>Инвесторлар мен серіктестер</span></div>
+        <div class="audience-desc"><span data-lang-ru>Фонды, международные организации и заказчики НИОКР, получающие доступ к верифицированному пулу компаний с подтверждённой экспертизой.</span><span data-lang-en>Funds, international organizations, and R&D clients gaining access to a verified pool of companies with confirmed expertise.</span><span data-lang-kz>Расталған тәжірибесі бар верификацияланған компаниялар пулына қол жеткізетін қорлар, халықаралық ұйымдар мен ҒЗТКЖ тапсырыс берушілері.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOUNDERS ═══ -->
+<section id="founders">
+  <div class="section-blob section-blob--a visible-blob" style="opacity:.04;left:auto;right:-100px;top:-80px;"></div>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Учредители</span><span data-lang-en>Founders</span><span data-lang-kz>Негізгі компаниялар</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>У истоков объединения</span><span data-lang-en>At the origins</span><span data-lang-kz>Бірлестіктің бастауында</span></span></h2>
+      <p class="section-desc"><span data-lang-ru>Четыре компании, стоявшие у истоков создания Ассоциации «НИЦАС».</span><span data-lang-en>Four companies that stood at the foundation of NITSAS Association.</span><span data-lang-kz>«НИЦАС» Ассоциациясын бастаған төрт компания.</span></p>
+    </div>
+    <div class="founders-grid">
+      <div class="founder-card fade-up"><span class="founder-tag">ТОО</span><div class="founder-name">Simourg</div></div>
+      <div class="founder-card fade-up"><span class="founder-tag">ТОО</span><div class="founder-name">BUSINESS SECURITY GROUP</div></div>
+      <div class="founder-card fade-up"><span class="founder-tag">ТОО</span><div class="founder-name">ZEREK RoadTech</div></div>
+      <div class="founder-card fade-up"><span class="founder-tag">ТОО</span><div class="founder-name">CyberX</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LEADERSHIP ═══ -->
+<section id="leadership" class="section-alt">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Руководство</span><span data-lang-en>Leadership</span><span data-lang-kz>Басшылық</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Команда</span><span data-lang-en>Our team</span><span data-lang-kz>Команда</span></span></h2>
+    </div>
+    <div class="leaders-grid">
+      <div class="leader-card fade-up">
+        <div class="leader-avatar">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="leader-role"><span data-lang-ru>Председатель</span><span data-lang-en>Chairman</span><span data-lang-kz>Төраға</span></div>
+        <div class="leader-name">Темирханов<br>Ерканат Уакбаевич</div>
+      </div>
+      <div class="leader-card fade-up">
+        <div class="leader-avatar">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="leader-role"><span data-lang-ru>Заместитель Председателя</span><span data-lang-en>Deputy Chairman</span><span data-lang-kz>Төрағаның орынбасары</span></div>
+        <div class="leader-name">Сарсекеев<br>Куаныш Мейрбекович</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACTS ═══ -->
+<section id="contacts">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Связаться</span><span data-lang-en>Get in touch</span><span data-lang-kz>Байланысу</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Контакты</span><span data-lang-en>Contacts</span><span data-lang-kz>Байланыс</span></span></h2>
+    </div>
+    <div class="contacts-grid fade-up">
+      <div class="contact-info">
+        <div class="contact-info-item"><div class="contact-info-label"><span data-lang-ru>Адрес</span><span data-lang-en>Address</span><span data-lang-kz>Мекенжай</span></div><div class="contact-info-value">г. Астана, пр. Кабанбай батыра,<br>д. 6/3, 19 этаж, офис 83</div></div>
+        <div class="contact-info-item"><div class="contact-info-label"><span data-lang-ru>Организация</span><span data-lang-en>Organization</span><span data-lang-kz>Ұйым</span></div><div class="contact-info-value"><span data-lang-ru>ОЮЛ «Научно-исследовательский центр анализа и стратегии»</span><span data-lang-en>Association "Research Center for Analysis and Strategy" (NITSAS)</span><span data-lang-kz>«Талдау және стратегия ғылыми-зерттеу орталығы» ЗТБ (НИЦАС)</span></div></div>
+        <div class="contact-info-item"><div class="contact-info-label"><span data-lang-ru>Статус</span><span data-lang-en>Status</span><span data-lang-kz>Мәртебе</span></div><div class="contact-info-value"><span data-lang-ru>Некоммерческая ассоциация · Астана · 2026</span><span data-lang-en>Non-profit association · Astana · 2026</span><span data-lang-kz>Коммерциялық емес ассоциация · Астана · 2026</span></div></div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <input type="text" id="form-name" required/>
+        <input type="email" id="form-email" placeholder="E-mail" required/>
+        <textarea id="form-msg" rows="5" required></textarea>
+        <button type="submit" id="form-btn">
+          <span data-lang-ru>Отправить сообщение</span><span data-lang-en>Send message</span><span data-lang-kz>Хабарлама жіберу</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-bg-blob footer-bg-blob--1"></div>
+  <div class="footer-bg-blob footer-bg-blob--2"></div>
+  <div class="container--wide">
+    <div class="footer-grid">
+
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <div class="footer-logo-block">
+          <span class="footer-logo-dot"></span>
+          <span class="footer-logo-text">НИЦАС</span>
+        </div>
+        <p class="footer-tagline">
+          <span data-lang-ru>Наука · Бизнес · Технологии</span>
+          <span data-lang-en>Science · Business · Technology</span>
+          <span data-lang-kz>Ғылым · Бизнес · Технологиялар</span>
+        </p>
+        <p class="footer-desc">
+          <span data-lang-ru>Некоммерческая ассоциация, объединяющая компании Казахстана для достижения синергии промышленности, науки и IT — того, чего невозможно достичь поодиночке.</span>
+          <span data-lang-en>A non-profit association uniting Kazakhstan's companies to achieve synergy of industry, science, and IT — what cannot be accomplished alone.</span>
+          <span data-lang-kz>Қазақстан компанияларын өнеркәсіп, ғылым және IT синергиясына жету үшін біріктіретін коммерциялық емес ассоциация.</span>
+        </p>
+      </div>
+
+      <!-- Navigation column -->
+      <div class="footer-nav-col">
+        <div class="footer-col-title">
+          <span data-lang-ru>Разделы</span>
+          <span data-lang-en>Sections</span>
+          <span data-lang-kz>Бөлімдер</span>
+        </div>
+        <div class="footer-links">
+          <a href="nitsas-about.html" class="footer-link"><span data-lang-ru>О нас</span><span data-lang-en>About us</span><span data-lang-kz>Біз туралы</span></a>
+          <a href="#problems" class="footer-link"><span data-lang-ru>Проблемы экосистемы</span><span data-lang-en>Ecosystem issues</span><span data-lang-kz>Экожүйе мәсelelері</span></a>
+          <a href="#functions" class="footer-link"><span data-lang-ru>Функции центра</span><span data-lang-en>Center functions</span><span data-lang-kz>Орталық функциялары</span></a>
+          <a href="#audience" class="footer-link"><span data-lang-ru>Для кого</span><span data-lang-en>For whom</span><span data-lang-kz>Кімдерге арналған</span></a>
+          <a href="#founders" class="footer-link"><span data-lang-ru>Учредители</span><span data-lang-en>Founders</span><span data-lang-kz>Негізгі компаниялар</span></a>
+          <a href="#leadership" class="footer-link"><span data-lang-ru>Руководство</span><span data-lang-en>Leadership</span><span data-lang-kz>Басшылық</span></a>
+          <a href="nitsas-membership.html" class="footer-link"><span data-lang-ru>Членство</span><span data-lang-en>Membership</span><span data-lang-kz>Мүшелік</span></a>
+          <a href="#contacts" class="footer-link"><span data-lang-ru>Контакты</span><span data-lang-en>Contact</span><span data-lang-kz>Байланыс</span></a>
+        </div>
+      </div>
+
+      <!-- Info column -->
+      <div class="footer-info-col">
+        <div class="footer-col-title">
+          <span data-lang-ru>Организация</span>
+          <span data-lang-en>Organization</span>
+          <span data-lang-kz>Ұйым</span>
+        </div>
+        <div class="footer-info-block">
+          <div class="footer-info-label"><span data-lang-ru>Адрес</span><span data-lang-en>Address</span><span data-lang-kz>Мекенжай</span></div>
+          <div class="footer-info-val">г. Астана, пр. Кабанбай батыра,<br>д. 6/3, 19 этаж, офис 83</div>
+        </div>
+        <div class="footer-info-block">
+          <div class="footer-info-label"><span data-lang-ru>Правовая форма</span><span data-lang-en>Legal form</span><span data-lang-kz>Құқықтық нысан</span></div>
+          <div class="footer-info-val"><span data-lang-ru>Некоммерческая ассоциация юридических лиц</span><span data-lang-en>Non-profit association of legal entities</span><span data-lang-kz>Заңды тұлғалардың коммерциялық емес ассоциациясы</span></div>
+        </div>
+        <div class="footer-info-block">
+          <div class="footer-info-label"><span data-lang-ru>Год основания</span><span data-lang-en>Founded</span><span data-lang-kz>Құрылған жыл</span></div>
+          <div class="footer-info-val">8 <span data-lang-ru>апреля</span><span data-lang-en>April</span><span data-lang-kz>сәуір</span> 2026 · Астана</div>
+        </div>
+        <div class="footer-info-block">
+          <div class="footer-info-label"><span data-lang-ru>Учредители</span><span data-lang-en>Founding companies</span><span data-lang-kz>Негізгі компаниялар</span></div>
+          <div class="footer-founders-list">
+            <span>Simourg</span>
+            <span>BSG</span>
+            <span>ZEREK</span>
+            <span>CyberX</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /footer-grid -->
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <div class="footer-bottom-logo">НИЦАС</div>
+        <div class="footer-copy">
+          <span data-lang-ru>© 2026 ОЮЛ «Научно-исследовательский центр анализа и стратегии». Все права защищены.</span>
+          <span data-lang-en>© 2026 NITSAS Association. All rights reserved.</span>
+          <span data-lang-kz>© 2026 «НИЦАС» Ассоциациясы. Барлық құқықтар қорғалған.</span>
+        </div>
+      </div>
+      <div class="footer-badge">
+        <span data-lang-ru>Астана · Казахстан</span>
+        <span data-lang-en>Astana · Kazakhstan</span>
+        <span data-lang-kz>Астана · Қазақстан</span>
+      </div>
+    </div>
+
+  </div><!-- /container--wide -->
+</footer>
+
+<script>
+/* ════════════════════════════════════════
+   PRELOADER LOGIC
+════════════════════════════════════════ */
+(function(){
+  const pl=document.getElementById('preloader');
+  if(!pl)return;
+  const MIN=2400; // minimum display time ms
+  const startTime=Date.now();
+  function hide(){
+    const wait=Math.max(0,MIN-(Date.now()-startTime));
+    setTimeout(()=>{
+      pl.classList.add('pl-hide');
+      setTimeout(()=>{ pl.style.display='none'; },800);
+    },wait);
+  }
+  if(document.readyState==='complete') hide();
+  else { window.addEventListener('load',hide,{once:true}); setTimeout(()=>{pl.classList.add('pl-hide');},4000); }
+})();
+
+/* ════════════════════════════════════════
+   CANVAS — NETWORK NODES HERO ANIMATION
+════════════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes=[], animId;
+  const N = 55, MAX_DIST = 160, SPEED = 0.4;
+
+  function getColor(){
+    const t = document.documentElement.getAttribute('data-theme');
+    return t==='light' ? [29,78,216] : [184,147,90];
+  }
+
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function init(){
+    nodes=[];
+    for(let i=0;i<N;i++){
+      nodes.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*SPEED, vy:(Math.random()-.5)*SPEED,
+        r:Math.random()*2+1
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const [r,g,b] = getColor();
+    // Draw connections
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<MAX_DIST){
+          const alpha=(1-d/MAX_DIST)*0.25;
+          ctx.beginPath();
+          ctx.strokeStyle=`rgba(${r},${g},${b},${alpha})`;
+          ctx.lineWidth=.8;
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    // Draw nodes
+    nodes.forEach(n=>{
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},0.45)`;
+      ctx.fill();
+      // glow
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r*3,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},0.05)`;
+      ctx.fill();
+    });
+  }
+
+  function update(){
+    nodes.forEach(n=>{
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+    });
+  }
+
+  function loop(){
+    update(); draw();
+    animId=requestAnimationFrame(loop);
+  }
+
+  // Mouse interaction — gentle attraction
+  let mx=W/2, my=H/2;
+  canvas.closest('.hero').addEventListener('mousemove',e=>{
+    const rect=e.currentTarget.getBoundingClientRect();
+    mx=e.clientX-rect.left; my=e.clientY-rect.top;
+    nodes.forEach(n=>{
+      const dx=mx-n.x, dy=my-n.y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<180){ n.vx+=dx/d*.015; n.vy+=dy/d*.015; }
+      const spd=Math.sqrt(n.vx*n.vx+n.vy*n.vy);
+      if(spd>1.2){ n.vx/=spd; n.vy/=spd; }
+    });
+  });
+
+  window.addEventListener('resize',()=>{ resize(); init(); });
+  resize(); init(); loop();
+  // Re-color on theme change
+  window.addEventListener('themeChanged',()=>{ /* draw auto-updates */ });
+})();
+
+/* ════════════════════════════════════════
+   COUNTER ANIMATION
+════════════════════════════════════════ */
+function animateCounters(entries,observer){
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    const el=entry.target;
+    const target=+el.getAttribute('data-count');
+    const suffix=el.getAttribute('data-suffix')||'';
+    const duration=1400;
+    const start=performance.now();
+    function tick(now){
+      const t=Math.min((now-start)/duration,1);
+      const ease=1-Math.pow(1-t,3);
+      el.textContent=Math.round(ease*target)+suffix;
+      if(t<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    observer.unobserve(el);
+  });
+}
+const cntObs=new IntersectionObserver(animateCounters,{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cntObs.observe(el));
+
+/* ════════════════════════════════════════
+   SCROLL FADE-IN
+════════════════════════════════════════ */
+const fadeObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
+},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
+
+/* ════════════════════════════════════════
+   ACCORDION
+════════════════════════════════════════ */
+function toggleAccordion(btn){
+  const item=btn.closest('.accordion-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.accordion-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+/* ════════════════════════════════════════
+   MAGNETIC CARD HOVER
+════════════════════════════════════════ */
+document.querySelectorAll('.func-card,.traction-card,.about-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(800px) rotateX(${-y*8}deg) rotateY(${x*8}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='';
+  });
+});
+
+/* ════════════════════════════════════════
+   LANG / THEME
+════════════════════════════════════════ */
+function setLang(lang){
+  document.documentElement.setAttribute('data-lang',lang);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===lang));
+  localStorage.setItem('nitsas-lang',lang);
+  updatePlaceholders();
+}
+function toggleTheme(){
+  const curr=document.documentElement.getAttribute('data-theme');
+  const next=curr==='light'?'':'light';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('nitsas-theme',next||'dark');
+  window.dispatchEvent(new Event('themeChanged'));
+}
+function toggleMenu(){
+  const m=document.getElementById('mobileMenu');
+  const isOpen=m.classList.toggle('open');
+  // Swap burger icon to X when open
+  const icon=document.getElementById('burger-icon');
+  if(icon){
+    icon.innerHTML=isOpen
+      ?'<path d="M18 6L6 18M6 6l12 12"/>'
+      :'<path d="M4 6h16M4 12h16M4 18h16"/>';
+  }
+  // Close menu on outside click
+  if(isOpen){
+    setTimeout(()=>{
+      document.addEventListener('click',function handler(e){
+        if(!m.contains(e.target)&&!e.target.closest('.burger-btn')){
+          m.classList.remove('open');
+          if(icon) icon.innerHTML='<path d="M4 6h16M4 12h16M4 18h16"/>';
+          document.removeEventListener('click',handler);
+        }
+      });
+    },10);
+  }
+}
+function updatePlaceholders(){
+  const l=document.documentElement.getAttribute('data-lang')||'ru';
+  const ph={name:{ru:'Ваше имя',en:'Your name',kz:'Атыңыз'},msg:{ru:'Сообщение',en:'Message',kz:'Хабарлама'}};
+  const n=document.getElementById('form-name'),m=document.getElementById('form-msg');
+  if(n) n.placeholder=ph.name[l]||ph.name.ru;
+  if(m) m.placeholder=ph.msg[l]||ph.msg.ru;
+}
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=document.getElementById('form-btn');
+  const orig=btn.innerHTML;
+  btn.textContent='✓';
+  btn.style.background='#2E8A6E';
+  setTimeout(()=>{ btn.innerHTML=orig; btn.style.background=''; applyLang(); },3000);
+}
+function applyLang(){
+  const lang=localStorage.getItem('nitsas-lang')||'ru';
+  setLang(lang);
+}
+
+/* ════════════════════════════════════════
+   SCROLL PROGRESS BAR
+════════════════════════════════════════ */
+(function(){
+  const bar=document.getElementById('scrollProgress');
+  window.addEventListener('scroll',()=>{
+    const total=document.documentElement.scrollHeight-window.innerHeight;
+    const pct=total>0?Math.round(window.scrollY/total*100):0;
+    bar.style.width=pct+'%';
+  },{passive:true});
+})();
+
+(function init(){
+  const t=localStorage.getItem('nitsas-theme');
+  if(t==='light') document.documentElement.setAttribute('data-theme','light');
+  applyLang();
+  // nav border on scroll
+  window.addEventListener('scroll',()=>{
+    document.getElementById('navbar').style.borderBottomColor=
+      window.scrollY>40?'var(--border)':'var(--border2)';
+  });
+})();
+</script>
+</body>
+</html>

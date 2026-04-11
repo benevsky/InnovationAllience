@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>О нас — НИЦАС</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ═══ DESIGN TOKENS ═══ */
+:root{
+  --bg:#000;--bg2:#070707;--bg3:#0F0F0F;--bg4:#161616;--bg5:#1C1C1C;
+  --gold:#B8935A;--gold2:#D4AF78;--gold3:#8B6B3D;
+  --text:#F0F0F2;--text2:#C2C2D2;--text3:#828298;
+  --border:rgba(184,147,90,.18);--border2:rgba(255,255,255,.08);
+  --nav-h:72px;--radius:12px;
+  --accent:#B8935A;--canvas-node:184,147,90;
+}
+[data-theme="light"]{
+  --bg:#fff;--bg2:#F4F7FB;--bg3:#fff;--bg4:#EAF0FA;--bg5:#D8E4F5;
+  --gold:#1D4ED8;--gold2:#2563EB;--gold3:#3B82F6;
+  --text:#0F172A;--text2:#1E293B;--text3:#64748B;
+  --border:rgba(29,78,216,.12);--border2:rgba(0,0,0,.06);
+  --canvas-node:29,78,216;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Urbanist',system-ui,sans-serif;background:var(--bg);color:var(--text);font-weight:500;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg2);}::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px;}
+h1,h2,h3,h4{font-weight:800;}
+.container{max-width:960px;margin:0 auto;padding:0 24px;}
+.container--wide{max-width:1140px;margin:0 auto;padding:0 24px;}
+
+/* ═══ MULTILANG ═══ */
+[data-lang-ru],[data-lang-en],[data-lang-kz]{display:none!important;}
+span[data-lang-ru],span[data-lang-en],span[data-lang-kz]{display:none!important;}
+[data-lang="ru"] [data-lang-ru]{display:block!important;}[data-lang="en"] [data-lang-en]{display:block!important;}[data-lang="kz"] [data-lang-kz]{display:block!important;}
+[data-lang="ru"] span[data-lang-ru]{display:inline!important;}[data-lang="en"] span[data-lang-en]{display:inline!important;}[data-lang="kz"] span[data-lang-kz]{display:inline!important;}
+
+/* ═══ KEYFRAMES ═══ */
+@keyframes scanLine{0%{transform:translateY(-100%);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(100vh);opacity:0;}}
+@keyframes gridPulse{0%,100%{opacity:.03;}50%{opacity:.07;}}
+@keyframes heroGlowShift{0%{opacity:.07;}50%{opacity:.14;}100%{opacity:.07;}}
+@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes borderTrace{0%{background-position:0% 0%;}100%{background-position:200% 0%;}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.45);opacity:.65;}}
+@keyframes neonPulseGold{0%,100%{box-shadow:0 0 6px rgba(184,147,90,.2),0 0 20px rgba(184,147,90,.08);}50%{box-shadow:0 0 14px rgba(184,147,90,.45),0 0 40px rgba(184,147,90,.18);}}
+@keyframes neonPulseBlue{0%,100%{box-shadow:0 0 6px rgba(29,78,216,.25);}50%{box-shadow:0 0 14px rgba(29,78,216,.45),0 0 40px rgba(29,78,216,.2);}}
+@keyframes blobFloat{0%{transform:translate(0,0) scale(1);}33%{transform:translate(28px,-22px) scale(1.06);}66%{transform:translate(-18px,16px) scale(.96);}100%{transform:translate(0,0) scale(1);}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+@keyframes rotateSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes particleFloat{0%{transform:translateY(0) scale(1);opacity:.5;}50%{transform:translateY(-18px) scale(1.1);opacity:.8;}100%{transform:translateY(0) scale(1);opacity:.5;}}
+@keyframes countUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes iconOrbitRing{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes shimmerSweep{0%{background-position:-200% center;}100%{background-position:200% center;}}
+@keyframes floatBadge{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+
+/* GRADIENT text */
+.hero-gradient-text{background:linear-gradient(135deg,#F0F0F2 0%,#B8935A 45%,#D4AF78 60%,#F0F0F2 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientFlow 6s ease-in-out infinite;}
+[data-theme="light"] .hero-gradient-text{background:linear-gradient(135deg,#0F172A 0%,#1D4ED8 45%,#60A5FA 60%,#0F172A 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ═══ SCROLL PROGRESS ═══ */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:1100;box-shadow:0 0 8px rgba(var(--canvas-node),.5);}
+
+/* ═══ NAVIGATION ═══ */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(0,0,0,.90);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);z-index:1000;display:flex;align-items:center;transition:background .3s;}
+[data-theme="light"] nav{background:rgba(255,255,255,.95);border-bottom-color:rgba(29,78,216,.08);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1140px;margin:0 auto;padding:0 24px;gap:16px;}
+.nav-logo{display:flex;flex-direction:column;gap:1px;text-decoration:none;flex-shrink:0;}
+.nav-logo-main{font-weight:800;font-size:17px;letter-spacing:.18em;color:var(--text);text-transform:uppercase;transition:color .3s;}
+[data-theme="light"] .nav-logo-main{color:#0F172A;}
+.nav-logo:hover .nav-logo-main{color:var(--gold);}
+.nav-logo-sub{font-size:8px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;}
+.nav-logo-dot{display:inline-block;width:7px;height:7px;background:var(--gold);border-radius:50%;margin-right:8px;vertical-align:middle;animation:pulse 2.5s ease-in-out infinite;}
+.nav-back{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.lang-switcher{display:flex;background:var(--bg4);border:1px solid var(--border2);border-radius:8px;overflow:hidden;}
+[data-theme="light"] .lang-switcher{background:#fff;border-color:rgba(29,78,216,.15);}
+.lang-btn{padding:6px 10px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);background:transparent;border:none;cursor:pointer;transition:all .2s;font-family:inherit;}
+.lang-btn.active{background:var(--gold);color:var(--bg);}
+[data-theme="light"] .lang-btn.active{background:#1D4ED8;color:#fff;}
+.theme-btn{width:36px;height:36px;border-radius:8px;background:var(--bg4);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s;flex-shrink:0;}
+.theme-btn:hover{border-color:var(--gold);}
+.theme-btn .icon-dark{display:none;}.theme-btn .icon-light{display:block;}
+[data-theme="light"] .theme-btn .icon-dark{display:block;}[data-theme="light"] .theme-btn .icon-light{display:none;}
+
+/* ═══ PAGE HERO ═══ */
+.page-hero{padding-top:calc(var(--nav-h) + 60px);padding-bottom:80px;position:relative;overflow:hidden;background:var(--bg);}
+.page-hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(184,147,90,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,147,90,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 6s ease-in-out infinite;pointer-events:none;}
+[data-theme="light"] .page-hero::after{background-image:linear-gradient(rgba(29,78,216,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(29,78,216,.04) 1px,transparent 1px);}
+.page-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(184,147,90,.1) 0%,transparent 70%);animation:heroGlowShift 8s ease-in-out infinite;pointer-events:none;}
+[data-theme="light"] .page-hero::before{background:radial-gradient(ellipse,rgba(29,78,216,.06) 0%,transparent 70%);}
+/* scan line */
+.hero-scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,147,90,.4),transparent);animation:scanLine 8s linear infinite;z-index:2;pointer-events:none;}
+[data-theme="light"] .hero-scanline{background:linear-gradient(90deg,transparent,rgba(29,78,216,.35),transparent);}
+/* floating particles */
+.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.hero-particles span{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.2;animation:particleFloat var(--dur,8s) ease-in-out var(--delay,0s) infinite;}
+.page-hero-inner{position:relative;z-index:1;max-width:800px;margin:0 auto;text-align:center;animation:fadeSlideUp .8s cubic-bezier(.16,1,.3,1) both;}
+.page-label{display:inline-flex;align-items:center;gap:8px;background:rgba(184,147,90,.08);border:1px solid rgba(184,147,90,.25);border-radius:100px;padding:5px 16px;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.page-label-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
+[data-theme="light"] .page-label{background:rgba(29,78,216,.06);border-color:rgba(29,78,216,.2);}
+.page-title{font-size:clamp(28px,5vw,58px);font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;}
+.page-desc{font-size:16px;color:var(--text3);max-width:560px;margin:0 auto;line-height:1.8;}
+
+/* ═══ SECTIONS ═══ */
+section{padding:80px 0;position:relative;overflow:hidden;}
+.section-alt{background:var(--bg2);}
+[data-theme="light"] .section-alt{background:#F4F7FB;}
+.section-blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.05;}
+.section-blob--a{width:350px;height:350px;background:var(--gold);top:-100px;right:-80px;animation:blobFloat 22s ease-in-out infinite;}
+.section-blob--b{width:280px;height:280px;background:var(--gold3);bottom:-60px;left:-60px;animation:blobFloat 28s ease-in-out 7s infinite reverse;}
+section>.container{position:relative;z-index:1;}
+.section-label{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,147,90,.3);padding:4px 12px;border-radius:100px;margin-bottom:16px;}
+[data-theme="light"] .section-label{color:#1D4ED8;border-color:rgba(29,78,216,.2);}
+.section-title{font-size:clamp(22px,3.5vw,38px);font-weight:900;letter-spacing:-.02em;margin-bottom:16px;line-height:1.2;}
+.section-title-accent{position:relative;display:inline-block;}
+.section-title-accent::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold3),var(--gold));background-size:200% 100%;animation:borderTrace 3s linear infinite;border-radius:1px;}
+.section-desc{color:var(--text3);font-size:15px;line-height:1.8;max-width:600px;}
+.section-head{text-align:center;margin-bottom:56px;}
+.section-head .section-desc{margin:0 auto;}
+
+/* ═══ SCROLL FADE ═══ */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.fade-up:nth-child(2){transition-delay:.1s;}.fade-up:nth-child(3){transition-delay:.18s;}.fade-up:nth-child(4){transition-delay:.26s;}.fade-up:nth-child(5){transition-delay:.34s;}.fade-up:nth-child(6){transition-delay:.42s;}
+
+/* ═══ MISSION BLOCK ═══ */
+.mission-block{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:48px;position:relative;overflow:hidden;margin-bottom:32px;}
+[data-theme="light"] .mission-block{background:#fff;box-shadow:0 2px 16px rgba(29,78,216,.06);}
+.mission-block::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));background-size:200% 100%;animation:borderTrace 4s linear infinite;}
+.mission-quote{font-size:clamp(18px,2.5vw,26px);font-weight:700;line-height:1.5;color:var(--text);margin-bottom:16px;font-style:italic;}
+.mission-quote::before{content:'"';font-size:3em;color:var(--gold);opacity:.3;display:block;margin-bottom:-20px;font-style:normal;line-height:1;}
+.mission-attr{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+
+/* ═══ VALUES GRID ═══ */
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.value-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:32px 24px;transition:border-color .25s,transform .3s,box-shadow .3s;position:relative;overflow:hidden;}
+[data-theme="light"] .value-card{background:#fff;box-shadow:0 2px 12px rgba(29,78,216,.06);}
+.value-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(var(--canvas-node),.06),transparent 70%);opacity:0;transition:opacity .3s;}
+.value-card:hover::after{opacity:1;}
+.value-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3);}
+.value-icon{width:52px;height:52px;border-radius:14px;background:rgba(var(--canvas-node),.08);display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:20px;}
+.value-title{font-size:15px;font-weight:800;color:var(--gold);margin-bottom:10px;}
+.value-desc{font-size:13px;color:var(--text3);line-height:1.75;}
+
+/* ═══ HISTORY TIMELINE ═══ */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.timeline-item{display:grid;grid-template-columns:120px 1fr;gap:32px;position:relative;}
+.timeline-item:not(:last-child)::before{content:'';position:absolute;left:56px;top:52px;bottom:-8px;width:1px;background:linear-gradient(var(--border),transparent);}
+.timeline-dot{display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:4px;}
+.timeline-dot-circle{width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);box-shadow:0 0 0 3px rgba(var(--canvas-node),.25);flex-shrink:0;animation:pulse 3s ease-in-out infinite;}
+.timeline-date{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--gold);text-align:center;}
+.timeline-content{padding:0 0 40px;border-bottom:1px solid var(--border2);}
+.timeline-item:last-child .timeline-content{border-bottom:none;padding-bottom:0;}
+.timeline-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.timeline-desc{font-size:13px;color:var(--text3);line-height:1.7;}
+
+/* ═══ STRUCTURE BLOCK ═══ */
+.structure-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.structure-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;transition:border-color .25s,transform .3s;}
+[data-theme="light"] .structure-card{background:#fff;box-shadow:0 2px 12px rgba(29,78,216,.06);}
+.structure-card:hover{border-color:var(--border);transform:translateY(-3px);}
+.structure-card-label{font-size:9px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.structure-card-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.structure-card-desc{font-size:13px;color:var(--text3);line-height:1.7;}
+
+/* ═══ STATS ROW ═══ */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:56px;}
+.stat-box{text-align:center;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:28px 16px;}
+[data-theme="light"] .stat-box{background:#fff;box-shadow:0 2px 12px rgba(29,78,216,.06);}
+.stat-num{font-size:clamp(28px,4vw,42px);font-weight:900;color:var(--gold);letter-spacing:-.03em;line-height:1;display:block;position:relative;overflow:hidden;}
+.stat-num::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18) 50%,transparent);background-size:200% 100%;animation:shimmerSweep 4s ease-in-out infinite;}
+.stat-label{font-size:11px;font-weight:600;color:var(--text3);margin-top:8px;}
+
+/* ═══ SYNERGY DIAGRAM ═══ */
+.synergy-wrap{display:flex;justify-content:center;margin:40px 0 0;}
+.synergy-diagram{position:relative;width:320px;height:320px;}
+.syn-circle{position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:rgba(var(--canvas-node),.04);}
+.syn-circle:nth-child(1){top:0;left:50%;transform:translateX(-50%);}
+.syn-circle:nth-child(2){bottom:0;left:0;}
+.syn-circle:nth-child(3){bottom:0;right:0;}
+.syn-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);text-align:center;animation:pulse 3s ease-in-out infinite;}
+
+/* ═══ LEADERSHIP CARDS ═══ */
+.leaders-grid-full{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:640px;margin:0 auto;}
+.leader-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:36px 28px;text-align:center;transition:border-color .25s,transform .3s,box-shadow .3s;}
+[data-theme="light"] .leader-card{background:#fff;box-shadow:0 2px 12px rgba(29,78,216,.06);}
+.leader-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.leader-avatar{width:80px;height:80px;border-radius:50%;background:rgba(var(--canvas-node),.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--gold);position:relative;}
+.leader-avatar::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(var(--canvas-node),.2);animation:iconOrbitRing 8s linear infinite;}
+.leader-role{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.leader-name{font-size:15px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:8px;}
+.leader-desc{font-size:12px;color:var(--text3);line-height:1.7;}
+
+/* ═══ CTA ═══ */
+.cta-block{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:56px;text-align:center;position:relative;overflow:hidden;}
+[data-theme="light"] .cta-block{background:#fff;box-shadow:0 4px 24px rgba(29,78,216,.08);}
+.cta-block::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));background-size:200% 100%;animation:borderTrace 4s linear infinite;}
+.cta-title{font-size:clamp(22px,3.5vw,36px);font-weight:900;margin-bottom:16px;}
+.cta-desc{font-size:15px;color:var(--text3);max-width:500px;margin:0 auto 32px;line-height:1.8;}
+.cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--bg);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s,transform .2s;animation:neonPulseGold 4s ease-in-out infinite;}
+[data-theme="light"] .btn-primary{animation:neonPulseBlue 4s ease-in-out infinite;}
+.btn-primary:hover{opacity:.88;transform:translateY(-2px);animation:none;}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text2);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--bg2);padding:40px 0;}
+[data-theme="light"] footer{background:#EAF0FA;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border2);padding-top:24px;flex-wrap:wrap;gap:16px;}
+.footer-bottom-logo{font-size:16px;font-weight:900;letter-spacing:.2em;color:var(--gold);opacity:.7;}
+.footer-copy{font-size:11px;color:var(--text3);}
+.footer-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;animation:floatBadge 4s ease-in-out infinite;}
+
+/* ═══ PRELOADER ═══ */
+#preloader{position:fixed;inset:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .75s cubic-bezier(.4,0,.2,1),visibility .75s;}
+#preloader.pl-hide{opacity:0;visibility:hidden;pointer-events:none;}
+.pl-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,147,90,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(184,147,90,.045) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 4s ease-in-out infinite;pointer-events:none;}
+.pl-scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,147,90,.5),transparent);animation:scanLine 4s linear infinite;pointer-events:none;}
+.pl-orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(184,147,90,.07);pointer-events:none;}
+.pl-orbit-1{width:480px;height:480px;margin:-240px;animation:iconOrbitRing 28s linear infinite;}
+.pl-orbit-2{width:700px;height:700px;margin:-350px;border-color:rgba(184,147,90,.04);animation:iconOrbitRing 45s linear infinite reverse;}
+.pl-orbit-3{width:240px;height:240px;margin:-120px;border-color:rgba(184,147,90,.1);animation:iconOrbitRing 15s linear infinite;}
+.pl-orbit-3::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-5px);width:8px;height:8px;border-radius:50%;background:#B8935A;box-shadow:0 0 12px rgba(184,147,90,.8);}
+.pl-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(184,147,90,.12) 0%,transparent 70%);pointer-events:none;animation:heroGlowShift 5s ease-in-out infinite;}
+.pl-content{position:relative;z-index:1;text-align:center;}
+.pl-logo-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px;}
+.pl-dot{width:10px;height:10px;border-radius:50%;background:#B8935A;box-shadow:0 0 10px rgba(184,147,90,.6);animation:pulse 2s ease-in-out infinite;}
+.pl-logo{font-size:clamp(44px,8vw,80px);font-weight:900;letter-spacing:.28em;color:#B8935A;font-family:'Urbanist',system-ui,sans-serif;animation:plLogoIn .95s cubic-bezier(.16,1,.3,1) both;}
+.pl-sub{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,240,242,.28);max-width:440px;margin:0 auto 44px;line-height:1.9;font-family:'Urbanist',system-ui,sans-serif;animation:plSubIn .85s cubic-bezier(.16,1,.3,1) .3s both;}
+.pl-progress-wrap{width:260px;height:1px;background:rgba(255,255,255,.07);margin:0 auto 22px;border-radius:1px;overflow:visible;position:relative;animation:fadeSlideUp .5s .25s both;}
+.pl-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#8B6B3D,#B8935A,#D4AF78);animation:plProgress 2s cubic-bezier(.25,.46,.45,.94) .1s forwards;position:relative;}
+.pl-progress-bar::after{content:'';position:absolute;right:-1px;top:-3px;width:7px;height:7px;border-radius:50%;background:#D4AF78;box-shadow:0 0 10px #B8935A;}
+.pl-dots{display:flex;gap:9px;justify-content:center;animation:fadeSlideUp .5s .5s both;}
+.pl-dots span{width:5px;height:5px;border-radius:50%;background:#B8935A;opacity:.22;animation:plDotBounce 1.3s ease-in-out infinite;}
+.pl-dots span:nth-child(2){animation-delay:.22s;}
+.pl-dots span:nth-child(3){animation-delay:.44s;}
+@keyframes plLogoIn{0%{opacity:0;transform:scale(.82) translateY(18px);letter-spacing:.55em;}100%{opacity:1;transform:scale(1) translateY(0);letter-spacing:.28em;}}
+@keyframes plSubIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes plProgress{from{width:0%;}to{width:100%;}}
+@keyframes plDotBounce{0%,100%{opacity:.22;transform:translateY(0);}50%{opacity:1;transform:translateY(-6px);}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){.values-grid{grid-template-columns:repeat(2,1fr);}.stats-row{grid-template-columns:repeat(2,1fr);}.structure-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.values-grid{grid-template-columns:1fr;}.stats-row{grid-template-columns:1fr;}.leaders-grid-full{grid-template-columns:1fr;}.timeline-item{grid-template-columns:80px 1fr;gap:16px;}.mission-block{padding:32px 24px;}.cta-block{padding:36px 24px;}}
+</style>
+</head>
+<body>
+
+<!-- ═══ PRELOADER ═══ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-grid"></div>
+  <div class="pl-scanline"></div>
+  <div class="pl-glow"></div>
+  <div class="pl-orbit pl-orbit-1"></div>
+  <div class="pl-orbit pl-orbit-2"></div>
+  <div class="pl-orbit pl-orbit-3"></div>
+  <div class="pl-content">
+    <div class="pl-logo-row"><div class="pl-dot"></div><div class="pl-logo">НИЦАС</div></div>
+    <div class="pl-sub">Об организации</div>
+    <div class="pl-progress-wrap"><div class="pl-progress-bar"></div></div>
+    <div class="pl-dots"><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="nitsas.html" class="nav-logo">
+      <span class="nav-logo-main"><span class="nav-logo-dot"></span>НИЦАС</span>
+      <span class="nav-logo-sub" data-lang-ru>Ассоциация НИЦАС</span>
+      <span class="nav-logo-sub" data-lang-en>NITSAS Association</span>
+      <span class="nav-logo-sub" data-lang-kz>НИЦАС Ассоциациясы</span>
+    </a>
+    <a href="nitsas.html" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span data-lang-ru>На главную</span><span data-lang-en>Main page</span><span data-lang-kz>Басты бет</span>
+    </a>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('kz')">KZ</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="theme-btn" onclick="toggleTheme()">
+        <span class="icon-light">🌙</span><span class="icon-dark">☀️</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <div class="hero-scanline"></div>
+  <div class="hero-particles">
+    <span style="left:8%;top:25%;--dur:9s;--delay:0s"></span>
+    <span style="left:22%;top:65%;--dur:11s;--delay:1.5s"></span>
+    <span style="left:50%;top:40%;--dur:8s;--delay:3s"></span>
+    <span style="left:72%;top:55%;--dur:13s;--delay:.8s"></span>
+    <span style="left:88%;top:20%;--dur:10s;--delay:2.2s"></span>
+    <span style="left:60%;top:80%;--dur:7s;--delay:4s"></span>
+  </div>
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="page-label">
+        <span class="page-label-dot"></span>
+        <span data-lang-ru>Об организации</span>
+        <span data-lang-en>About the organization</span>
+        <span data-lang-kz>Ұйым туралы</span>
+      </div>
+      <h1 class="page-title">
+        <span data-lang-ru><span class="hero-gradient-text">Ассоциация «НИЦАС»</span></span>
+        <span data-lang-en><span class="hero-gradient-text">NITSAS Association</span></span>
+        <span data-lang-kz><span class="hero-gradient-text">«НИЦАС» Ассоциациясы</span></span>
+      </h1>
+      <p class="page-desc">
+        <span data-lang-ru>Миссия, ценности, история создания и структура объединения юридических лиц «Научно-исследовательский центр анализа и стратегии».</span>
+        <span data-lang-en>Mission, values, founding history and structure of the Association "Research Center for Analysis and Strategy" (NITSAS).</span>
+        <span data-lang-kz>«Талдау және стратегия ғылыми-зерттеу орталығы» бірлестігінің миссиясы, құндылықтары, құрылу тарихы және құрылымы.</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MISSION ═══ -->
+<section>
+  <div class="section-blob section-blob--a"></div>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Миссия</span><span data-lang-en>Mission</span><span data-lang-kz>Миссия</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Зачем мы существуем</span><span data-lang-en>Why we exist</span><span data-lang-kz>Біз не үшін жұмыс жасаймыз</span></span></h2>
+    </div>
+    <div class="mission-block fade-up">
+      <div class="mission-quote">
+        <span data-lang-ru>Системное содействие развитию компаний-участников через синергию промышленности, науки и IT — то, чего невозможно достичь поодиночке.</span>
+        <span data-lang-en>Systematic support for member companies through the synergy of industry, science, and IT — what cannot be achieved alone.</span>
+        <span data-lang-kz>Өнеркәсіп, ғылым және IT синергиясы арқылы мүше компаниялардың дамуына жүйелі жәрдем — бұл жеке-дара қол жеткізе алмайтын нәрсе.</span>
+      </div>
+      <div class="mission-attr">НИЦАС · 2026</div>
+    </div>
+    <div class="structure-grid fade-up">
+      <div class="structure-card">
+        <div class="structure-card-label"><span data-lang-ru>Для кого</span><span data-lang-en>For whom</span><span data-lang-kz>Кімдерге</span></div>
+        <div class="structure-card-title"><span data-lang-ru>Компании-участники, государство, инвесторы</span><span data-lang-en>Member companies, government, investors</span><span data-lang-kz>Мүше компаниялар, мемлекет, инвесторлар</span></div>
+        <div class="structure-card-desc"><span data-lang-ru>Три ключевых аудитории объединения получают уникальный доступ к ресурсам, которые недоступны им по отдельности.</span><span data-lang-en>Three key audiences gain unique access to resources unavailable to them individually.</span><span data-lang-kz>Бірлестіктің үш негізгі аудиториясы жеке-дара қол жеткізе алмайтын ресурстарға бірегей қол жеткізеді.</span></div>
+      </div>
+      <div class="structure-card">
+        <div class="structure-card-label"><span data-lang-ru>Каким образом</span><span data-lang-en>How</span><span data-lang-kz>Қалай</span></div>
+        <div class="structure-card-title"><span data-lang-ru>Создание синергии науки, бизнеса и IT</span><span data-lang-en>Creating synergy of science, business, and IT</span><span data-lang-kz>Ғылым, бизнес және IT синергиясын жасау</span></div>
+        <div class="structure-card-desc"><span data-lang-ru>Объединение компетенций и ресурсов разных отраслей для получения результатов, недостижимых в изоляции.</span><span data-lang-en>Combining competencies and resources across sectors to achieve results unreachable in isolation.</span><span data-lang-kz>Оқшаулықта қол жеткізе алмайтын нәтижелерге жету үшін әр саладағы құзыреттер мен ресурстарды біріктіру.</span></div>
+      </div>
+    </div>
+    <!-- Synergy diagram -->
+    <div class="synergy-wrap fade-up">
+      <div style="text-align:center;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);margin-bottom:32px;">
+          <span data-lang-ru>Модель синергии</span><span data-lang-en>Synergy model</span><span data-lang-kz>Синергия моделі</span>
+        </div>
+        <div class="synergy-diagram">
+          <div class="syn-circle" style="top:0;left:50%;transform:translateX(-50%);">
+            <span data-lang-ru>Наука</span><span data-lang-en>Science</span><span data-lang-kz>Ғылым</span>
+          </div>
+          <div class="syn-circle" style="bottom:0;left:0;">
+            <span data-lang-ru>Бизнес</span><span data-lang-en>Business</span><span data-lang-kz>Бизнес</span>
+          </div>
+          <div class="syn-circle" style="bottom:0;right:0;">
+            <span data-lang-ru>IT</span><span data-lang-en>Technology</span><span data-lang-kz>Технология</span>
+          </div>
+          <div class="syn-center">НИЦАС</div>
+        </div>
+      </div>
+    </div>
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-box fade-up"><span class="stat-num" data-count="4">0</span><div class="stat-label"><span data-lang-ru>компании-учредителя</span><span data-lang-en>founding companies</span><span data-lang-kz>негізгі компания</span></div></div>
+      <div class="stat-box fade-up"><span class="stat-num" data-count="6">0</span><div class="stat-label"><span data-lang-ru>системных функций</span><span data-lang-en>core functions</span><span data-lang-kz>жүйелік функция</span></div></div>
+      <div class="stat-box fade-up"><span class="stat-num" data-count="3">0</span><div class="stat-label"><span data-lang-ru>направления синергии</span><span data-lang-en>synergy sectors</span><span data-lang-kz>синергия бағыты</span></div></div>
+      <div class="stat-box fade-up"><span class="stat-num" data-count="2026">0</span><div class="stat-label"><span data-lang-ru>год основания</span><span data-lang-en>year founded</span><span data-lang-kz>құрылған жыл</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VALUES ═══ -->
+<section class="section-alt">
+  <div class="section-blob section-blob--b"></div>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Ценности</span><span data-lang-en>Values</span><span data-lang-kz>Құндылықтар</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Принципы НИЦАС</span><span data-lang-en>NITSAS principles</span><span data-lang-kz>НИЦАС қағидаттары</span></span></h2>
+      <p class="section-desc"><span data-lang-ru>Фундаментальные ценности, которые определяют наш подход к работе и взаимодействию.</span><span data-lang-en>Fundamental values that define our approach to work and collaboration.</span><span data-lang-kz>Біздің жұмысқа және өзара іс-қимылға деген көзқарасымызды анықтайтын іргелі құндылықтар.</span></p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card fade-up">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path style="animation:floatY 3s ease-in-out infinite;" d="M24 4L44 34H4L24 4z"/><line x1="24" y1="18" x2="24" y2="28"/><circle cx="24" cy="32" r="1.5" fill="currentColor"/></svg>
+        </div>
+        <div class="value-title"><span data-lang-ru>Прозрачность</span><span data-lang-en>Transparency</span><span data-lang-kz>Мөлдірлік</span></div>
+        <div class="value-desc"><span data-lang-ru>Открытое взаимодействие между участниками, государством и партнёрами. Каждое решение обосновано и доступно для всех сторон.</span><span data-lang-en>Open interaction between members, government, and partners. Every decision is justified and accessible to all parties.</span><span data-lang-kz>Мүшелер, мемлекет және серіктестер арасындағы ашық өзара іс-қимыл. Әрбір шешім негізделген және барлық тараптарға қолжетімді.</span></div>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="24" cy="24" r="18" style="animation:rotateSlow 20s linear infinite;"/>
+            <path d="M12 24h24M24 12v24"/>
+          </svg>
+        </div>
+        <div class="value-title"><span data-lang-ru>Синергия</span><span data-lang-en>Synergy</span><span data-lang-kz>Синергия</span></div>
+        <div class="value-desc"><span data-lang-ru>Совокупный эффект объединения всегда превышает сумму усилий каждого участника по отдельности. Это наша ключевая ценность.</span><span data-lang-en>The combined effect of the union always exceeds the sum of each member's individual efforts. This is our core value.</span><span data-lang-kz>Бірлестіктің жиынтық әсері әрдайым әрбір мүшенің жеке күш-жігерінің сомасынан асып түседі.</span></div>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path style="animation:floatY 2.5s ease-in-out infinite;" d="M8 36l8-12 8 6 8-10 8 16"/>
+          </svg>
+        </div>
+        <div class="value-title"><span data-lang-ru>Результат</span><span data-lang-en>Result-oriented</span><span data-lang-kz>Нәтижелілік</span></div>
+        <div class="value-desc"><span data-lang-ru>Каждое действие оценивается по конкретному измеримому результату для участников, а не по процессу или активности.</span><span data-lang-en>Every action is evaluated by its concrete, measurable outcome for members — not by process or activity.</span><span data-lang-kz>Әрбір іс-әрекет процесс немесе белсенділік бойынша емес, мүшелер үшін нақты өлшенетін нәтижемен бағаланады.</span></div>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M24 4v8M24 36v8M4 24h8M36 24h8"/>
+            <circle cx="24" cy="24" r="10" style="animation:pulse 3s ease-in-out infinite;"/>
+          </svg>
+        </div>
+        <div class="value-title"><span data-lang-ru>Равенство</span><span data-lang-en>Equality</span><span data-lang-kz>Теңдік</span></div>
+        <div class="value-desc"><span data-lang-ru>Все участники обладают равным голосом и доступом к ресурсам объединения вне зависимости от размера или отрасли.</span><span data-lang-en>All members have equal voice and access to the association's resources regardless of size or industry.</span><span data-lang-kz>Барлық мүшелер мөлшері мен саласына қарамастан тең дауысқа және бірлестік ресурстарына тең қол жеткізуге ие.</span></div>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path style="animation:floatY 2.8s ease-in-out .3s infinite;" d="M24 8c0 0-12 8-12 18a12 12 0 0024 0c0-10-12-18-12-18z"/>
+            <path d="M18 32l4 4 8-10"/>
+          </svg>
+        </div>
+        <div class="value-title"><span data-lang-ru>Ответственность</span><span data-lang-en>Accountability</span><span data-lang-kz>Жауапкершілік</span></div>
+        <div class="value-desc"><span data-lang-ru>НИЦАС несёт ответственность перед участниками за реализацию заявленных целей и своевременное выполнение обязательств.</span><span data-lang-en>NITSAS is accountable to its members for the fulfillment of stated goals and timely delivery of commitments.</span><span data-lang-kz>НИЦАС мүшелер алдында жарияланған мақсаттарды іске асыру және міндеттемелерді уақтылы орындау үшін жауапты.</span></div>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="24" cy="24" r="4" style="animation:pulse 2s ease-in-out infinite;"/>
+            <path d="M8 24H4M44 24h-4M24 8V4M24 44v-4"/>
+            <path d="M13 13l-3-3M38 38l-3-3M38 13l-3 3M13 38l-3 3"/>
+          </svg>
+        </div>
+        <div class="value-title"><span data-lang-ru>Инновации</span><span data-lang-en>Innovation</span><span data-lang-kz>Инновация</span></div>
+        <div class="value-desc"><span data-lang-ru>Приоритет новых решений, технологий и подходов перед консервативными методами. Мы создаём то, чего ещё не было.</span><span data-lang-en>Prioritizing new solutions, technologies, and approaches over conservative methods. We create what hasn't existed before.</span><span data-lang-kz>Консервативті әдістерге қарағанда жаңа шешімдерді, технологиялар мен тәсілдерді бірінші орынға қою. Біз бұрын-соңды болмаған нәрсені жасаймыз.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HISTORY TIMELINE ═══ -->
+<section>
+  <div class="section-blob section-blob--a"></div>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>История</span><span data-lang-en>History</span><span data-lang-kz>Тарих</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Путь создания НИЦАС</span><span data-lang-en>The path to NITSAS</span><span data-lang-kz>НИЦАС-ты құру жолы</span></span></h2>
+    </div>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="timeline-dot">
+          <div class="timeline-dot-circle"></div>
+          <div class="timeline-date">2025</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title"><span data-lang-ru>Осознание потребности</span><span data-lang-en>Recognizing the need</span><span data-lang-kz>Қажеттілікті тану</span></div>
+          <div class="timeline-desc"><span data-lang-ru>Компании-учредители выявили системные барьеры, препятствующие доступу к государственным грантам, новым рынкам и технологическому партнёрству. Стала очевидной необходимость объединения.</span><span data-lang-en>Founding companies identified systemic barriers to accessing government grants, new markets, and technology partnerships. The need for unification became clear.</span><span data-lang-kz>Негізгі компаниялар мемлекеттік гранттарға, жаңа нарықтарға және технологиялық серіктестікке қол жеткізудегі жүйелік кедергілерді анықтады. Бірігу қажеттілігі айқын болды.</span></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">
+          <div class="timeline-dot-circle"></div>
+          <div class="timeline-date">Q1 2026</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title"><span data-lang-ru>Переговоры и формирование состава</span><span data-lang-en>Negotiations and membership formation</span><span data-lang-kz>Келіссөздер және мүшелік қалыптастыру</span></div>
+          <div class="timeline-desc"><span data-lang-ru>Четыре компании — Simourg, Business Security Group, ZEREK RoadTech и CyberX — согласовали условия создания некоммерческого объединения с общим управлением и распределённой экспертизой.</span><span data-lang-en>Four companies — Simourg, Business Security Group, ZEREK RoadTech, and CyberX — agreed on terms for creating a non-profit association with shared governance and distributed expertise.</span><span data-lang-kz>Төрт компания — Simourg, Business Security Group, ZEREK RoadTech және CyberX — жалпы басқару және бөлінген тәжірибесі бар коммерциялық емес бірлестік құру шарттары туралы келісімге келді.</span></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">
+          <div class="timeline-dot-circle"></div>
+          <div class="timeline-date">08.04.2026</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title"><span data-lang-ru>Официальная регистрация</span><span data-lang-en>Official registration</span><span data-lang-kz>Ресми тіркеу</span></div>
+          <div class="timeline-desc"><span data-lang-ru>Объединение юридических лиц «Научно-исследовательский центр анализа и стратегии» зарегистрировано как некоммерческая организация в г. Астана. Назначено руководство: Председатель — Темирханов Ерканат Уакбаевич, Заместитель — Сарсекеев Куаныш Мейрбекович.</span><span data-lang-en>The Association "Research Center for Analysis and Strategy" was registered as a non-profit organization in Astana. Leadership appointed: Chairman — Yerkanat Temirkhanov, Deputy — Kuanysh Sarsekov.</span><span data-lang-kz>«Талдау және стратегия ғылыми-зерттеу орталығы» Астана қаласында коммерциялық емес ұйым ретінде тіркелді. Басшылық тағайындалды: Төраға — Темирханов Ерканат Уақбайұлы, Орынбасар — Сарсекеев Куаныш Мейрбекович.</span></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">
+          <div class="timeline-dot-circle" style="background:var(--gold2);"></div>
+          <div class="timeline-date">2026 →</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title"><span data-lang-ru>Первые шаги и масштабирование</span><span data-lang-en>First steps and scaling</span><span data-lang-kz>Алғашқы қадамдар және масштабтау</span></div>
+          <div class="timeline-desc"><span data-lang-ru>Запуск работы по шести ключевым направлениям: лоббирование интересов, поиск рынков, аккредитация, юридическое сопровождение, создание аналитического центра и развёртывание пилотной площадки для демонстрации синергетического эффекта.</span><span data-lang-en>Launching work across six key directions: lobbying, market access, accreditation, legal support, creating an analytical center, and deploying a pilot platform to demonstrate the synergy effect.</span><span data-lang-kz>Алты негізгі бағыт бойынша жұмысты бастау: лоббирование, нарыққа қол жеткізу, аккредитация, заңдық қолдау, аналитикалық орталық құру және синергия әсерін көрсету үшін пилоттық алаңды орналастыру.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STRUCTURE ═══ -->
+<section class="section-alt">
+  <div class="section-blob section-blob--b"></div>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Структура</span><span data-lang-en>Structure</span><span data-lang-kz>Құрылым</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Как устроено объединение</span><span data-lang-en>How the association works</span><span data-lang-kz>Бірлестік қалай жұмыс істейді</span></span></h2>
+      <p class="section-desc"><span data-lang-ru>НИЦАС — горизонтальная организация с чётко распределёнными ролями и коллективным принятием решений.</span><span data-lang-en>NITSAS is a horizontal organization with clearly distributed roles and collective decision-making.</span><span data-lang-kz>НИЦАС — нақты бөлінген рөлдері және ұжымдық шешім қабылдауы бар горизонтальды ұйым.</span></p>
+    </div>
+    <div class="structure-grid fade-up">
+      <div class="structure-card">
+        <div class="structure-card-label"><span data-lang-ru>Высший орган</span><span data-lang-en>Governing body</span><span data-lang-kz>Жоғары орган</span></div>
+        <div class="structure-card-title"><span data-lang-ru>Общее собрание участников</span><span data-lang-en>General assembly of members</span><span data-lang-kz>Мүшелердің жалпы жиналысы</span></div>
+        <div class="structure-card-desc"><span data-lang-ru>Все стратегические решения принимаются коллегиально. Каждый учредитель обладает равным голосом на собрании.</span><span data-lang-en>All strategic decisions are made collectively. Each founder has an equal vote at the assembly.</span><span data-lang-kz>Барлық стратегиялық шешімдер ұжымдық түрде қабылданады. Әрбір негізгі компания жиналыста тең дауысқа ие.</span></div>
+      </div>
+      <div class="structure-card">
+        <div class="structure-card-label"><span data-lang-ru>Исполнительный орган</span><span data-lang-en>Executive body</span><span data-lang-kz>Атқарушы орган</span></div>
+        <div class="structure-card-title"><span data-lang-ru>Председатель и руководство</span><span data-lang-en>Chairman and leadership</span><span data-lang-kz>Төраға және басшылық</span></div>
+        <div class="structure-card-desc"><span data-lang-ru>Темирханов Ерканат Уакбаевич (Председатель) и Сарсекеев Куаныш Мейрбекович (Заместитель Председателя) обеспечивают оперативное управление.</span><span data-lang-en>Yerkanat Temirkhanov (Chairman) and Kuanysh Sarsekov (Deputy) provide operational management.</span><span data-lang-kz>Темирханов Ерканат Уақбайұлы (Төраға) мен Сарсекеев Куаныш Мейрбекович (Орынбасар) жедел басқаруды қамтамасыз етеді.</span></div>
+      </div>
+      <div class="structure-card">
+        <div class="structure-card-label"><span data-lang-ru>Организационно-правовая форма</span><span data-lang-en>Legal form</span><span data-lang-kz>Ұйымдық-құқықтық нысан</span></div>
+        <div class="structure-card-title"><span data-lang-ru>Некоммерческое объединение юридических лиц</span><span data-lang-en>Non-profit association of legal entities</span><span data-lang-kz>Заңды тұлғалардың коммерциялық емес бірлестігі</span></div>
+        <div class="structure-card-desc"><span data-lang-ru>Ассоциация не ставит целью извлечение прибыли. Ресурсы направляются на развитие участников и реализацию общих задач.</span><span data-lang-en>The association does not aim to generate profit. Resources are directed toward member development and shared goals.</span><span data-lang-kz>Ассоциация пайда табуды мақсат етпейді. Ресурстар мүшелерді дамытуға және жалпы міндеттерді орындауға бағытталады.</span></div>
+      </div>
+      <div class="structure-card">
+        <div class="structure-card-label"><span data-lang-ru>Местонахождение</span><span data-lang-en>Location</span><span data-lang-kz>Орналасуы</span></div>
+        <div class="structure-card-title"><span data-lang-ru>Астана, Казахстан</span><span data-lang-en>Astana, Kazakhstan</span><span data-lang-kz>Астана, Қазақстан</span></div>
+        <div class="structure-card-desc">
+          <span data-lang-ru>пр. Кабанбай батыра, д. 6/3, 19 этаж, офис 83<br>Зарегистрировано 8 апреля 2026 года</span>
+          <span data-lang-en>Kabanbai batyr Ave., 6/3, 19th floor, office 83<br>Registered April 8, 2026</span>
+          <span data-lang-kz>Қабанбай батыр даңғылы, 6/3, 19-қабат, 83-кеңсе<br>2026 жылғы 8 сәуірде тіркелді</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LEADERSHIP ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label"><span data-lang-ru>Руководство</span><span data-lang-en>Leadership</span><span data-lang-kz>Басшылық</span></div>
+      <h2 class="section-title"><span class="section-title-accent"><span data-lang-ru>Команда</span><span data-lang-en>Our team</span><span data-lang-kz>Команда</span></span></h2>
+    </div>
+    <div class="leaders-grid-full fade-up">
+      <div class="leader-card">
+        <div class="leader-avatar">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="leader-role"><span data-lang-ru>Председатель</span><span data-lang-en>Chairman</span><span data-lang-kz>Төраға</span></div>
+        <div class="leader-name">Темирханов<br>Ерканат Уакбаевич</div>
+        <div class="leader-desc"><span data-lang-ru>Руководит стратегическим развитием Ассоциации и представляет интересы объединения перед государственными органами и партнёрами.</span><span data-lang-en>Leads the strategic development of the Association and represents its interests before government bodies and partners.</span><span data-lang-kz>Ассоциацияның стратегиялық дамуын басқарады және мемлекеттік органдар мен серіктестер алдында бірлестіктің мүдделерін білдіреді.</span></div>
+      </div>
+      <div class="leader-card">
+        <div class="leader-avatar">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="leader-role"><span data-lang-ru>Заместитель Председателя</span><span data-lang-en>Deputy Chairman</span><span data-lang-kz>Төрағаның орынбасары</span></div>
+        <div class="leader-name">Сарсекеев<br>Куаныш Мейрбекович</div>
+        <div class="leader-desc"><span data-lang-ru>Отвечает за оперативное управление деятельностью центра и координацию взаимодействия между компаниями-участниками.</span><span data-lang-en>Responsible for operational management of the center's activities and coordinating interaction between member companies.</span><span data-lang-kz>Орталық қызметін жедел басқаруға және мүше компаниялар арасындағы өзара іс-қимылды үйлестіруге жауапты.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="cta-block fade-up">
+      <h2 class="cta-title">
+        <span data-lang-ru>Готовы стать частью НИЦАС?</span>
+        <span data-lang-en>Ready to be part of NITSAS?</span>
+        <span data-lang-kz>НИЦАС-тың бір бөлігі болуға дайынсыз ба?</span>
+      </h2>
+      <p class="cta-desc">
+        <span data-lang-ru>Узнайте о преимуществах членства и условиях вступления в объединение.</span>
+        <span data-lang-en>Learn about membership benefits and joining conditions.</span>
+        <span data-lang-kz>Мүшелік артықшылықтары мен қосылу шарттары туралы біліңіз.</span>
+      </p>
+      <div class="cta-actions">
+        <a href="nitsas-membership.html" class="btn-primary">
+          <span data-lang-ru>Условия членства</span>
+          <span data-lang-en>Membership terms</span>
+          <span data-lang-kz>Мүшелік шарттары</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="nitsas.html#contacts" class="btn-outline">
+          <span data-lang-ru>Связаться с нами</span>
+          <span data-lang-en>Contact us</span>
+          <span data-lang-kz>Бізбен байланысу</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container--wide">
+    <div class="footer-bottom">
+      <div class="footer-bottom-left" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <div class="footer-bottom-logo">НИЦАС</div>
+        <div class="footer-copy">
+          <span data-lang-ru>© 2026 ОЮЛ «Научно-исследовательский центр анализа и стратегии». Все права защищены.</span>
+          <span data-lang-en>© 2026 NITSAS Association. All rights reserved.</span>
+          <span data-lang-kz>© 2026 «НИЦАС» Ассоциациясы. Барлық құқықтар қорғалған.</span>
+        </div>
+      </div>
+      <div class="footer-badge">
+        <span data-lang-ru>Астана · Казахстан</span>
+        <span data-lang-en>Astana · Kazakhstan</span>
+        <span data-lang-kz>Астана · Қазақстан</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* PRELOADER */
+(function(){const pl=document.getElementById('preloader');if(!pl)return;const MIN=2400,t0=Date.now();function hide(){const w=Math.max(0,MIN-(Date.now()-t0));setTimeout(()=>{pl.classList.add('pl-hide');setTimeout(()=>pl.style.display='none',800);},w);}if(document.readyState==='complete')hide();else{window.addEventListener('load',hide,{once:true});setTimeout(()=>pl.classList.add('pl-hide'),4000);}})();
+
+/* SCROLL PROGRESS */
+(function(){const bar=document.getElementById('scrollProgress');window.addEventListener('scroll',()=>{const total=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(total>0?Math.round(window.scrollY/total*100):0)+'%';},{passive:true});})();
+
+/* LANG */
+function setLang(lang){
+  document.documentElement.setAttribute('data-lang',lang);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===lang));
+  localStorage.setItem('nitsas-lang',lang);
+}
+/* THEME */
+function toggleTheme(){
+  const next=document.documentElement.getAttribute('data-theme')==='light'?'':'light';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('nitsas-theme',next||'dark');
+}
+/* FADE-UP */
+const fadeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fadeObs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
+/* COUNTERS */
+function animateCounters(entries,observer){entries.forEach(entry=>{if(!entry.isIntersecting)return;const el=entry.target;const target=+el.getAttribute('data-count');const duration=1400;const start=performance.now();function tick(now){const t=Math.min((now-start)/duration,1);const ease=1-Math.pow(1-t,3);el.textContent=Math.round(ease*target);if(t<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);observer.unobserve(el);});}
+const cntObs=new IntersectionObserver(animateCounters,{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cntObs.observe(el));
+/* INIT */
+(function(){
+  const t=localStorage.getItem('nitsas-theme');
+  if(t==='light')document.documentElement.setAttribute('data-theme','light');
+  const lang=localStorage.getItem('nitsas-lang')||'ru';
+  setLang(lang);
+  window.addEventListener('scroll',()=>{document.getElementById('navbar').style.borderBottomColor=window.scrollY>40?'var(--border)':'var(--border2)';});
+})();
+</script>
+</body>
+</html>
