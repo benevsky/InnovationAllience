@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" data-lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turan Telematika — Телематические системы. Казахстанское производство.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,400&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   THEME
+================================================================ */
+[data-theme="dark"]{
+  --bg:#0a0a0a;--bg-elev:#111;--bg-card:#141414;
+  --border:#1e1e1e;--border-s:#2a2a2a;
+  --text:#ededed;--text-dim:#888;--text-faint:#505050;
+  --accent:#f0f0f0;--accent-dim:#999;--card-hover:#191919;
+  --grain:0.025;--glow:rgba(240,240,240,.06);--glow-s:rgba(240,240,240,.11);
+}
+[data-theme="light"]{
+  --bg:#f3f3f1;--bg-elev:#eaeae8;--bg-card:#e2e2e0;
+  --border:#cecece;--border-s:#b5b5b3;
+  --text:#0f0f0f;--text-dim:#505050;--text-faint:#909090;
+  --accent:#0f0f0f;--accent-dim:#404040;--card-hover:#d8d8d6;
+  --grain:0.012;--glow:rgba(0,0,0,.04);--glow-s:rgba(0,0,0,.08);
+}
+
+/* ================================================================
+   RESET
+================================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:15px}
+body{background:var(--bg);color:var(--text);font-family:'Geist',system-ui,sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .35s,color .35s}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
+  opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{text-decoration:none;color:inherit}
+.container{max-width:1180px;margin:0 auto;padding:0 32px}
+
+/* ================================================================
+   HEADER
+================================================================ */
+header{position:sticky;top:0;z-index:800;border-bottom:1px solid var(--border);transition:background .35s,border-color .35s}
+[data-theme="dark"] header{background:rgba(10,10,10,.88);backdrop-filter:blur(16px)}
+[data-theme="light"] header{background:rgba(243,243,241,.92);backdrop-filter:blur(16px)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 32px;max-width:1180px;margin:0 auto;gap:20px}
+.brand-name{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text);white-space:nowrap}
+.brand-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-top:2px}
+.nav-desktop{display:flex;gap:22px;align-items:center;flex:1;justify-content:center}
+.nav-desktop a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap;transition:color .2s}
+.nav-desktop a:hover{color:var(--accent)}
+.header-controls{display:flex;align-items:center;gap:12px}
+.lang-sw{display:flex;gap:3px}
+.lang-btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);background:none;border:none;cursor:pointer;padding:4px 7px;border-radius:2px;transition:color .2s,background .2s}
+.lang-btn.active{color:var(--text);background:var(--bg-card)}
+.theme-btn{background:none;border:1px solid var(--border-s);color:var(--text-dim);cursor:pointer;padding:5px 9px;border-radius:2px;font-size:13px;line-height:1;transition:all .2s}
+.theme-btn:hover{border-color:var(--accent-dim);color:var(--text)}
+.hamburger-btn{display:none;background:none;border:1px solid var(--border-s);color:var(--text-dim);cursor:pointer;padding:5px 10px;border-radius:2px;font-size:16px;line-height:1;transition:all .2s}
+.nav-mobile{display:none;flex-direction:column;border-top:1px solid var(--border);background:var(--bg)}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);padding:14px 24px;border-bottom:1px solid var(--border);transition:color .2s}
+.nav-mobile a:hover{color:var(--accent)}
+
+/* ================================================================
+   TICKER
+================================================================ */
+.ticker-wrap{overflow:hidden;border-bottom:1px solid var(--border);background:var(--bg-elev);padding:9px 0;cursor:default}
+.ticker{display:flex;gap:72px;width:max-content;animation:ticker-run 35s linear infinite}
+.ticker:hover{animation-play-state:paused}
+.ticker-item{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.ticker-item::before{content:'◆';color:var(--accent);font-size:5px}
+@keyframes ticker-run{to{transform:translateX(-50%)}}
+
+/* ================================================================
+   HERO — CRYPTIX CENTERED STYLE
+================================================================ */
+.hero{padding:90px 0 0;border-bottom:1px solid var(--border);position:relative;overflow:hidden;min-height:92vh;display:flex;flex-direction:column;align-items:center}
+.hero-grid{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:64px 64px;opacity:.32}
+.hero-fade{position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse 80% 70% at 50% 40%,transparent 20%,var(--bg) 85%)}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,var(--glow-s) 0%,transparent 65%);
+  top:30%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:1;
+  animation:glow-pulse 5s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}}
+.hero .container{position:relative;z-index:2;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center}
+
+/* Trust badge — like Cryptix "They trust us" */
+.hero-badge{display:inline-flex;align-items:center;gap:12px;background:var(--bg-card);
+  border:1px solid var(--border-s);padding:7px 18px;border-radius:40px;margin-bottom:36px}
+.hb-avatars{display:flex}
+.hb-av{width:26px;height:26px;border-radius:50%;background:var(--bg-elev);border:2px solid var(--bg-card);
+  display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:600;color:var(--text-dim);margin-left:-7px}
+.hb-av:first-child{margin-left:0}
+.hb-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:.06em}
+.hb-text strong{color:var(--text)}
+
+/* Hero H1 — word-by-word animation */
+@keyframes wordReveal{from{opacity:0;filter:blur(12px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+.hero-h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(44px,7.2vw,90px);
+  font-weight:400;line-height:1.04;letter-spacing:-.03em;margin-bottom:28px;max-width:900px}
+.hero-h1 .hl{display:block;opacity:0;animation:wordReveal .7s cubic-bezier(.2,.8,.2,1) forwards}
+.hero-h1 .hl:nth-child(1){animation-delay:.08s}
+.hero-h1 .hl:nth-child(2){animation-delay:.22s}
+.hero-h1 .hl:nth-child(3){animation-delay:.36s}
+.hero-h1 em{font-style:italic;font-weight:300;color:var(--accent)}
+
+.hero-lead{font-size:17px;line-height:1.7;color:var(--text-dim);max-width:620px;margin-bottom:40px;
+  opacity:0;animation:wordReveal .7s cubic-bezier(.2,.8,.2,1) .48s forwards}
+.hero-lead strong{color:var(--text);font-weight:500}
+
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:52px;
+  opacity:0;animation:wordReveal .7s cubic-bezier(.2,.8,.2,1) .6s forwards}
+
+.btn-prim{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:14px 30px;background:var(--accent);color:var(--bg);border:1px solid var(--accent);
+  cursor:pointer;transition:all .25s;display:inline-block}
+.btn-prim:hover{background:transparent;color:var(--accent)}
+.btn-sec{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:14px 30px;background:transparent;color:var(--text-dim);border:1px solid var(--border-s);
+  cursor:pointer;transition:all .25s;display:inline-block}
+.btn-sec:hover{border-color:var(--accent-dim);color:var(--text)}
+
+/* Inline stats strip */
+.hero-stats-strip{display:flex;gap:0;border:1px solid var(--border);margin-bottom:0;width:100%;
+  opacity:0;animation:wordReveal .7s cubic-bezier(.2,.8,.2,1) .72s forwards}
+.hss-item{flex:1;padding:22px 20px;border-right:1px solid var(--border);text-align:center}
+.hss-item:last-child{border-right:none}
+.hss-val{font-family:'Fraunces',Georgia,serif;font-size:clamp(24px,2.8vw,34px);font-weight:400;
+  letter-spacing:-.02em;line-height:1;margin-bottom:6px}
+.hss-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-faint)}
+
+/* Dashboard panel */
+.hero-panel{width:100%;border-left:1px solid var(--border);border-right:1px solid var(--border);
+  background:var(--bg-elev);position:relative;overflow:hidden;margin-top:56px;
+  opacity:0;animation:wordReveal .9s cubic-bezier(.2,.8,.2,1) .9s forwards}
+.hp-bar{display:flex;align-items:center;gap:16px;padding:12px 24px;
+  border-bottom:1px solid var(--border);background:var(--bg-card)}
+.hp-dots{display:flex;gap:6px}
+.hp-dot{width:10px;height:10px;border-radius:50%;background:var(--border-s)}
+.hp-title-bar{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-faint);flex:1;text-align:center}
+.hp-online{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.1em;color:var(--text-dim)}
+.hp-alive{width:7px;height:7px;border-radius:50%;background:var(--accent);
+  animation:alive-blink 2s ease-in-out infinite}
+@keyframes alive-blink{0%,100%{opacity:1}50%{opacity:.35}}
+.hp-body{display:grid;grid-template-columns:1fr 280px;gap:0}
+.hp-map{padding:32px 28px;border-right:1px solid var(--border);position:relative;min-height:220px}
+.hp-map-grid{position:absolute;inset:0;
+  background-image:radial-gradient(circle,var(--border-s) 1px,transparent 1px);
+  background-size:28px 28px;opacity:.5}
+.hp-signal{position:absolute;transform:translate(-50%,-50%)}
+.sig-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);position:relative;z-index:2}
+.sig-ring{position:absolute;top:50%;left:50%;width:8px;height:8px;border-radius:50%;
+  border:1px solid var(--accent);transform:translate(-50%,-50%);
+  animation:sig-pulse 2.4s ease-out infinite}
+.sig-ring:nth-child(2){animation-delay:.8s}
+@keyframes sig-pulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.8}100%{transform:translate(-50%,-50%) scale(4);opacity:0}}
+.sig-label{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;
+  color:var(--text-faint);white-space:nowrap}
+.hp-metrics{padding:24px 22px;display:flex;flex-direction:column;gap:18px}
+.hpm{display:flex;flex-direction:column;gap:6px}
+.hpm-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-faint);display:flex;justify-content:space-between}
+.hpm-lbl span{color:var(--text-dim)}
+.hpm-track{height:3px;background:var(--border-s);border-radius:0;overflow:hidden}
+.hpm-fill{height:100%;background:var(--accent);transform-origin:left;
+  transform:scaleX(0);animation:bar-grow 1.4s cubic-bezier(.2,.8,.2,1) 1.2s forwards}
+@keyframes bar-grow{to{transform:scaleX(1)}}
+.hp-fleet{margin-top:4px;border-top:1px solid var(--border);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+.hpf-row{display:flex;justify-content:space-between;align-items:center}
+.hpf-name{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--text-faint)}
+.hpf-ok{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim)}
+
+/* ================================================================
+   SECTION COMMONS
+================================================================ */
+section{padding:100px 0;border-bottom:1px solid var(--border)}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-faint);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(34px,4.5vw,56px);font-weight:400;
+  line-height:1.08;letter-spacing:-.025em;margin-bottom:20px;max-width:900px}
+h2 em{font-style:italic;font-weight:300;color:var(--accent)}
+.sec-lead{font-size:17px;color:var(--text-dim);max-width:720px;margin-bottom:56px;line-height:1.72}
+
+/* ================================================================
+   MANIFESTO
+================================================================ */
+.manifesto{padding:120px 0;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.mfst-bg{position:absolute;top:50%;left:-1%;transform:translateY(-50%);
+  font-family:'Fraunces',Georgia,serif;font-size:clamp(90px,20vw,260px);
+  font-weight:700;letter-spacing:-.04em;color:var(--text);opacity:.03;
+  pointer-events:none;user-select:none;white-space:nowrap;line-height:1}
+.manifesto .container{position:relative;z-index:1}
+.mfst-title{font-family:'Fraunces',Georgia,serif;font-size:clamp(34px,5vw,64px);
+  font-weight:400;line-height:1.1;letter-spacing:-.025em;margin-bottom:32px;max-width:820px}
+.mfst-title em{font-style:italic;font-weight:300;color:var(--accent)}
+.mfst-text{font-size:17px;color:var(--text-dim);max-width:680px;line-height:1.75;margin-bottom:52px}
+.mfst-text strong{color:var(--text);font-weight:500}
+.mfst-facts{display:flex;border:1px solid var(--border-s)}
+.mfst-fact{flex:1;padding:28px 26px;border-right:1px solid var(--border-s)}
+.mfst-fact:last-child{border-right:none}
+.mf-title{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--text);margin-bottom:6px}
+.mf-desc{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint)}
+
+/* ================================================================
+   ABOUT
+================================================================ */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:80px;align-items:start}
+.about-text p{font-size:16px;color:var(--text-dim);line-height:1.8;margin-bottom:18px}
+.about-text p:last-child{margin-bottom:0}
+.about-text strong{color:var(--text);font-weight:500}
+.about-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-s);border:1px solid var(--border-s)}
+.ab-fact{background:var(--bg-card);padding:26px 20px;transition:background .25s}
+.ab-fact:hover{background:var(--card-hover)}
+.abf-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px}
+.abf-val{font-family:'Fraunces',Georgia,serif;font-size:38px;font-weight:400;line-height:1;letter-spacing:-.02em;color:var(--accent);margin-bottom:4px}
+.abf-desc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint)}
+
+/* ================================================================
+   WHY SECTION (Cryptix "Why Choose" pattern)
+================================================================ */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-s);border:1px solid var(--border-s)}
+.why-card{background:var(--bg-card);padding:40px 36px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
+.why-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;
+  background:var(--accent);transition:height .38s cubic-bezier(.4,0,.2,1)}
+.why-card:hover{background:var(--card-hover)}
+.why-card:hover::before{height:100%}
+.why-inner{transition:transform .32s cubic-bezier(.4,0,.2,1)}
+.why-card:hover .why-inner{transform:translateX(5px)}
+.why-icon{font-size:24px;margin-bottom:18px;opacity:.7}
+.why-title{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:500;margin-bottom:12px;letter-spacing:-.01em}
+.why-desc{font-size:14px;color:var(--text-dim);line-height:1.68}
+
+/* ================================================================
+   DIRECTIONS
+================================================================ */
+.dir-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-s);border:1px solid var(--border-s)}
+.dir-card{background:var(--bg-card);padding:42px 38px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
+.dir-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;
+  background:var(--accent);transition:height .38s cubic-bezier(.4,0,.2,1)}
+.dir-card:hover{background:var(--card-hover)}
+.dir-card:hover::before{height:100%}
+.dir-inner{transition:transform .32s cubic-bezier(.4,0,.2,1)}
+.dir-card:hover .dir-inner{transform:translateX(5px)}
+.dir-num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--accent-dim);margin-bottom:16px}
+.dir-title{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:500;margin-bottom:14px;letter-spacing:-.01em;line-height:1.2}
+.dir-desc{color:var(--text-dim);font-size:14px;line-height:1.68;margin-bottom:24px}
+.dir-tags{display:flex;flex-wrap:wrap;gap:6px}
+.dir-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint);
+  background:var(--bg-elev);padding:5px 10px;border:1px solid var(--border);letter-spacing:.04em}
+
+/* ================================================================
+   HOW IT WORKS (Cryptix Steps pattern)
+================================================================ */
+.hiw-steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border:1px solid var(--border-s);margin-top:56px}
+.hiw-step{padding:40px 32px;border-right:1px solid var(--border-s);position:relative;
+  background:var(--bg-card);transition:background .3s}
+.hiw-step:last-child{border-right:none}
+.hiw-step:hover{background:var(--card-hover)}
+.hiw-num{font-family:'Fraunces',Georgia,serif;font-size:56px;font-weight:400;
+  letter-spacing:-.04em;color:var(--text-faint);opacity:.4;line-height:1;margin-bottom:20px}
+.hiw-icon{font-size:20px;margin-bottom:14px;opacity:.6}
+.hiw-title{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:500;margin-bottom:10px;letter-spacing:-.01em;line-height:1.25}
+.hiw-desc{font-size:13px;color:var(--text-dim);line-height:1.65}
+/* Arrow connector */
+.hiw-step::after{content:'→';position:absolute;right:-14px;top:50%;transform:translateY(-50%);
+  font-size:16px;color:var(--text-faint);z-index:2}
+.hiw-step:last-child::after{display:none}
+
+/* ================================================================
+   PRODUCTION STACK
+================================================================ */
+.stack-wrap{border:1px solid var(--border-s);overflow:hidden;margin-top:48px;position:relative}
+.stack-wrap::after{content:'';position:absolute;top:0;left:-100%;width:80px;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(240,240,240,.05),transparent);
+  pointer-events:none;animation:stack-scan 2.8s ease-out .8s forwards}
+[data-theme="light"] .stack-wrap::after{background:linear-gradient(90deg,transparent,rgba(0,0,0,.04),transparent)}
+@keyframes stack-scan{0%{left:-100%}100%{left:110%}}
+.stack-head{display:grid;grid-template-columns:170px 1fr;padding:14px 32px;
+  background:var(--bg-elev);border-bottom:1px solid var(--border-s)}
+.sh-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint)}
+.stack-row{display:grid;grid-template-columns:170px 1fr;padding:22px 32px;
+  border-bottom:1px solid var(--border);align-items:center;transition:background .22s;
+  opacity:0;transform:translateX(-18px)}
+.stack-row:last-child{border-bottom:none}
+.stack-row:hover{background:var(--bg-elev)}
+.stack-row.in{animation:row-reveal .5s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes row-reveal{to{opacity:1;transform:translateX(0)}}
+.s-layer{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);padding-right:20px}
+.s-pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:var(--bg-elev);border:1px solid var(--border-s);padding:7px 14px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);transition:all .2s;cursor:default}
+.pill.hi{border-color:var(--accent-dim);color:var(--accent);background:transparent}
+.pill:hover{background:var(--accent);color:var(--bg);border-color:var(--accent);transform:translateY(-2px)}
+
+/* ================================================================
+   SCALE NUMBERS
+================================================================ */
+.scale-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-s);border:1px solid var(--border-s)}
+.scale-cell{background:var(--bg-card);padding:44px 38px;transition:background .25s}
+.scale-cell:hover{background:var(--card-hover)}
+.sc-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:16px}
+.sc-val{font-family:'Fraunces',Georgia,serif;font-size:clamp(44px,5.5vw,68px);font-weight:400;line-height:1;letter-spacing:-.03em;color:var(--text);margin-bottom:14px}
+.sc-desc{font-size:13px;color:var(--text-dim);line-height:1.6}
+
+/* ================================================================
+   TESTIMONIALS (Cryptix pattern)
+================================================================ */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-s);border:1px solid var(--border-s);margin-top:56px}
+.test-card{background:var(--bg-card);padding:36px 32px;transition:background .25s;position:relative;overflow:hidden}
+.test-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;
+  background:var(--accent);transition:height .38s cubic-bezier(.4,0,.2,1)}
+.test-card:hover{background:var(--card-hover)}
+.test-card:hover::before{height:100%}
+.test-stars{font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:16px}
+.test-quote{font-family:'Fraunces',Georgia,serif;font-size:16px;font-style:italic;font-weight:300;
+  color:var(--text-dim);line-height:1.65;margin-bottom:24px}
+.test-quote::before{content:'"';font-size:40px;line-height:1;color:var(--text-faint);font-style:normal;display:block;margin-bottom:4px}
+.test-author{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-faint)}
+.test-author strong{color:var(--text-dim);display:block;margin-bottom:2px}
+
+/* ================================================================
+   INVESTOR
+================================================================ */
+.inv-section{background:var(--bg-elev)}
+.inv-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-s);border:1px solid var(--border-s);margin-bottom:56px}
+.inv-metric{background:var(--bg-card);padding:30px 26px}
+.im-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px}
+.im-val{font-family:'Fraunces',Georgia,serif;font-size:34px;font-weight:400;letter-spacing:-.02em;color:var(--accent)}
+.inv-why{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:48px}
+.iw-card{background:var(--bg-card);border:1px solid var(--border-s);padding:36px 32px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
+.iw-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--accent);transition:height .38s cubic-bezier(.4,0,.2,1)}
+.iw-card:hover{background:var(--card-hover)}
+.iw-card:hover::before{height:100%}
+.iw-inner{transition:transform .32s cubic-bezier(.4,0,.2,1)}
+.iw-card:hover .iw-inner{transform:translateX(5px)}
+.iw-title{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:500;margin-bottom:12px;letter-spacing:-.01em}
+.iw-desc{font-size:14px;color:var(--text-dim);line-height:1.68}
+.inv-cta-box{background:var(--bg-card);border:1px solid var(--border-s);padding:52px 48px;display:flex;align-items:center;justify-content:space-between;gap:48px}
+.inv-cta-copy{font-family:'Fraunces',Georgia,serif;font-size:clamp(18px,2.2vw,26px);font-style:italic;font-weight:300;color:var(--text-dim);max-width:560px;line-height:1.45}
+.inv-cta-copy strong{color:var(--text);font-style:normal;font-weight:400}
+
+/* ================================================================
+   FAQ (Cryptix accordion pattern)
+================================================================ */
+.faq-list{margin-top:56px;border:1px solid var(--border-s)}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{display:flex;justify-content:space-between;align-items:center;
+  padding:26px 32px;cursor:pointer;transition:background .2s;gap:20px}
+.faq-q:hover{background:var(--bg-elev)}
+.faq-q-text{font-family:'Fraunces',Georgia,serif;font-size:18px;font-weight:400;letter-spacing:-.01em;line-height:1.3}
+.faq-icon{font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--text-faint);
+  flex-shrink:0;transition:transform .3s;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 32px 26px;color:var(--text-dim);font-size:15px;line-height:1.75;max-width:800px}
+.faq-item.open .faq-a{display:block}
+
+/* ================================================================
+   LAST CTA (Cryptix closing section)
+================================================================ */
+.last-cta{padding:120px 0;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.last-cta-bg{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:64px 64px;opacity:.2}
+.last-cta-glow{position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,var(--glow-s) 0%,transparent 65%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+  animation:glow-pulse 5s ease-in-out infinite}
+.last-cta .container{position:relative;z-index:1}
+.last-cta-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--text-faint);margin-bottom:24px}
+.last-cta-title{font-family:'Fraunces',Georgia,serif;font-size:clamp(38px,5.5vw,68px);
+  font-weight:400;line-height:1.08;letter-spacing:-.03em;margin-bottom:22px}
+.last-cta-title em{font-style:italic;font-weight:300;color:var(--accent)}
+.last-cta-sub{font-size:17px;color:var(--text-dim);max-width:580px;margin:0 auto 44px;line-height:1.68}
+.last-cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ================================================================
+   CONTACTS
+================================================================ */
+.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:32px}
+.ci-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-faint);margin-bottom:6px}
+.ci-val{font-size:17px;color:var(--text)}
+.ci-val a{transition:color .2s}
+.ci-val a:hover{color:var(--accent-dim)}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-g{display:flex;flex-direction:column;gap:7px}
+.f-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+.f-in,.f-ta{background:var(--bg-card);border:1px solid var(--border-s);color:var(--text);font-family:'Geist',sans-serif;font-size:14px;padding:11px 15px;outline:none;width:100%;transition:border-color .2s}
+.f-ta{resize:vertical;min-height:100px}
+.f-in:focus,.f-ta:focus{border-color:var(--accent-dim)}
+.f-in::placeholder,.f-ta::placeholder{color:var(--text-faint)}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+footer{padding:80px 0 48px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr;gap:64px;align-items:end;
+  padding-bottom:48px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.footer-quote{font-family:'Fraunces',Georgia,serif;font-size:clamp(20px,2.6vw,30px);
+  font-style:italic;font-weight:300;line-height:1.38;color:var(--text);max-width:720px}
+.footer-quote span{color:var(--accent);font-style:normal}
+.footer-brand-blk{text-align:right}
+.fb-name{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text);margin-bottom:6px}
+.fb-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint);letter-spacing:.05em}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint);
+  letter-spacing:.06em;flex-wrap:wrap;gap:12px}
+
+/* ================================================================
+   SCROLL REVEAL
+================================================================ */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.2,.8,.2,1),transform .65s cubic-bezier(.2,.8,.2,1)}
+.rv.show{opacity:1;transform:translateY(0)}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}.rv-d4{transition-delay:.4s}
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+@media(max-width:960px){
+  .nav-desktop{display:none}.hamburger-btn{display:block}
+  .hero-stats-strip{grid-template-columns:repeat(2,1fr)}
+  .hss-item:nth-child(2){border-right:none}
+  .hss-item:nth-child(3){border-top:1px solid var(--border)}
+  .hss-item:nth-child(4){border-top:1px solid var(--border);border-right:none}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .hiw-steps{grid-template-columns:repeat(2,1fr)}
+  .hiw-step:nth-child(2){border-right:none}
+  .hiw-step:nth-child(2)::after{display:none}
+  .hiw-step:nth-child(3){border-top:1px solid var(--border-s)}
+  .test-grid{grid-template-columns:1fr}
+  .contacts-grid{grid-template-columns:1fr;gap:48px}
+  .footer-top{grid-template-columns:1fr;gap:32px}
+  .footer-brand-blk{text-align:left}
+  .inv-metrics{grid-template-columns:repeat(2,1fr)}
+  .inv-cta-box{flex-direction:column;align-items:flex-start;gap:28px}
+  .scale-grid{grid-template-columns:repeat(2,1fr)}
+  .inv-why{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .hp-body{grid-template-columns:1fr}
+  .hp-metrics{border-top:1px solid var(--border)}
+}
+@media(max-width:680px){
+  .container{padding:0 20px}.header-inner{padding:11px 20px}
+  section{padding:64px 0}.manifesto{padding:80px 0}
+  .hero{padding:64px 0 0;min-height:auto}
+  .hero-grid{display:none}
+  .hero-h1{font-size:clamp(36px,10vw,54px)}
+  .hero-badge{margin-bottom:24px}
+  .hero-stats-strip{grid-template-columns:repeat(2,1fr)}
+  .dir-grid{grid-template-columns:1fr}
+  .scale-grid{grid-template-columns:1fr}
+  .inv-metrics{grid-template-columns:1fr}
+  .mfst-facts{flex-direction:column}
+  .mfst-fact{border-right:none;border-bottom:1px solid var(--border-s)}
+  .mfst-fact:last-child{border-bottom:none}
+  .stack-head{grid-template-columns:1fr}
+  .stack-row{grid-template-columns:1fr;gap:10px;padding:16px 20px}
+  .inv-cta-box{padding:32px 22px}
+  .about-facts{grid-template-columns:1fr}
+  .hiw-steps{grid-template-columns:1fr}
+  .hiw-step{border-right:none!important;border-top:1px solid var(--border-s)}
+  .hiw-step:first-child{border-top:none}
+  .hiw-step::after{display:none!important}
+  .test-grid{grid-template-columns:1fr}
+  .faq-q{padding:20px 20px}
+  .faq-a{padding:0 20px 20px}
+  .last-cta{padding:80px 0}
+  .hero-panel{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="brand-name" data-i18n="brand">Turan Telematika</div>
+      <div class="brand-sub" data-i18n="brand.sub">Производство · Казахстан</div>
+    </div>
+    <nav class="nav-desktop">
+      <a href="#about" data-i18n="nav.about">О компании</a>
+      <a href="#directions" data-i18n="nav.directions">Направления</a>
+      <a href="#howitworks" data-i18n="nav.hiw">Как работаем</a>
+      <a href="#production" data-i18n="nav.production">Производство</a>
+      <a href="#investor" data-i18n="nav.investor">Инвестору</a>
+      <a href="#contacts" data-i18n="nav.contacts">Контакты</a>
+    </nav>
+    <div class="header-controls">
+      <div class="lang-sw">
+        <button class="lang-btn active" data-set-lang="ru">RU</button>
+        <button class="lang-btn" data-set-lang="kz">KZ</button>
+        <button class="lang-btn" data-set-lang="en">EN</button>
+      </div>
+      <button class="theme-btn" id="themeBtn" title="Toggle theme">◐</button>
+      <button class="hamburger-btn" id="burgerBtn">☰</button>
+    </div>
+  </div>
+  <nav class="nav-mobile" id="mobileNav">
+    <a href="#about" data-i18n="nav.about">О компании</a>
+    <a href="#directions" data-i18n="nav.directions">Направления</a>
+    <a href="#howitworks" data-i18n="nav.hiw">Как работаем</a>
+    <a href="#production" data-i18n="nav.production">Производство</a>
+    <a href="#investor" data-i18n="nav.investor">Инвестору</a>
+    <a href="#contacts" data-i18n="nav.contacts">Контакты</a>
+  </nav>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker" id="tickerTrack"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-badge">
+      <div class="hb-avatars">
+        <div class="hb-av">К</div><div class="hb-av">А</div><div class="hb-av">М</div>
+      </div>
+      <div class="hb-text" data-i18n="hero.badge">Доверяют <strong>500+</strong> компаний Казахстана</div>
+    </div>
+    <h1 class="hero-h1">
+      <span class="hl" data-i18n="hero.l1">Телематические системы.</span>
+      <span class="hl" data-i18n="hero.l2">Казахстанское</span>
+      <span class="hl"><em data-i18n="hero.l3">производство.</em></span>
+    </h1>
+    <p class="hero-lead" data-i18n="hero.lead">Turan Telematika — отечественный производитель телематических систем полного цикла. Разработка, производство и внедрение интеллектуальных решений для мониторинга транспорта и промышленной инфраструктуры.</p>
+    <div class="hero-actions">
+      <a href="#directions" class="btn-prim" data-i18n="hero.cta.primary">Направления деятельности</a>
+      <a href="#investor" class="btn-sec" data-i18n="hero.cta.secondary">Инвесторам</a>
+    </div>
+    <div class="hero-stats-strip">
+      <div class="hss-item">
+        <div class="hss-val" data-i18n="hero.s1.val">2011</div>
+        <div class="hss-label" data-i18n="hero.s1.label">Год основания</div>
+      </div>
+      <div class="hss-item">
+        <div class="hss-val">50 000+</div>
+        <div class="hss-label" data-i18n="hero.s2.label">Устройств</div>
+      </div>
+      <div class="hss-item">
+        <div class="hss-val">500+</div>
+        <div class="hss-label" data-i18n="hero.s3.label">Клиентов</div>
+      </div>
+      <div class="hss-item">
+        <div class="hss-val">4</div>
+        <div class="hss-label" data-i18n="hero.s4.label">Направления</div>
+      </div>
+    </div>
+    <div class="hero-panel" aria-hidden="true">
+      <div class="hp-bar">
+        <div class="hp-dots"><span class="hp-dot"></span><span class="hp-dot"></span><span class="hp-dot"></span></div>
+        <div class="hp-title-bar">TT MONITOR · LIVE TRACKING</div>
+        <div class="hp-online"><span class="hp-alive"></span>ONLINE · 50 234 DEVICES</div>
+      </div>
+      <div class="hp-body">
+        <div class="hp-map">
+          <div class="hp-map-grid"></div>
+          <div class="hp-signal" style="top:42%;left:65%">
+            <div class="sig-ring"></div><div class="sig-ring" style="animation-delay:.8s"></div>
+            <div class="sig-dot"></div><div class="sig-label">АСТ</div>
+          </div>
+          <div class="hp-signal" style="top:72%;left:35%">
+            <div class="sig-ring"></div><div class="sig-ring" style="animation-delay:1.1s"></div>
+            <div class="sig-dot"></div><div class="sig-label">АЛА</div>
+          </div>
+          <div class="hp-signal" style="top:55%;left:20%">
+            <div class="sig-dot"></div><div class="sig-label">ШЫМ</div>
+          </div>
+          <div class="hp-signal" style="top:38%;left:48%">
+            <div class="sig-dot"></div><div class="sig-label">КРГ</div>
+          </div>
+          <div class="hp-signal" style="top:30%;left:80%">
+            <div class="sig-dot"></div><div class="sig-label">ПАВ</div>
+          </div>
+        </div>
+        <div class="hp-metrics">
+          <div class="hpm">
+            <div class="hpm-lbl">GPS COVERAGE <span>87%</span></div>
+            <div class="hpm-track"><div class="hpm-fill" style="width:87%"></div></div>
+          </div>
+          <div class="hpm">
+            <div class="hpm-lbl">SYSTEM UPTIME <span>99.9%</span></div>
+            <div class="hpm-track"><div class="hpm-fill" style="width:99%"></div></div>
+          </div>
+          <div class="hpm">
+            <div class="hpm-lbl">ACTIVE FLEETS <span>312</span></div>
+            <div class="hpm-track"><div class="hpm-fill" style="width:62%"></div></div>
+          </div>
+          <div class="hp-fleet">
+            <div class="hpf-row"><span class="hpf-name">QAZAQ TRANSPORT</span><span class="hpf-ok">● ONLINE</span></div>
+            <div class="hpf-row"><span class="hpf-name">ASTANA LOGISTIC</span><span class="hpf-ok">● ONLINE</span></div>
+            <div class="hpf-row"><span class="hpf-name">KAZMUNAYGAS FLEET</span><span class="hpf-ok">● ONLINE</span></div>
+            <div class="hpf-row"><span class="hpf-name">SHYMKENT OIL</span><span class="hpf-ok">● ONLINE</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <div class="mfst-bg" data-i18n="mfst.bg">ПРОИЗВОДСТВО</div>
+  <div class="container">
+    <div class="sec-label rv" data-i18n="mfst.label">Позиционирование</div>
+    <div class="mfst-title rv rv-d1" data-i18n-html="mfst.title">Одно из немногих отечественных производств<br>телематических систем<br><em>полного цикла в Казахстане</em></div>
+    <p class="mfst-text rv rv-d2" data-i18n-html="mfst.text">Большинство телематических решений на рынке — <strong>импортные</strong>. Turan Telematika производит оборудование в Казахстане, контролируя каждый этап: от разработки схемотехники до полевого внедрения и сервисного сопровождения.</p>
+    <div class="mfst-facts rv rv-d3">
+      <div class="mfst-fact">
+        <div class="mf-title" data-i18n="mfst.fact1">Полный цикл</div>
+        <div class="mf-desc" data-i18n="mfst.fact1.desc">от проектирования до сервиса</div>
+      </div>
+      <div class="mfst-fact">
+        <div class="mf-title" data-i18n="mfst.fact2">Локализация</div>
+        <div class="mf-desc" data-i18n="mfst.fact2.desc">производство внутри страны</div>
+      </div>
+      <div class="mfst-fact">
+        <div class="mf-title" data-i18n="mfst.fact3">Сертификация</div>
+        <div class="mf-desc" data-i18n="mfst.fact3.desc">по международным стандартам</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="about.label">01 · О компании</div>
+    <h2 class="rv rv-d1" data-i18n-html="about.h2">Turan Telematika —<br><em>14 лет на рынке</em></h2>
+    <div class="about-grid">
+      <div class="about-text rv rv-d2">
+        <p data-i18n="about.lead">Основана в 2011 году в Астане, Turan Telematika специализируется на разработке и производстве телематических систем для транспорта, промышленности и государственного сектора. Компания под руководством Кабжанова Каната Мелесовича выстроила полный производственный цикл — от схемотехники до облачной платформы.</p>
+        <p data-i18n="about.p2">Решения компании функционируют на объектах по всему Казахстану и странам СНГ: транспортные парки, экологические станции мониторинга, промышленные предприятия нефтегазового сектора. Продукция сертифицирована по требованиям регуляторов Республики Казахстан.</p>
+      </div>
+      <div class="about-facts rv rv-d3">
+        <div class="ab-fact">
+          <div class="abf-label" data-i18n="about.fact1.label">Год основания</div>
+          <div class="abf-val">2011</div>
+        </div>
+        <div class="ab-fact">
+          <div class="abf-label" data-i18n="about.fact2.label">БИН</div>
+          <div class="abf-val" style="font-size:22px;letter-spacing:-.01em">201140016073</div>
+        </div>
+        <div class="ab-fact">
+          <div class="abf-label" data-i18n="about.fact3.label">Направлений</div>
+          <div class="abf-val">4</div>
+        </div>
+        <div class="ab-fact">
+          <div class="abf-label" data-i18n="about.fact4.label">Устройств в эксплуатации</div>
+          <div class="abf-val">50K+</div>
+          <div class="abf-desc" data-i18n="about.fact4.desc">по Казахстану и СНГ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="why.label">02 · Конкурентные преимущества</div>
+    <h2 class="rv rv-d1" data-i18n-html="why.h2">Почему выбирают<br><em>Turan Telematika</em></h2>
+    <p class="sec-lead rv rv-d2" data-i18n="why.lead">Полный контроль над производственным процессом, казахстанская локализация и собственная инженерная экспертиза — ключевые преимущества перед импортными поставщиками.</p>
+    <div class="why-grid">
+      <div class="why-card rv">
+        <div class="why-inner">
+          <div class="why-icon">⬡</div>
+          <div class="why-title" data-i18n="why.1.title">Полный производственный цикл</div>
+          <div class="why-desc" data-i18n="why.1.desc">От разработки принципиальных схем и PCB-проектирования до финального тестирования и полевого внедрения. Каждый этап контролируется собственной командой инженеров.</div>
+        </div>
+      </div>
+      <div class="why-card rv rv-d1">
+        <div class="why-inner">
+          <div class="why-icon">◈</div>
+          <div class="why-title" data-i18n="why.2.title">Сертифицированная продукция</div>
+          <div class="why-desc" data-i18n="why.2.desc">Вся продукция сертифицирована в соответствии с требованиями регуляторов РК, допущена к государственным закупкам и соответствует стандартам EMC/EMI и климатических испытаний.</div>
+        </div>
+      </div>
+      <div class="why-card rv rv-d2">
+        <div class="why-inner">
+          <div class="why-icon">⊕</div>
+          <div class="why-title" data-i18n="why.3.title">Независимость от импорта</div>
+          <div class="why-desc" data-i18n="why.3.desc">Казахстанское производство обеспечивает устойчивость к перебоям поставок, предсказуемые сроки и возможность адаптации под специфические требования заказчика без зависимости от зарубежных вендоров.</div>
+        </div>
+      </div>
+      <div class="why-card rv rv-d3">
+        <div class="why-inner">
+          <div class="why-icon">◎</div>
+          <div class="why-title" data-i18n="why.4.title">Государственные преференции</div>
+          <div class="why-desc" data-i18n="why.4.desc">Статус отечественного производителя предоставляет приоритет при участии в государственных тендерах и программах цифровизации транспортной инфраструктуры Казахстана.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section id="directions">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="dir.label">03 · Направления деятельности</div>
+    <h2 class="rv rv-d1" data-i18n-html="dir.h2">Четыре ключевых<br><em>направления</em></h2>
+    <p class="sec-lead rv rv-d2" data-i18n="dir.lead">Каждое направление обеспечено собственной производственной базой, инженерной командой и сертификационной документацией.</p>
+    <div class="dir-grid">
+      <div class="dir-card rv">
+        <div class="dir-inner">
+          <div class="dir-num" data-i18n="dir.1.num">→ 01</div>
+          <div class="dir-title" data-i18n="dir.1.title">Транспортная телематика</div>
+          <div class="dir-desc" data-i18n="dir.1.desc">GPS/GLONASS трекеры, системы мониторинга топлива, контроль скоростного режима и состояния водителя. Решения для корпоративных парков — от 10 до 10 000+ единиц.</div>
+          <div class="dir-tags" data-i18n-tags="dir.1.tags"></div>
+        </div>
+      </div>
+      <div class="dir-card rv rv-d1">
+        <div class="dir-inner">
+          <div class="dir-num" data-i18n="dir.2.num">→ 02</div>
+          <div class="dir-title" data-i18n="dir.2.title">Экологический мониторинг</div>
+          <div class="dir-desc" data-i18n="dir.2.desc">Системы контроля качества воздуха, воды и почвы. Прогнозирование и раннее предупреждение природных явлений. Интеграция с государственными системами контроля окружающей среды.</div>
+          <div class="dir-tags" data-i18n-tags="dir.2.tags"></div>
+        </div>
+      </div>
+      <div class="dir-card rv rv-d2">
+        <div class="dir-inner">
+          <div class="dir-num" data-i18n="dir.3.num">→ 03</div>
+          <div class="dir-title" data-i18n="dir.3.title">Информационная безопасность</div>
+          <div class="dir-desc" data-i18n="dir.3.desc">Защищённые каналы передачи данных, шифрование на уровне устройства, аудит и мониторинг сетевой инфраструктуры. Решения, сертифицированные по требованиям КНБ РК.</div>
+          <div class="dir-tags" data-i18n-tags="dir.3.tags"></div>
+        </div>
+      </div>
+      <div class="dir-card rv rv-d3">
+        <div class="dir-inner">
+          <div class="dir-num" data-i18n="dir.4.num">→ 04</div>
+          <div class="dir-title" data-i18n="dir.4.title">Промышленный IoT</div>
+          <div class="dir-desc" data-i18n="dir.4.desc">Мониторинг промышленного оборудования, предиктивное техническое обслуживание, интеграция с ERP/SCADA системами. Поддержка протоколов Modbus, OPC-UA, MQTT.</div>
+          <div class="dir-tags" data-i18n-tags="dir.4.tags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="howitworks">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="hiw.label">04 · Процесс работы</div>
+    <h2 class="rv rv-d1" data-i18n-html="hiw.h2">От обращения до<br><em>работающего решения</em></h2>
+    <p class="sec-lead rv rv-d2" data-i18n="hiw.lead">Структурированный процесс взаимодействия обеспечивает предсказуемые сроки, контролируемое качество и полное соответствие техническому заданию заказчика.</p>
+    <div class="hiw-steps rv rv-d3">
+      <div class="hiw-step">
+        <div class="hiw-num">01</div>
+        <div class="hiw-icon">◎</div>
+        <div class="hiw-title" data-i18n="hiw.1.title">Обращение и консультация</div>
+        <div class="hiw-desc" data-i18n="hiw.1.desc">Анализ задачи заказчика, определение технических требований и формирование технического задания. Предварительная оценка стоимости и сроков реализации.</div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num">02</div>
+        <div class="hiw-icon">⬡</div>
+        <div class="hiw-title" data-i18n="hiw.2.title">Техническое проектирование</div>
+        <div class="hiw-desc" data-i18n="hiw.2.desc">Разработка схемотехники, PCB-проектирование, выбор компонентов, создание прошивки. Прототипирование и лабораторное тестирование разработанного решения.</div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num">03</div>
+        <div class="hiw-icon">◈</div>
+        <div class="hiw-title" data-i18n="hiw.3.title">Производство и контроль качества</div>
+        <div class="hiw-desc" data-i18n="hiw.3.desc">Серийное производство, климатические испытания, EMC/EMI тестирование. Контроль качества на каждом этапе производственной линии с полной документацией.</div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num">04</div>
+        <div class="hiw-icon">⊕</div>
+        <div class="hiw-title" data-i18n="hiw.4.title">Внедрение и сопровождение</div>
+        <div class="hiw-desc" data-i18n="hiw.4.desc">Монтаж, настройка, обучение персонала заказчика. Гарантийное и постгарантийное сервисное обслуживание, обновление программного обеспечения.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTION STACK -->
+<section id="production">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="stack.label">05 · Технологический стек</div>
+    <h2 class="rv rv-d1" data-i18n-html="stack.h2">Полный цикл — <em>от идеи до устройства</em></h2>
+    <p class="sec-lead rv rv-d2" data-i18n="stack.lead">Собственная разработка схемотехники, производство плат, написание прошивок, разработка облачной платформы и полевое внедрение — без привлечения субподрядчиков.</p>
+    <div class="stack-wrap rv rv-d3" id="stackWrap">
+      <div class="stack-head">
+        <div class="sh-label" data-i18n="stack.col1">Уровень</div>
+        <div class="sh-label" data-i18n="stack.col2">Технологии и инструменты</div>
+      </div>
+      <div class="stack-row" data-layer="stack.layer1"><div class="s-layer" data-i18n="stack.layer1">Проектирование</div><div class="s-pills"><span class="pill hi">PCB Design</span><span class="pill hi">CAD / САПР</span><span class="pill">Схемотехника</span><span class="pill">ГОСТ-compliant</span><span class="pill">Прототипирование</span></div></div>
+      <div class="stack-row" data-layer="stack.layer2"><div class="s-layer" data-i18n="stack.layer2">Компоненты</div><div class="s-pills"><span class="pill hi">GPS · GLONASS</span><span class="pill hi">LTE / 4G</span><span class="pill hi">CAN Bus</span><span class="pill">LoRaWAN</span><span class="pill">RS-485</span><span class="pill">Bluetooth 5.0</span></div></div>
+      <div class="stack-row" data-layer="stack.layer3"><div class="s-layer" data-i18n="stack.layer3">Прошивка</div><div class="s-pills"><span class="pill hi">Embedded C/C++</span><span class="pill hi">FreeRTOS</span><span class="pill">AT-команды</span><span class="pill">FOTA</span><span class="pill">Bootloader</span></div></div>
+      <div class="stack-row" data-layer="stack.layer4"><div class="s-layer" data-i18n="stack.layer4">Облако</div><div class="s-pills"><span class="pill hi">PostgreSQL</span><span class="pill hi">REST API</span><span class="pill hi">MQTT</span><span class="pill">Docker</span><span class="pill">WebSocket</span><span class="pill">Kubernetes</span></div></div>
+      <div class="stack-row" data-layer="stack.layer5"><div class="s-layer" data-i18n="stack.layer5">Интерфейс</div><div class="s-pills"><span class="pill hi">Web Dashboard</span><span class="pill hi">iOS / Android</span><span class="pill">Telegram Bot</span><span class="pill">Open API</span></div></div>
+      <div class="stack-row" data-layer="stack.layer6"><div class="s-layer" data-i18n="stack.layer6">Тестирование</div><div class="s-pills"><span class="pill hi">Климатические испытания</span><span class="pill hi">EMC / EMI</span><span class="pill">Полевые тесты</span><span class="pill">Нагрузочное тестирование</span></div></div>
+      <div class="stack-row" data-layer="stack.layer7"><div class="s-layer" data-i18n="stack.layer7">Сертификация</div><div class="s-pills"><span class="pill hi">ISO 9001</span><span class="pill hi">ГОСТ Р</span><span class="pill">ТС КА</span><span class="pill">Реестр РК</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCALE -->
+<section id="scale">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="scale.label">06 · Компания в цифрах</div>
+    <h2 class="rv rv-d1" data-i18n-html="scale.h2">Ключевые <em>показатели деятельности</em></h2>
+    <div class="scale-grid">
+      <div class="scale-cell rv"><div class="sc-label" data-i18n="scale.s1.label">Устройств в эксплуатации</div><div class="sc-val" data-count="50000" data-suffix="+">50 000+</div><div class="sc-desc" data-i18n="scale.s1.desc">GPS/GLONASS трекеры и комплексные системы мониторинга по всему Казахстану и СНГ.</div></div>
+      <div class="scale-cell rv rv-d1"><div class="sc-label" data-i18n="scale.s2.label">Активных клиентов</div><div class="sc-val" data-count="500" data-suffix="+">500+</div><div class="sc-desc" data-i18n="scale.s2.desc">От малого бизнеса до государственных предприятий и нефтегазовых корпораций.</div></div>
+      <div class="scale-cell rv rv-d2"><div class="sc-label" data-i18n="scale.s3.label">Лет на рынке</div><div class="sc-val" data-count="14" data-suffix="+">14+</div><div class="sc-desc" data-i18n="scale.s3.desc">Накопленная экспертиза по полному циклу разработки телематических систем с 2011 года.</div></div>
+      <div class="scale-cell rv rv-d1"><div class="sc-label" data-i18n="scale.s4.label">Налоговые отчисления 2025</div><div class="sc-val" style="font-size:clamp(28px,3.5vw,46px)">₸25.6 млн</div><div class="sc-desc" data-i18n="scale.s4.desc">Подтверждённые налоговые отчисления согласно данным Комитета государственных доходов РК.</div></div>
+      <div class="scale-cell rv rv-d2"><div class="sc-label" data-i18n="scale.s5.label">Направлений деятельности</div><div class="sc-val" data-count="4">4</div><div class="sc-desc" data-i18n="scale.s5.desc">Транспортная телематика, экологический мониторинг, информационная безопасность, промышленный IoT.</div></div>
+      <div class="scale-cell rv rv-d3"><div class="sc-label" data-i18n="scale.s6.label">Государственных проектов</div><div class="sc-val" data-count="40" data-suffix="+">40+</div><div class="sc-desc" data-i18n="scale.s6.desc">Инфраструктурные проекты с государственными органами и национальными компаниями РК.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="test.label">07 · Клиенты о нас</div>
+    <h2 class="rv rv-d1" data-i18n-html="test.h2">Отзывы <em>партнёров</em></h2>
+    <div class="test-grid">
+      <div class="test-card rv">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-quote" data-i18n="test.1.q">Turan Telematika обеспечила нашему парку надёжную систему мониторинга. Оборудование работает без сбоев в самых сложных условиях — от казахстанских морозов до летнего зноя.</div>
+        <div class="test-author"><strong data-i18n="test.1.name">Директор по логистике</strong><span data-i18n="test.1.co">Транспортная компания, Астана</span></div>
+      </div>
+      <div class="test-card rv rv-d1">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-quote" data-i18n="test.2.q">Внедрили систему экологического мониторинга на нашем производственном объекте. Интеграция с государственными системами контроля прошла без затруднений — команда решила все технические вопросы в срок.</div>
+        <div class="test-author"><strong data-i18n="test.2.name">Главный инженер</strong><span data-i18n="test.2.co">Промышленное предприятие, Карагандинская обл.</span></div>
+      </div>
+      <div class="test-card rv rv-d2">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-quote" data-i18n="test.3.q">Отечественный производитель с полным циклом — это принципиально важно при участии в государственных закупках. Turan Telematika понимает регуляторную среду Казахстана и помогает соответствовать всем требованиям.</div>
+        <div class="test-author"><strong data-i18n="test.3.name">Руководитель ИТ-департамента</strong><span data-i18n="test.3.co">Государственная структура, РК</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTOR -->
+<section id="investor" class="inv-section">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="inv.label">08 · Инвесторам</div>
+    <h2 class="rv rv-d1" data-i18n-html="inv.h2">Инвестиционный<br><em>потенциал</em></h2>
+    <p class="sec-lead rv rv-d2" data-i18n="inv.lead">Рынок телематики в Центральной Азии демонстрирует устойчивый рост. Turan Telematika занимает уникальную позицию — один из немногих отечественных производителей полного цикла с действующей клиентской базой и сертифицированной продукцией.</p>
+    <div class="inv-metrics rv rv-d3">
+      <div class="inv-metric"><div class="im-label" data-i18n="inv.m1.label">Налоговые отчисления 2023</div><div class="im-val">₸16.1 млн</div></div>
+      <div class="inv-metric"><div class="im-label" data-i18n="inv.m2.label">Налоговые отчисления 2025</div><div class="im-val">₸25.6 млн</div></div>
+      <div class="inv-metric"><div class="im-label" data-i18n="inv.m3.label">Рост 2023→2025</div><div class="im-val">+59%</div></div>
+      <div class="inv-metric"><div class="im-label" data-i18n="inv.m4.label">Объём рынка ЦА 2028</div><div class="im-val">₸15 млрд</div></div>
+    </div>
+    <div class="inv-why">
+      <div class="iw-card rv"><div class="iw-inner"><div class="iw-title" data-i18n="inv.w1.title">Импортозамещение</div><div class="iw-desc" data-i18n="inv.w1.desc">Государственная политика поддержки отечественного производства. Преференциальный режим при государственных закупках обеспечивает конкурентное преимущество перед зарубежными поставщиками.</div></div></div>
+      <div class="iw-card rv rv-d1"><div class="iw-inner"><div class="iw-title" data-i18n="inv.w2.title">Растущий рынок</div><div class="iw-desc" data-i18n="inv.w2.desc">Обязательная телематика для транспорта, цифровизация промышленности, ужесточение экологических требований — факторы формируют устойчивый и долгосрочный спрос на продукцию компании.</div></div></div>
+      <div class="iw-card rv rv-d2"><div class="iw-inner"><div class="iw-title" data-i18n="inv.w3.title">Производственный актив</div><div class="iw-desc" data-i18n="inv.w3.desc">Собственная производственная линия, инженерная команда с многолетней экспертизой, 14 лет клиентских отношений — материальный актив с высоким барьером входа для конкурентов.</div></div></div>
+      <div class="iw-card rv rv-d3"><div class="iw-inner"><div class="iw-title" data-i18n="inv.w4.title">Региональная экспансия</div><div class="iw-desc" data-i18n="inv.w4.desc">Готовая платформа для масштабирования на рынки Узбекистана, Кыргызстана и Азербайджана. Накопленный опыт и сертификация — прямой путь к региональному лидерству.</div></div></div>
+    </div>
+    <div class="inv-cta-box rv">
+      <div class="inv-cta-copy" data-i18n-html="inv.cta.copy"><strong>Телематика — обязательная инфраструктура.</strong> Как электросети или интернет, рынок будет расти независимо от конъюнктуры.</div>
+      <a href="#contacts" class="btn-prim" data-i18n="inv.cta.btn">Запросить инвестиционный меморандум</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="faq.label">09 · Вопросы и ответы</div>
+    <h2 class="rv rv-d1" data-i18n-html="faq.h2">Часто задаваемые<br><em>вопросы</em></h2>
+    <div class="faq-list rv rv-d2" id="faqList">
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-text" data-i18n="faq.1.q">Что включает в себя полный цикл производства телематических систем?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" data-i18n="faq.1.a">Полный цикл включает: разработку принципиальных схем и PCB, закупку электронных компонентов, пайку и сборку плат, написание прошивки (firmware), разработку серверной части и пользовательского интерфейса, климатические и EMC/EMI испытания, сертификацию, монтаж и ввод в эксплуатацию. Все этапы выполняются силами собственной команды.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-text" data-i18n="faq.2.q">Какие преимущества даёт казахстанское производство перед импортным оборудованием?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" data-i18n="faq.2.a">Отечественное производство обеспечивает: приоритет в государственных тендерах (преференции до 20%), независимость от логистических цепочек, адаптацию под локальные стандарты и климатические условия, оперативное сервисное обслуживание без длительного ожидания запчастей, а также поддержку на казахском и русском языках.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-text" data-i18n="faq.3.q">Каковы типичные сроки реализации проекта от обращения до внедрения?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" data-i18n="faq.3.a">Сроки зависят от масштаба и сложности проекта. Стандартный трекер из серийной линейки — от 2 до 4 недель с момента подписания договора. Кастомная разработка с новой функциональностью — от 2 до 6 месяцев. Крупные инфраструктурные проекты с государственными структурами обсуждаются индивидуально.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-text" data-i18n="faq.4.q">Предоставляется ли сервисное обслуживание после внедрения?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" data-i18n="faq.4.a">Да. Компания предоставляет гарантийное обслуживание на всё производимое оборудование, а также постгарантийное сопровождение по договору. Обновления программного обеспечения (FOTA) поставляются удалённо без необходимости физического обслуживания устройств.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-text" data-i18n="faq.5.q">Работаете ли вы с государственными структурами и как участвуете в тендерах?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" data-i18n="faq.5.a">Да, компания имеет значительный опыт работы с государственными органами и национальными компаниями Республики Казахстан. Продукция включена в реестр отечественных товаропроизводителей, что обеспечивает преференциальный статус при участии в государственных закупках через портал goszakup.gov.kz.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAST CTA -->
+<div class="last-cta">
+  <div class="last-cta-bg"></div>
+  <div class="last-cta-glow"></div>
+  <div class="container">
+    <div class="last-cta-label rv" data-i18n="cta.label">Turan Telematika · Астана · 2011</div>
+    <div class="last-cta-title rv rv-d1" data-i18n-html="cta.title">Готовы обсудить<br><em>ваш проект?</em></div>
+    <p class="last-cta-sub rv rv-d2" data-i18n="cta.sub">Свяжитесь с нами для получения коммерческого предложения, технической консультации или инвестиционного меморандума.</p>
+    <div class="last-cta-actions rv rv-d3">
+      <a href="#contacts" class="btn-prim" data-i18n="cta.btn.primary">Связаться с нами</a>
+      <a href="#investor" class="btn-sec" data-i18n="cta.btn.secondary">Инвесторам</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTS -->
+<section id="contacts">
+  <div class="container">
+    <div class="sec-label rv" data-i18n="contacts.label">10 · Контактная информация</div>
+    <h2 class="rv rv-d1" data-i18n-html="contacts.h2">Свяжитесь <em>с нами</em></h2>
+    <p class="sec-lead rv rv-d2" data-i18n="contacts.lead">Готовы обсудить проект, партнёрство или инвестиционное сотрудничество. Ответим в рабочие часы.</p>
+    <div class="contacts-grid">
+      <div class="contact-info rv">
+        <div><div class="ci-label" data-i18n="contacts.addr.label">Юридический адрес</div><div class="ci-val" data-i18n="contacts.addr.val">пр. Қабанбай Батыр, 49, г. Астана, Казахстан</div></div>
+        <div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:dcom.astana@gmail.com">dcom.astana@gmail.com</a></div></div>
+        <div><div class="ci-label" data-i18n="contacts.phone.label">Телефон</div><div class="ci-val"><a href="tel:+77779515510">+7 (777) 951-55-10</a></div></div>
+        <div><div class="ci-label" data-i18n="contacts.director.label">Руководитель</div><div class="ci-val" data-i18n="contacts.director.val">Кабжанов Канат Мелесович</div></div>
+        <div><div class="ci-label">БИН</div><div class="ci-val" style="font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.04em">201140016073</div></div>
+      </div>
+      <div class="contact-form rv rv-d2">
+        <div class="form-g"><div class="f-label" data-i18n="form.name">Имя и организация</div><input type="text" class="f-in" data-i18n-ph="form.name.ph" placeholder="Ваше имя и компания"></div>
+        <div class="form-g"><div class="f-label">Email</div><input type="email" class="f-in" placeholder="your@company.com"></div>
+        <div class="form-g"><div class="f-label" data-i18n="form.msg">Суть обращения</div><textarea class="f-ta" data-i18n-ph="form.msg.ph" placeholder="Опишите задачу или вопрос..."></textarea></div>
+        <button class="btn-prim" style="align-self:flex-start;" data-i18n="contacts.cta">Отправить запрос</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-quote" data-i18n-html="footer.quote">Казахстанское производство — это не ограничение. Это <span>конкурентное преимущество.</span></div>
+      <div class="footer-brand-blk">
+        <div class="fb-name">Turan Telematika</div>
+        <div class="fb-sub" data-i18n="footer.reg">БИН: 201140016073 · Реестр производителей РК</div>
+        <div class="fb-sub" style="margin-top:4px">пр. Қабанбай Батыр, 49 · Астана</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div data-i18n="footer.copy">ТОО «Turan Telematika» © 2011–2026</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint)">dcom.astana@gmail.com · +7 (777) 951-55-10</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   TRANSLATIONS
+============================================================ */
+const T = {
+  ru: {
+    'brand':'Turan Telematika','brand.sub':'Производство · Казахстан',
+    'nav.about':'О компании','nav.directions':'Направления','nav.hiw':'Как работаем','nav.production':'Производство','nav.investor':'Инвесторам','nav.contacts':'Контакты',
+    'hero.badge':'Доверяют <strong>500+</strong> компаний Казахстана',
+    'hero.l1':'Телематические системы.','hero.l2':'Казахстанское','hero.l3':'производство.',
+    'hero.lead':'Turan Telematika — отечественный производитель телематических систем полного цикла. Разработка, производство и внедрение интеллектуальных решений для мониторинга транспорта и промышленной инфраструктуры.',
+    'hero.cta.primary':'Направления деятельности','hero.cta.secondary':'Инвесторам',
+    'hero.s1.val':'2011','hero.s1.label':'Год основания','hero.s2.label':'Устройств','hero.s3.label':'Клиентов','hero.s4.label':'Направления',
+    'ticker':['Производство полного цикла','Казахстан · СНГ','Сертифицированная продукция','GPS/GLONASS мониторинг','Экологический контроль','Информационная безопасность','Промышленный IoT','Флот-менеджмент','50 000+ устройств','Основана в 2011 году','Астана, Казахстан'],
+    'mfst.bg':'ПРОИЗВОДСТВО','mfst.label':'Позиционирование',
+    'mfst.title':'Одно из немногих отечественных производств<br>телематических систем<br><em>полного цикла в Казахстане</em>',
+    'mfst.text':'Большинство телематических решений на рынке — <strong>импортные</strong>. Turan Telematika производит оборудование в Казахстане, контролируя каждый этап: от разработки схемотехники до полевого внедрения и сервисного сопровождения.',
+    'mfst.fact1':'Полный цикл','mfst.fact1.desc':'от проектирования до сервиса',
+    'mfst.fact2':'Локализация','mfst.fact2.desc':'производство внутри страны',
+    'mfst.fact3':'Сертификация','mfst.fact3.desc':'по международным стандартам',
+    'about.label':'01 · О компании','about.h2':'Turan Telematika —<br><em>14 лет на рынке</em>',
+    'about.lead':'Основана в 2011 году в Астане, Turan Telematika специализируется на разработке и производстве телематических систем для транспорта, промышленности и государственного сектора. Компания под руководством Кабжанова Каната Мелесовича выстроила полный производственный цикл — от схемотехники до облачной платформы.',
+    'about.p2':'Решения компании функционируют на объектах по всему Казахстану и странам СНГ: транспортные парки, экологические станции мониторинга, промышленные предприятия нефтегазового сектора.',
+    'about.fact1.label':'Год основания','about.fact2.label':'БИН','about.fact3.label':'Направлений','about.fact4.label':'Устройств в эксплуатации','about.fact4.desc':'по Казахстану и СНГ',
+    'why.label':'02 · Конкурентные преимущества','why.h2':'Почему выбирают<br><em>Turan Telematika</em>',
+    'why.lead':'Полный контроль над производственным процессом, казахстанская локализация и собственная инженерная экспертиза — ключевые преимущества перед импортными поставщиками.',
+    'why.1.title':'Полный производственный цикл','why.1.desc':'От разработки принципиальных схем и PCB-проектирования до финального тестирования и полевого внедрения. Каждый этап контролируется собственной командой инженеров.',
+    'why.2.title':'Сертифицированная продукция','why.2.desc':'Вся продукция сертифицирована в соответствии с требованиями регуляторов РК, допущена к государственным закупкам и соответствует стандартам EMC/EMI.',
+    'why.3.title':'Независимость от импорта','why.3.desc':'Казахстанское производство обеспечивает устойчивость к перебоям поставок, предсказуемые сроки и возможность адаптации под специфические требования заказчика.',
+    'why.4.title':'Государственные преференции','why.4.desc':'Статус отечественного производителя предоставляет приоритет при участии в государственных тендерах и программах цифровизации транспортной инфраструктуры Казахстана.',
+    'dir.label':'03 · Направления деятельности','dir.h2':'Четыре ключевых<br><em>направления</em>',
+    'dir.lead':'Каждое направление обеспечено собственной производственной базой, инженерной командой и сертификационной документацией.',
+    'dir.1.num':'→ 01','dir.1.title':'Транспортная телематика','dir.1.desc':'GPS/GLONASS трекеры, системы мониторинга топлива, контроль скоростного режима и состояния водителя. Решения для корпоративных парков — от 10 до 10 000+ единиц.','dir.1.tags':['GPS/GLONASS','Fleet Management','Топливо','CAN Bus'],
+    'dir.2.num':'→ 02','dir.2.title':'Экологический мониторинг','dir.2.desc':'Системы контроля качества воздуха, воды и почвы. Прогнозирование и раннее предупреждение природных явлений. Интеграция с государственными системами контроля окружающей среды.','dir.2.tags':['Воздух','Вода','Почва','Раннее предупреждение'],
+    'dir.3.num':'→ 03','dir.3.title':'Информационная безопасность','dir.3.desc':'Защищённые каналы передачи данных, шифрование на уровне устройства, аудит и мониторинг сетевой инфраструктуры. Сертификация по требованиям КНБ РК.','dir.3.tags':['Шифрование','VPN','Аудит','Комплаенс'],
+    'dir.4.num':'→ 04','dir.4.title':'Промышленный IoT','dir.4.desc':'Мониторинг промышленного оборудования, предиктивное техническое обслуживание, интеграция с ERP/SCADA системами. Протоколы Modbus, OPC-UA, MQTT.','dir.4.tags':['Modbus','OPC-UA','SCADA','Предиктивное ТО'],
+    'hiw.label':'04 · Процесс работы','hiw.h2':'От обращения до<br><em>работающего решения</em>',
+    'hiw.lead':'Структурированный процесс взаимодействия обеспечивает предсказуемые сроки, контролируемое качество и полное соответствие техническому заданию заказчика.',
+    'hiw.1.title':'Обращение и консультация','hiw.1.desc':'Анализ задачи заказчика, определение технических требований и формирование технического задания. Предварительная оценка стоимости и сроков реализации.',
+    'hiw.2.title':'Техническое проектирование','hiw.2.desc':'Разработка схемотехники, PCB-проектирование, выбор компонентов, создание прошивки. Прототипирование и лабораторное тестирование разработанного решения.',
+    'hiw.3.title':'Производство и контроль качества','hiw.3.desc':'Серийное производство, климатические испытания, EMC/EMI тестирование. Контроль качества на каждом этапе с полной технической документацией.',
+    'hiw.4.title':'Внедрение и сопровождение','hiw.4.desc':'Монтаж, настройка, обучение персонала. Гарантийное и постгарантийное обслуживание, удалённое обновление программного обеспечения (FOTA).',
+    'stack.label':'05 · Технологический стек','stack.h2':'Полный цикл — <em>от идеи до устройства</em>',
+    'stack.lead':'Собственная разработка схемотехники, производство плат, написание прошивок, разработка облачной платформы и полевое внедрение — без привлечения субподрядчиков.',
+    'stack.col1':'Уровень','stack.col2':'Технологии и инструменты',
+    'stack.layer1':'Проектирование','stack.layer2':'Компоненты','stack.layer3':'Прошивка','stack.layer4':'Облако','stack.layer5':'Интерфейс','stack.layer6':'Тестирование','stack.layer7':'Сертификация',
+    'scale.label':'06 · Компания в цифрах','scale.h2':'Ключевые <em>показатели деятельности</em>',
+    'scale.s1.label':'Устройств в эксплуатации','scale.s1.desc':'GPS/GLONASS трекеры и комплексные системы мониторинга по всему Казахстану и СНГ.',
+    'scale.s2.label':'Активных клиентов','scale.s2.desc':'От малого бизнеса до государственных предприятий и нефтегазовых корпораций.',
+    'scale.s3.label':'Лет на рынке','scale.s3.desc':'Накопленная экспертиза по полному циклу разработки телематических систем с 2011 года.',
+    'scale.s4.label':'Налоговые отчисления 2025','scale.s4.desc':'Подтверждённые налоговые отчисления согласно данным Комитета государственных доходов РК.',
+    'scale.s5.label':'Направлений деятельности','scale.s5.desc':'Транспортная телематика, экологический мониторинг, информационная безопасность, промышленный IoT.',
+    'scale.s6.label':'Государственных проектов','scale.s6.desc':'Инфраструктурные проекты с государственными органами и национальными компаниями РК.',
+    'test.label':'07 · Клиенты о нас','test.h2':'Отзывы <em>партнёров</em>',
+    'test.1.q':'Turan Telematika обеспечила нашему парку надёжную систему мониторинга. Оборудование работает без сбоев в самых сложных условиях — от казахстанских морозов до летнего зноя.',
+    'test.1.name':'Директор по логистике','test.1.co':'Транспортная компания, Астана',
+    'test.2.q':'Внедрили систему экологического мониторинга на нашем производственном объекте. Интеграция с государственными системами контроля прошла без затруднений — команда решила все технические вопросы в срок.',
+    'test.2.name':'Главный инженер','test.2.co':'Промышленное предприятие, Карагандинская обл.',
+    'test.3.q':'Отечественный производитель с полным циклом — принципиально важно при государственных закупках. Turan Telematika понимает регуляторную среду Казахстана.',
+    'test.3.name':'Руководитель ИТ-департамента','test.3.co':'Государственная структура, РК',
+    'inv.label':'08 · Инвесторам','inv.h2':'Инвестиционный<br><em>потенциал</em>',
+    'inv.lead':'Рынок телематики в Центральной Азии демонстрирует устойчивый рост. Turan Telematika занимает уникальную позицию — один из немногих отечественных производителей полного цикла с действующей клиентской базой.',
+    'inv.m1.label':'Налоговые отчисления 2023','inv.m2.label':'Налоговые отчисления 2025','inv.m3.label':'Рост 2023→2025','inv.m4.label':'Объём рынка ЦА 2028',
+    'inv.w1.title':'Импортозамещение','inv.w1.desc':'Государственная политика поддержки отечественного производства. Преференциальный режим при государственных закупках обеспечивает конкурентное преимущество.',
+    'inv.w2.title':'Растущий рынок','inv.w2.desc':'Обязательная телематика для транспорта, цифровизация промышленности, ужесточение экологических требований — факторы формируют устойчивый долгосрочный спрос.',
+    'inv.w3.title':'Производственный актив','inv.w3.desc':'Собственная производственная линия, инженерная команда, 14 лет клиентских отношений — материальный актив с высоким барьером входа для конкурентов.',
+    'inv.w4.title':'Региональная экспансия','inv.w4.desc':'Готовая платформа для масштабирования на рынки Узбекистана, Кыргызстана и Азербайджана. Накопленный опыт и сертификация — прямой путь к региональному лидерству.',
+    'inv.cta.copy':'<strong>Телематика — обязательная инфраструктура.</strong> Как электросети или интернет, рынок будет расти независимо от конъюнктуры.','inv.cta.btn':'Запросить инвестиционный меморандум',
+    'faq.label':'09 · Вопросы и ответы','faq.h2':'Часто задаваемые<br><em>вопросы</em>',
+    'faq.1.q':'Что включает в себя полный цикл производства телематических систем?','faq.1.a':'Полный цикл включает: разработку принципиальных схем и PCB, закупку электронных компонентов, пайку и сборку плат, написание прошивки, разработку серверной части и пользовательского интерфейса, климатические и EMC/EMI испытания, сертификацию, монтаж и ввод в эксплуатацию.',
+    'faq.2.q':'Какие преимущества даёт казахстанское производство перед импортным оборудованием?','faq.2.a':'Отечественное производство обеспечивает: приоритет в государственных тендерах (преференции до 20%), независимость от логистических цепочек, адаптацию под локальные стандарты и климатические условия, оперативное сервисное обслуживание.',
+    'faq.3.q':'Каковы типичные сроки реализации проекта от обращения до внедрения?','faq.3.a':'Стандартный трекер из серийной линейки — от 2 до 4 недель. Кастомная разработка — от 2 до 6 месяцев. Крупные инфраструктурные проекты обсуждаются индивидуально.',
+    'faq.4.q':'Предоставляется ли сервисное обслуживание после внедрения?','faq.4.a':'Да. Компания предоставляет гарантийное обслуживание на всё производимое оборудование и постгарантийное сопровождение по договору. Обновления ПО (FOTA) поставляются удалённо.',
+    'faq.5.q':'Работаете ли вы с государственными структурами и как участвуете в тендерах?','faq.5.a':'Да, компания имеет значительный опыт работы с государственными органами РК. Продукция включена в реестр отечественных товаропроизводителей, что обеспечивает преференциальный статус при государственных закупках через goszakup.gov.kz.',
+    'cta.label':'Turan Telematika · Астана · 2011','cta.title':'Готовы обсудить<br><em>ваш проект?</em>',
+    'cta.sub':'Свяжитесь с нами для получения коммерческого предложения, технической консультации или инвестиционного меморандума.',
+    'cta.btn.primary':'Связаться с нами','cta.btn.secondary':'Инвесторам',
+    'contacts.label':'10 · Контактная информация','contacts.h2':'Свяжитесь <em>с нами</em>',
+    'contacts.lead':'Готовы обсудить проект, партнёрство или инвестиционное сотрудничество. Ответим в рабочие часы.',
+    'contacts.addr.label':'Юридический адрес','contacts.addr.val':'пр. Қабанбай Батыр, 49, г. Астана, Казахстан',
+    'contacts.phone.label':'Телефон','contacts.director.label':'Руководитель','contacts.director.val':'Кабжанов Канат Мелесович',
+    'contacts.cta':'Отправить запрос',
+    'form.name':'Имя и организация','form.name.ph':'Ваше имя и компания','form.msg':'Суть обращения','form.msg.ph':'Опишите задачу или вопрос...',
+    'footer.quote':'Казахстанское производство — это не ограничение. Это <span>конкурентное преимущество.</span>',
+    'footer.reg':'БИН: 201140016073 · Реестр производителей РК','footer.copy':'ТОО «Turan Telematika» © 2011–2026',
+  },
+  kz: {
+    'brand':'Turan Telematika','brand.sub':'Өндіріс · Қазақстан',
+    'nav.about':'Компания туралы','nav.directions':'Бағыттар','nav.hiw':'Жұмыс тәртібі','nav.production':'Өндіріс','nav.investor':'Инвесторларға','nav.contacts':'Байланыс',
+    'hero.badge':'<strong>500+</strong> Қазақстан компаниясы сенеді',
+    'hero.l1':'Телематикалық жүйелер.','hero.l2':'Қазақстандық','hero.l3':'өндіріс.',
+    'hero.lead':'Turan Telematika — толық циклді телематикалық жүйелердің отандық өндірушісі. Көлік пен өнеркәсіптік инфрақұрылымды бақылауға арналған интеллектуалды шешімдерді әзірлеу, өндіру және енгізу.',
+    'hero.cta.primary':'Қызмет бағыттары','hero.cta.secondary':'Инвесторларға',
+    'hero.s1.val':'2011','hero.s1.label':'Құрылған жыл','hero.s2.label':'Құрылғылар','hero.s3.label':'Клиенттер','hero.s4.label':'Бағыттар',
+    'ticker':['Толық цикл өндірісі','Қазақстан · ТМД','Сертификатталған өнімдер','GPS/GLONASS мониторингі','Экологиялық бақылау','Ақпараттық қауіпсіздік','Өнеркәсіптік IoT','Флот-менеджмент','50 000+ құрылғы','2011 жылы құрылған','Астана, Қазақстан'],
+    'mfst.bg':'ӨНДІРІС','mfst.label':'Позициялау',
+    'mfst.title':'Қазақстандағы толық циклді<br>телематикалық жүйелер<br><em>өндірушілерінің бірі</em>',
+    'mfst.text':'Нарықтағы телематикалық шешімдердің көпшілігі — <strong>импорт</strong>. Turan Telematika жабдықты Қазақстанда өндіреді, схемотехниканы жобалаудан далалық енгізуге дейін әрбір кезеңді бақылайды.',
+    'mfst.fact1':'Толық цикл','mfst.fact1.desc':'жобалаудан қызмет көрсетуге дейін',
+    'mfst.fact2':'Локализация','mfst.fact2.desc':'ішкі өндіріс',
+    'mfst.fact3':'Сертификация','mfst.fact3.desc':'халықаралық стандарттар бойынша',
+    'about.label':'01 · Компания туралы','about.h2':'Turan Telematika —<br><em>нарықта 14 жыл</em>',
+    'about.lead':'2011 жылы Астанада құрылған Turan Telematika көлік, өнеркәсіп және мемлекеттік сектор үшін телематикалық жүйелерді әзірлеу мен өндіруге маманданған. Кабжанов Қанат Мелесовичтің басшылығымен компания схемотехникадан бұлтты платформаға дейін толық өндірістік циклді жүзеге асырды.',
+    'about.p2':'Компания шешімдері Қазақстан мен ТМД елдеріндегі объектілерде жұмыс істейді: көлік парктері, экологиялық бақылау станциялары, мұнай-газ секторының өнеркәсіптік кәсіпорындары.',
+    'about.fact1.label':'Құрылған жыл','about.fact2.label':'БИН','about.fact3.label':'Бағыттар','about.fact4.label':'Пайдаланудағы құрылғылар','about.fact4.desc':'Қазақстан мен ТМД бойынша',
+    'why.label':'02 · Бәсекелестік артықшылықтар','why.h2':'Неліктен<br><em>Turan Telematika таңдайды</em>',
+    'why.lead':'Өндірістік процесті толық бақылау, қазақстандық локализация және меншікті инженерлік тәжірибе — импорттық жеткізушілерге қарағандағы негізгі артықшылықтар.',
+    'why.1.title':'Толық өндірістік цикл','why.1.desc':'Принципиалды схемалар мен PCB жобалаудан бастап далалық енгізуге дейін. Әрбір кезеңді меншікті инженерлер тобы бақылайды.',
+    'why.2.title':'Сертификатталған өнімдер','why.2.desc':'Барлық өнімдер ҚР реттеушілерінің талаптарына сәйкес сертификатталған, мемлекеттік сатып алуларға жіберілген және EMC/EMI стандарттарына сәйкес келеді.',
+    'why.3.title':'Импорттан тәуелсіздік','why.3.desc':'Қазақстандық өндіріс жеткізіліммен байланысты кедергілерге тұрақтылықты, болжамды мерзімдерді және тапсырыс берушінің талаптарына бейімделу мүмкіндігін қамтамасыз етеді.',
+    'why.4.title':'Мемлекеттік преференциялар','why.4.desc':'Отандық өндіруші мәртебесі мемлекеттік тендерлерге қатысуда және Қазақстанның көлік инфрақұрылымын цифрландыру бағдарламаларында басымдық береді.',
+    'dir.label':'03 · Қызмет бағыттары','dir.h2':'Төрт негізгі<br><em>бағыт</em>',
+    'dir.lead':'Әр бағыт меншікті өндірістік база, инженерлік топ және сертификаттау құжаттамасымен қамтамасыз етілген.',
+    'dir.1.num':'→ 01','dir.1.title':'Көлік телематикасы','dir.1.desc':'GPS/GLONASS трекерлер, отын мониторинг жүйелері, жылдамдық режимін және жүргізуші жағдайын бақылау. 10-нан 10 000+ бірлікке дейінгі корпоративтік парктерге арналған шешімдер.','dir.1.tags':['GPS/GLONASS','Fleet Management','Отын','CAN Bus'],
+    'dir.2.num':'→ 02','dir.2.title':'Экологиялық мониторинг','dir.2.desc':'Ауа, су және топырақ сапасын бақылау жүйелері. Табиғи құбылыстарды болжау және ерте ескерту. Мемлекеттік қоршаған ортаны бақылау жүйелерімен интеграция.','dir.2.tags':['Ауа','Су','Топырақ','Ерте ескерту'],
+    'dir.3.num':'→ 03','dir.3.title':'Ақпараттық қауіпсіздік','dir.3.desc':'Қорғалған деректер беру арналары, шифрлау, желілік инфрақұрылымды аудит және мониторинг. ҚР ҰҚК талаптары бойынша сертификатталған шешімдер.','dir.3.tags':['Шифрлау','VPN','Аудит','Комплаенс'],
+    'dir.4.num':'→ 04','dir.4.title':'Өнеркәсіптік IoT','dir.4.desc':'Өнеркәсіптік жабдықты мониторинг, болжамды техникалық қызмет, ERP/SCADA жүйелерімен интеграция. Modbus, OPC-UA, MQTT протоколдарын қолдау.','dir.4.tags':['Modbus','OPC-UA','SCADA','Болжамды ТҚ'],
+    'hiw.label':'04 · Жұмыс тәртібі','hiw.h2':'Өтінімнен<br><em>жұмыс істейтін шешімге дейін</em>',
+    'hiw.lead':'Құрылымдық өзара іс-қимыл процесі болжамды мерзімдерді, бақыланатын сапаны және тапсырыс берушінің техникалық тапсырмасына толық сәйкестікті қамтамасыз етеді.',
+    'hiw.1.title':'Өтінім және кеңес','hiw.1.desc':'Тапсырыс берушінің міндетін талдау, техникалық талаптарды анықтау және техникалық тапсырманы қалыптастыру. Шығындар мен орындау мерзімдерін алдын ала бағалау.',
+    'hiw.2.title':'Техникалық жобалау','hiw.2.desc':'Схемотехниканы әзірлеу, PCB-жобалау, компоненттерді таңдау, микробағдарлама жасау. Прототиптеу және зертханалық сынақтар.',
+    'hiw.3.title':'Өндіріс және сапаны бақылау','hiw.3.desc':'Сериялық өндіріс, климаттық сынақтар, EMC/EMI тестілеу. Толық техникалық құжаттамамен өндірістік желінің әрбір кезеңінде сапаны бақылау.',
+    'hiw.4.title':'Енгізу және сүйемелдеу','hiw.4.desc':'Монтаж, баптау, персоналды оқыту. Кепілдікті және кепілдіктен кейінгі техникалық қызмет, бағдарламалық жасақтаманы қашықтан жаңарту (FOTA).',
+    'stack.label':'05 · Технологиялық стек','stack.h2':'Толық цикл — <em>идеядан құрылғыға дейін</em>',
+    'stack.lead':'Меншікті схемотехника, плата өндірісі, микробағдарлама, бұлтты платформа және далалық енгізу — субмердігерлерді тартпай.',
+    'stack.col1':'Деңгей','stack.col2':'Технологиялар мен құралдар',
+    'stack.layer1':'Жобалау','stack.layer2':'Компоненттер','stack.layer3':'Микробағдарлама','stack.layer4':'Бұлт','stack.layer5':'Интерфейс','stack.layer6':'Тестілеу','stack.layer7':'Сертификация',
+    'scale.label':'06 · Компания сандармен','scale.h2':'Қызметтің<br><em>негізгі көрсеткіштері</em>',
+    'scale.s1.label':'Пайдаланудағы құрылғылар','scale.s1.desc':'GPS/GLONASS трекерлер мен Қазақстан мен ТМД бойынша жан-жақты мониторинг жүйелері.',
+    'scale.s2.label':'Белсенді клиенттер','scale.s2.desc':'Шағын бизнестен мемлекеттік кәсіпорындарға және мұнай-газ корпорацияларына дейін.',
+    'scale.s3.label':'Нарықтағы жылдар','scale.s3.desc':'2011 жылдан бастап телематикалық жүйелерді толық циклде әзірлеу бойынша жинақталған тәжірибе.',
+    'scale.s4.label':'2025 жылғы салықтық аударымдар','scale.s4.desc':'ҚР Мемлекеттік кірістер комитетінің деректері бойынша расталған салықтық аударымдар.',
+    'scale.s5.label':'Қызмет бағыттары','scale.s5.desc':'Көлік телематикасы, экологиялық мониторинг, ақпараттық қауіпсіздік, өнеркәсіптік IoT.',
+    'scale.s6.label':'Мемлекеттік жобалар','scale.s6.desc':'ҚР мемлекеттік органдары мен ұлттық компанияларымен инфрақұрылымдық жобалар.',
+    'test.label':'07 · Клиенттер туралы','test.h2':'Серіктестердің<br><em>пікірлері</em>',
+    'test.1.q':'Turan Telematika паркіміздің сенімді мониторинг жүйесін қамтамасыз етті. Жабдық ең қиын жағдайларда үздіксіз жұмыс істейді.','test.1.name':'Логистика директоры','test.1.co':'Көлік компаниясы, Астана',
+    'test.2.q':'Өндірістік объектімізде экологиялық мониторинг жүйесін енгіздік. Мемлекеттік бақылау жүйелерімен интеграция мерзімінде шешілді.','test.2.name':'Бас инженер','test.2.co':'Өнеркәсіптік кәсіпорын, Қарағанды обл.',
+    'test.3.q':'Мемлекеттік сатып алуларда толық циклді отандық өндіруші өте маңызды. Turan Telematika Қазақстанның реттеуші ортасын жақсы біледі.','test.3.name':'АТ-департамент басшысы','test.3.co':'Мемлекеттік құрылым, ҚР',
+    'inv.label':'08 · Инвесторларға','inv.h2':'Инвестициялық<br><em>әлеует</em>',
+    'inv.lead':'Орталық Азиядағы телематика нарығы тұрақты өсуді көрсетуде. Turan Telematika бірегей ұстанымда — қолданыстағы клиенттік базасы бар отандық толық цикл өндірушілерінің бірі.',
+    'inv.m1.label':'2023 жылғы салықтық аударымдар','inv.m2.label':'2025 жылғы салықтық аударымдар','inv.m3.label':'2023→2025 өсу','inv.m4.label':'ОА нарығы 2028',
+    'inv.w1.title':'Импорт алмастыру','inv.w1.desc':'Отандық өндірісті қолдаудың мемлекеттік саясаты. Мемлекеттік сатып алулардағы преференциялық режим бәсекелестік артықшылық береді.',
+    'inv.w2.title':'Өсуші нарық','inv.w2.desc':'Міндетті телематика, өнеркәсіпті цифрландыру, экологиялық талаптардың күшеюі — тұрақты ұзақ мерзімді сұранысты қалыптастырады.',
+    'inv.w3.title':'Өндірістік актив','inv.w3.desc':'Меншікті өндірістік желі, инженерлік топ, 14 жылдық клиенттік қатынастар — бәсекелестер үшін кіру кедергісі жоғары материалдық актив.',
+    'inv.w4.title':'Аймақтық экспансия','inv.w4.desc':'Өзбекстан, Қырғызстан және Әзербайжан нарықтарына кеңейтуге дайын платформа. Жинақталған тәжірибе мен сертификация — аймақтық көшбасшылыққа тікелей жол.',
+    'inv.cta.copy':'<strong>Телематика — міндетті инфрақұрылым.</strong> Электр желілері немесе интернет сияқты нарық конъюнктурадан тәуелсіз өседі.','inv.cta.btn':'Инвестициялық меморандум сұрату',
+    'faq.label':'09 · Сұрақтар мен жауаптар','faq.h2':'Жиі қойылатын<br><em>сұрақтар</em>',
+    'faq.1.q':'Телематикалық жүйелерді өндірудің толық циклі нені қамтиды?','faq.1.a':'Толық цикл мыналарды қамтиды: принципиалды схемалар мен PCB әзірлеу, электронды компоненттер сатып алу, тақталарды дәнекерлеу және жинақтау, микробағдарлама жазу, климаттық және EMC/EMI сынақтар, сертификация, монтаж және пайдалануға беру.',
+    'faq.2.q':'Қазақстандық өндіріс импорттық жабдықтан қандай артықшылықтар береді?','faq.2.a':'Отандық өндіріс мыналарды қамтамасыз етеді: мемлекеттік тендерлерде басымдық (20%-ға дейін преференциялар), логистикалық тізбектерден тәуелсіздік, жергілікті стандарттар мен климаттық жағдайларға бейімделу, жедел сервистік қызмет көрсету.',
+    'faq.3.q':'Өтінімнен енгізуге дейінгі жобаны жүзеге асырудың әдеттегі мерзімдері қандай?','faq.3.a':'Сериялы желіден стандартты трекер — 2-4 апта. Бапталған жасақтама — 2-6 ай. Ірі инфрақұрылымдық жобалар жеке талқыланады.',
+    'faq.4.q':'Енгізгеннен кейін сервистік қызмет көрсетіледі ме?','faq.4.a':'Иә. Компания барлық өндірілетін жабдыққа кепілдік қызмет көрсетуді және шарт бойынша кепілдіктен кейінгі сүйемелдеуді ұсынады. БЖ жаңартулары (FOTA) қашықтан жеткізіледі.',
+    'faq.5.q':'Мемлекеттік құрылымдармен жұмыс жасайсыз ба?','faq.5.a':'Иә, компания ҚР мемлекеттік органдарымен жұмыс жасауда айтарлықтай тәжірибеге ие. Өнімдер отандық тауар өндірушілер тізіліміне енгізілген, бұл goszakup.gov.kz арқылы мемлекеттік сатып алуларда преференциялық мәртебені қамтамасыз етеді.',
+    'cta.label':'Turan Telematika · Астана · 2011','cta.title':'Жобаңызды<br><em>талқылауға дайынбыз</em>',
+    'cta.sub':'Коммерциялық ұсыныс, техникалық кеңес немесе инвестициялық меморандум алу үшін бізбен байланысыңыз.',
+    'cta.btn.primary':'Бізбен байланысу','cta.btn.secondary':'Инвесторларға',
+    'contacts.label':'10 · Байланыс ақпараты','contacts.h2':'Бізбен <em>байланысыңыз</em>',
+    'contacts.lead':'Жоба, серіктестік немесе инвестициялық ынтымақтастықты талқылауға дайынбыз.',
+    'contacts.addr.label':'Заңды мекенжай','contacts.addr.val':'Қабанбай Батыр даңғылы, 49, Астана қ., Қазақстан',
+    'contacts.phone.label':'Телефон','contacts.director.label':'Басшы','contacts.director.val':'Кабжанов Қанат Мелесович',
+    'contacts.cta':'Сұраныс жіберу',
+    'form.name':'Аты және ұйым','form.name.ph':'Сіздің атыңыз бен компанияңыз','form.msg':'Өтінімнің мәні','form.msg.ph':'Тапсырманы немесе сұрақты сипаттаңыз...',
+    'footer.quote':'Қазақстандық өндіріс — бұл шектеу емес. Бұл <span>бәсекелестік артықшылық.</span>',
+    'footer.reg':'БИН: 201140016073 · ҚР өндірушілер тізілімі','footer.copy':'«Turan Telematika» ЖШС © 2011–2026',
+  },
+  en: {
+    'brand':'Turan Telematika','brand.sub':'Manufacturing · Kazakhstan',
+    'nav.about':'About','nav.directions':'Products','nav.hiw':'How We Work','nav.production':'Manufacturing','nav.investor':'Investors','nav.contacts':'Contact',
+    'hero.badge':'Trusted by <strong>500+</strong> companies in Kazakhstan',
+    'hero.l1':'Telematics Systems.','hero.l2':'Kazakhstan','hero.l3':'Manufacturing.',
+    'hero.lead':'Turan Telematika is a domestic full-cycle telematics manufacturer. We design, produce, and deploy intelligent monitoring solutions for transport and industrial infrastructure.',
+    'hero.cta.primary':'Product Lines','hero.cta.secondary':'Investors',
+    'hero.s1.val':'2011','hero.s1.label':'Founded','hero.s2.label':'Devices','hero.s3.label':'Clients','hero.s4.label':'Product lines',
+    'ticker':['Full-Cycle Manufacturing','Kazakhstan · CIS','Certified Products','GPS/GLONASS Monitoring','Environmental Control','Information Security','Industrial IoT','Fleet Management','50,000+ Devices','Founded 2011','Astana, Kazakhstan'],
+    'mfst.bg':'MANUFACTURING','mfst.label':'Market Position',
+    'mfst.title':'One of the few domestic manufacturers<br>of full-cycle telematics systems<br><em>in Kazakhstan</em>',
+    'mfst.text':'Most telematics solutions on the market are <strong>imported</strong>. Turan Telematika manufactures equipment in Kazakhstan, controlling every stage: from circuit design to field deployment and service support.',
+    'mfst.fact1':'Full Cycle','mfst.fact1.desc':'from design to service',
+    'mfst.fact2':'Localization','mfst.fact2.desc':'domestic production',
+    'mfst.fact3':'Certification','mfst.fact3.desc':'international standards',
+    'about.label':'01 · About','about.h2':'Turan Telematika —<br><em>14 years in the market</em>',
+    'about.lead':'Founded in 2011 in Astana, Turan Telematika specializes in developing and manufacturing telematics systems for transport, industry, and the public sector. Under the leadership of Kabzhanov Kanat Melesovich, the company has built a complete production cycle — from circuit engineering to cloud platform.',
+    'about.p2':'Company solutions operate across Kazakhstan and CIS countries: transport fleets, environmental monitoring stations, and oil & gas industry facilities. Products are certified per Kazakhstan regulatory requirements.',
+    'about.fact1.label':'Founded','about.fact2.label':'BIN','about.fact3.label':'Product lines','about.fact4.label':'Devices deployed','about.fact4.desc':'across Kazakhstan and CIS',
+    'why.label':'02 · Competitive Advantages','why.h2':'Why choose<br><em>Turan Telematika</em>',
+    'why.lead':'Full manufacturing process control, Kazakhstani localization and in-house engineering expertise — key advantages over imported suppliers.',
+    'why.1.title':'Full Production Cycle','why.1.desc':'From circuit schematic and PCB design to final testing and field deployment. Every stage is controlled by an in-house engineering team.',
+    'why.2.title':'Certified Products','why.2.desc':'All products are certified per Kazakhstan regulatory requirements, approved for government procurement, and comply with EMC/EMI standards.',
+    'why.3.title':'Import Independence','why.3.desc':'Kazakhstani manufacturing ensures resilience to supply chain disruptions, predictable timelines, and the ability to adapt to specific customer requirements.',
+    'why.4.title':'Government Preferences','why.4.desc':'Domestic manufacturer status provides priority in government tenders and transport infrastructure digitalization programs in Kazakhstan.',
+    'dir.label':'03 · Product Lines','dir.h2':'Four core<br><em>product lines</em>',
+    'dir.lead':'Each product line is backed by its own production facility, engineering team, and certification documentation.',
+    'dir.1.num':'→ 01','dir.1.title':'Fleet Telematics','dir.1.desc':'GPS/GLONASS trackers, fuel monitoring systems, speed and driver behavior control. Solutions for corporate fleets from 10 to 10,000+ units.','dir.1.tags':['GPS/GLONASS','Fleet Management','Fuel','CAN Bus'],
+    'dir.2.num':'→ 02','dir.2.title':'Environmental Monitoring','dir.2.desc':'Air, water, and soil quality monitoring systems. Natural disaster forecasting and early warning. Integration with government environmental control networks.','dir.2.tags':['Air','Water','Soil','Early Warning'],
+    'dir.3.num':'→ 03','dir.3.title':'Information Security','dir.3.desc':'Secure data channels, device-level encryption, network infrastructure audit and monitoring. Solutions certified per Kazakhstan national security requirements.','dir.3.tags':['Encryption','VPN','Audit','Compliance'],
+    'dir.4.num':'→ 04','dir.4.title':'Industrial IoT','dir.4.desc':'Industrial equipment monitoring, predictive maintenance, ERP/SCADA integration. Modbus, OPC-UA, and MQTT protocol support.','dir.4.tags':['Modbus','OPC-UA','SCADA','Predictive Maint.'],
+    'hiw.label':'04 · Work Process','hiw.h2':'From inquiry to<br><em>working solution</em>',
+    'hiw.lead':'A structured engagement process ensures predictable timelines, controlled quality, and full compliance with the customer\'s technical specification.',
+    'hiw.1.title':'Inquiry & Consultation','hiw.1.desc':'Analysis of customer requirements, definition of technical specifications, and project brief formation. Preliminary cost and timeline assessment.',
+    'hiw.2.title':'Technical Engineering','hiw.2.desc':'Circuit design, PCB layout, component selection, firmware development. Prototyping and laboratory testing of the developed solution.',
+    'hiw.3.title':'Production & Quality Control','hiw.3.desc':'Serial production, climate testing, EMC/EMI testing. Quality control at each stage of the production line with full technical documentation.',
+    'hiw.4.title':'Deployment & Support','hiw.4.desc':'Installation, configuration, personnel training. Warranty and post-warranty service, remote firmware updates (FOTA).',
+    'stack.label':'05 · Technology Stack','stack.h2':'Full cycle — <em>from concept to device</em>',
+    'stack.lead':'In-house circuit design, PCB production, firmware development, cloud platform engineering, and field deployment — without engaging subcontractors.',
+    'stack.col1':'Layer','stack.col2':'Technologies & Tools',
+    'stack.layer1':'Design','stack.layer2':'Components','stack.layer3':'Firmware','stack.layer4':'Cloud','stack.layer5':'Interface','stack.layer6':'Testing','stack.layer7':'Certification',
+    'scale.label':'06 · Company in Numbers','scale.h2':'Key <em>performance indicators</em>',
+    'scale.s1.label':'Devices deployed','scale.s1.desc':'GPS/GLONASS trackers and monitoring systems across Kazakhstan and the CIS.',
+    'scale.s2.label':'Active clients','scale.s2.desc':'From SMBs to state enterprises and oil & gas corporations.',
+    'scale.s3.label':'Years in market','scale.s3.desc':'Accumulated full-cycle telematics expertise since 2011.',
+    'scale.s4.label':'Tax contributions 2025','scale.s4.desc':'Verified tax contributions per Kazakhstan State Revenue Committee data.',
+    'scale.s5.label':'Product lines','scale.s5.desc':'Fleet telematics, environmental monitoring, information security, industrial IoT.',
+    'scale.s6.label':'Government projects','scale.s6.desc':'Infrastructure projects with state bodies and national companies of Kazakhstan.',
+    'test.label':'07 · Client Testimonials','test.h2':'Partner <em>testimonials</em>',
+    'test.1.q':'Turan Telematika provided our fleet with a reliable monitoring system. The equipment operates flawlessly in the most demanding conditions — from Kazakhstan winters to summer heat.',
+    'test.1.name':'Head of Logistics','test.1.co':'Transport Company, Astana',
+    'test.2.q':'We deployed an environmental monitoring system at our production facility. Integration with government control systems was completed on schedule — the team resolved all technical issues in time.',
+    'test.2.name':'Chief Engineer','test.2.co':'Industrial Enterprise, Karaganda Region',
+    'test.3.q':'A domestic full-cycle manufacturer is critically important for government procurement. Turan Telematika understands Kazakhstan\'s regulatory environment.',
+    'test.3.name':'IT Department Head','test.3.co':'Government Agency, Kazakhstan',
+    'inv.label':'08 · Investors','inv.h2':'Investment<br><em>potential</em>',
+    'inv.lead':'The telematics market in Central Asia shows steady growth. Turan Telematika holds a unique position — one of the few domestic full-cycle manufacturers with an active client base and certified product range.',
+    'inv.m1.label':'Tax contributions 2023','inv.m2.label':'Tax contributions 2025','inv.m3.label':'Growth 2023→2025','inv.m4.label':'CA Market 2028',
+    'inv.w1.title':'Import Substitution','inv.w1.desc':'Government policy supports domestic manufacturing. Preferential treatment in public procurement delivers a competitive edge over foreign suppliers.',
+    'inv.w2.title':'Growing Market','inv.w2.desc':'Mandatory vehicle telematics, industrial digitalization, tightening environmental regulations — factors driving sustained long-term demand.',
+    'inv.w3.title':'Production Asset','inv.w3.desc':'Proprietary production line, engineering team, 14 years of client relationships — a material asset with high barriers to entry for competitors.',
+    'inv.w4.title':'Regional Expansion','inv.w4.desc':'Ready platform for scaling into Uzbekistan, Kyrgyzstan, and Azerbaijan markets. Accumulated expertise and certification as a direct path to regional leadership.',
+    'inv.cta.copy':'<strong>Telematics is mandatory infrastructure.</strong> Like power grids or the internet, this market will grow regardless of economic cycles.','inv.cta.btn':'Request Investment Memorandum',
+    'faq.label':'09 · FAQ','faq.h2':'Frequently asked<br><em>questions</em>',
+    'faq.1.q':'What does the full production cycle of telematics systems include?','faq.1.a':'The full cycle includes: schematic and PCB development, electronic component procurement, board soldering and assembly, firmware development, server and UI engineering, climate and EMC/EMI testing, certification, installation, and commissioning.',
+    'faq.2.q':'What advantages does Kazakhstani manufacturing offer over imported equipment?','faq.2.a':'Domestic production provides: priority in government tenders (up to 20% preferences), supply chain independence, adaptation to local standards and climate conditions, rapid on-site service without waiting for imported spare parts.',
+    'faq.3.q':'What are typical project timelines from inquiry to deployment?','faq.3.a':'Standard tracker from the product line — 2 to 4 weeks. Custom development — 2 to 6 months. Large infrastructure projects are discussed individually.',
+    'faq.4.q':'Is service support provided after deployment?','faq.4.a':'Yes. The company provides warranty service on all manufactured equipment and post-warranty support by contract. Software updates (FOTA) are delivered remotely without physical device servicing.',
+    'faq.5.q':'Do you work with government entities and participate in tenders?','faq.5.a':'Yes, the company has extensive experience with Kazakhstan government bodies. Products are listed in the domestic manufacturer registry, providing preferential status in government procurement via goszakup.gov.kz.',
+    'cta.label':'Turan Telematika · Astana · 2011','cta.title':'Ready to discuss<br><em>your project?</em>',
+    'cta.sub':'Contact us for a commercial proposal, technical consultation, or investment memorandum.',
+    'cta.btn.primary':'Contact Us','cta.btn.secondary':'Investors',
+    'contacts.label':'10 · Contact Information','contacts.h2':'Get in <em>touch</em>',
+    'contacts.lead':'Ready to discuss a project, partnership, or investment cooperation. We respond during business hours.',
+    'contacts.addr.label':'Legal Address','contacts.addr.val':'49 Kabanbay Batyr Ave., Astana, Kazakhstan',
+    'contacts.phone.label':'Phone','contacts.director.label':'Director','contacts.director.val':'Kabzhanov Kanat Melesovich',
+    'contacts.cta':'Send Request',
+    'form.name':'Name & Organization','form.name.ph':'Your name and company','form.msg':'Subject','form.msg.ph':'Describe your task or question...',
+    'footer.quote':"Kazakhstan's manufacturing is not a constraint. It's a <span>competitive advantage.</span>",
+    'footer.reg':'BIN: 201140016073 · Kazakhstan Manufacturers Registry','footer.copy':'Turan Telematika LLC © 2011–2026',
+  }
+};
+
+/* ============================================================
+   LANG
+============================================================ */
+let currentLang='ru';
+function applyLang(lang){
+  currentLang=lang;
+  document.documentElement.setAttribute('data-lang',lang);
+  document.documentElement.setAttribute('lang',lang);
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[lang]&&T[lang][k]!==undefined)el.textContent=T[lang][k];});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(T[lang]&&T[lang][k]!==undefined)el.innerHTML=T[lang][k];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(T[lang]&&T[lang][k]!==undefined)el.setAttribute('placeholder',T[lang][k]);});
+  document.querySelectorAll('[data-i18n-tags]').forEach(el=>{const k=el.getAttribute('data-i18n-tags');if(T[lang]&&Array.isArray(T[lang][k]))el.innerHTML=T[lang][k].map(t=>`<span class="dir-tag">${t}</span>`).join('');});
+  document.querySelectorAll('.stack-row').forEach(row=>{const k=row.getAttribute('data-layer');const nameEl=row.querySelector('.s-layer');if(nameEl&&k&&T[lang]&&T[lang][k]!==undefined)nameEl.textContent=T[lang][k];});
+  buildTicker(lang);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-set-lang')===lang));
+}
+function buildTicker(lang){
+  const items=(T[lang]&&T[lang]['ticker'])?T[lang]['ticker']:T.ru['ticker'];
+  const track=document.getElementById('tickerTrack');
+  const doubled=[...items,...items];
+  track.innerHTML=doubled.map(t=>`<span class="ticker-item">${t}</span>`).join('');
+}
+document.querySelectorAll('[data-set-lang]').forEach(btn=>btn.addEventListener('click',()=>applyLang(btn.getAttribute('data-set-lang'))));
+
+/* ============================================================
+   THEME
+============================================================ */
+let currentTheme='dark';
+const themeBtn=document.getElementById('themeBtn');
+themeBtn.addEventListener('click',()=>{
+  currentTheme=currentTheme==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',currentTheme);
+  themeBtn.textContent=currentTheme==='dark'?'◐':'◑';
+});
+
+/* ============================================================
+   MOBILE NAV
+============================================================ */
+const burgerBtn=document.getElementById('burgerBtn');
+const mobileNav=document.getElementById('mobileNav');
+burgerBtn.addEventListener('click',()=>{
+  const open=mobileNav.classList.toggle('open');
+  burgerBtn.textContent=open?'✕':'☰';
+});
+mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.classList.remove('open');burgerBtn.textContent='☰';}));
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');revObs.unobserve(e.target);}});},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>revObs.observe(el));
+
+/* ============================================================
+   STACK STAGGER
+============================================================ */
+const stackObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.stack-row').forEach((r,i)=>setTimeout(()=>r.classList.add('in'),i*80));stackObs.unobserve(e.target);}});},{threshold:0.08});
+const sw=document.getElementById('stackWrap');if(sw)stackObs.observe(sw);
+
+/* ============================================================
+   COUNT-UP
+============================================================ */
+function countUp(el){
+  const target=parseInt(el.getAttribute('data-count'),10);
+  const prefix=el.getAttribute('data-prefix')||'';
+  const suffix=el.getAttribute('data-suffix')||'';
+  const dur=1600;const start=performance.now();
+  function step(now){
+    const p=Math.min((now-start)/dur,1);const eased=1-Math.pow(1-p,3);
+    const cur=Math.floor(eased*target);
+    const fmt=cur>=1000?cur.toLocaleString('ru-RU').replace(/,/g,' '):cur.toString();
+    el.textContent=prefix+fmt+suffix;
+    if(p<1)requestAnimationFrame(step);
+    else{const f=target>=1000?target.toLocaleString('ru-RU').replace(/,/g,' '):target.toString();el.textContent=prefix+f+suffix;}
+  }
+  requestAnimationFrame(step);
+}
+const countObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&e.target.hasAttribute('data-count')){countUp(e.target);countObs.unobserve(e.target);}});},{threshold:0.3});
+document.querySelectorAll('[data-count]').forEach(el=>countObs.observe(el));
+
+/* ============================================================
+   FAQ ACCORDION
+============================================================ */
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const item=q.closest('.faq-item');
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen)item.classList.add('open');
+  });
+});
+
+/* ============================================================
+   INIT
+============================================================ */
+applyLang('ru');
+buildTicker('ru');
+</script>
+</body>
+</html>
